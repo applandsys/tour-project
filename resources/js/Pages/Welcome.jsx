@@ -19,7 +19,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <nav className="bg-gray-900 text-white p-4">
                     <div className="flex items-center justify-between max-w-screen-xl mx-auto">
                         <div className="flex items-center space-x-4">
-                            <img src="logo.png" alt="Logo" className="h-10" />
+                            <img
+                                src="/images/logo.jpg"
+                                alt="Application Logo"
+                                width="100px"
+                            />
                             <ul className="flex space-x-6">
                                 <li><a href="#" className="hover:text-yellow-500">Home</a></li>
                                 <li><a href="#" className="hover:text-yellow-500">Destinations</a></li>

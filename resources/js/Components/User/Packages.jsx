@@ -1,123 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { Check, Star, Zap, Crown, Info } from "lucide-react";
+import { Link } from '@inertiajs/react';
 
-// Packages data as an array
-const PLANS = [
-    {
-        id: "starter",
-        name: "Starter",
-        tagline: "Perfect for trying things out",
-        monthly: 9,
-        yearly: 84, // 2 months free
-        cta: "Get Starter",
-        highlight: false,
-        features: [
-            "1 project",
-            "Up to 5 team members",
-            "Basic analytics",
-            "Community support",
-        ],
-        limits: {
-            projects: 1,
-            members: 5,
-            storage: "5GB",
-        },
-    },
-    {
-        id: "pro",
-        name: "Pro",
-        tagline: "Everything you need to scale",
-        monthly: 29,
-        yearly: 276, // 2 months free
-        cta: "Start Pro",
-        highlight: true,
-        features: [
-            "Unlimited projects",
-            "Up to 25 team members",
-            "Advanced analytics",
-            "Email & chat support",
-            "API access",
-        ],
-        limits: {
-            projects: "Unlimited",
-            members: 25,
-            storage: "100GB",
-        },
-    },
-    {
-        id: "business",
-        name: "Business",
-        tagline: "For growing teams with ambition",
-        monthly: 79,
-        yearly: 756, // 2 months free
-        cta: "Go Business",
-        highlight: false,
-        features: [
-            "Unlimited projects",
-            "Unlimited team members",
-            "Attribution & cohort analysis",
-            "Priority support",
-            "SSO & SAML",
-        ],
-        limits: {
-            projects: "Unlimited",
-            members: "Unlimited",
-            storage: "1TB",
-        },
-    },
-    {
-        id: "enterprise",
-        name: "Enterprise",
-        tagline: "Security & support at scale",
-        monthly: 199,
-        yearly: 1896, // 2 months free
-        cta: "Contact Sales",
-        highlight: false,
-        features: [
-            "Custom SSO/SAML/SCIM",
-            "VPC & on-prem options",
-            "Uptime SLA & DPA",
-            "Dedicated success manager",
-            "Custom contracts & invoicing",
-        ],
-        limits: {
-            projects: "Unlimited",
-            members: "Unlimited",
-            storage: "Unlimited",
-        },
-    },
-    {
-        id: "Sjpiar  [aclage",
-        name: "Enterprise",
-        tagline: "Security & support at scale",
-        monthly: 199,
-        yearly: 1896, // 2 months free
-        cta: "Contact Sales",
-        highlight: false,
-        features: [
-            "Custom SSO/SAML/SCIM",
-            "VPC & on-prem options",
-            "Uptime SLA & DPA",
-            "Dedicated success manager",
-            "Custom contracts & invoicing",
-        ],
-        limits: {
-            projects: "Unlimited",
-            members: "Unlimited",
-            storage: "Unlimited",
-        },
-    },
-];
 
-// Utility: currency formatting
-const formatPrice = (amount, currency) =>
-    new Intl.NumberFormat(undefined, {
-        style: "currency",
-        currency,
-        maximumFractionDigits: 0,
-    }).format(amount);
-
-export default function PricingTable({packages}) {
+export default function Packages({packages}) {
     const [billing, setBilling] = useState("monthly"); // 'monthly' | 'yearly'
     const [currency, setCurrency] = useState("USD");
 
@@ -235,17 +121,15 @@ export default function PricingTable({packages}) {
                             {/*    ))}*/}
                             {/*</ul>*/}
 
-                            <button
-                                className={`group inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-0 ${
-                                    isPopular
-                                        ? "bg-indigo-500 hover:bg-indigo-400 text-white focus:ring-indigo-400"
-                                        : "bg-slate-900 hover:bg-slate-800 text-white focus:ring-slate-400"
-                                }`}
-                                onClick={() => alert(`${plan.name} selected`)}
-                            >
+                            <Link href={route('member.package.payment', { id: plan.id })} className={`group inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-0 ${
+                                isPopular
+                                    ? "bg-indigo-500 hover:bg-indigo-400 text-white focus:ring-indigo-400"
+                                    : "bg-slate-900 hover:bg-slate-800 text-white focus:ring-slate-400"
+                            }`}>
                                 {plan.name}
                                 <Zap className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                            </button>
+                            </Link>
+
 
                             {/* Small comparison footer */}
                             <dl className="mt-6 grid grid-cols-3 gap-3 text-xs text-slate-500">

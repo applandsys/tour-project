@@ -16,4 +16,12 @@ class MemberController extends Controller
             'status' => session('status'),
         ]);
     }
+
+    public function Payment($id)
+    {
+        $packageDetail = Package::findOrFail($id);
+        return Inertia::render('User/Payment', [
+            'packageDetail' => $packageDetail,
+        ]);
+    }
 }

@@ -39,7 +39,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                         </div>
 
-                        <div className="hidden sm:ms-6 sm:flex sm:items-center font-semibold text-gray-600">
+                        <div className="text-sm hidden sm:ms-6 sm:flex sm:items-center font-semibold text-gray-600">
                             Balance: US$ 100000
                         </div>
 
