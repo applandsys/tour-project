@@ -30,7 +30,17 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('member.deposit')}
+                                    active={route().current('member.deposit')}
+                                >
+                                    Deposit
+                                </NavLink>
                             </div>
+                        </div>
+
+                        <div className="hidden sm:ms-6 sm:flex sm:items-center font-semibold text-gray-600">
+                            Balance: US$ 100000
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">

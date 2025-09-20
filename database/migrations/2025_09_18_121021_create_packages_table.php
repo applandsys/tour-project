@@ -16,13 +16,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->integer('amount');
-            $table->float('reward');
+            $table->string('reward');
             $table->integer('limit');
             $table->integer('voucher_amount');
+            $table->json('consume_date');
             $table->integer('voucher_per_month');
             $table->integer('claim_deadline');
             $table->longText('description');
             $table->longText('image');
+            $table->text('gift');
+            $table->json('extras')->nullable();
             $table->timestamps();
         });
     }
