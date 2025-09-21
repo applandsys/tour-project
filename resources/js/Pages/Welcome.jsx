@@ -14,9 +14,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     };
 
     const [selectedService,setSelectedService] = useState('hotels');
+    const [showLocationBox, setShowLocationBox] = useState(false);
 
     const handleClickLocation = () =>{
-
+        setShowLocationBox(!showLocationBox);
+        console.log("fuck");
     }
 
     return (
@@ -73,7 +75,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     </div>
                 </div>
 
-                <div className="bg-white -m-16 rounded-md mx-8">
+                <div className="bg-white -m-16 rounded-md mx-8 p-4">
                     <div className="flex justify-between mx-8 pt-24">
                         <div className="">
                             <div className="flex items-center space-x-6 text-sm">
@@ -98,44 +100,89 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             Cheap Flights
                         </div>
                     </div>
-                    <div>
+                    <div className="">
 
+                        <div className="flex justify-between items-center  bg-white shadow-md rounded-lg border border-[#19140035] mx-8">
+                            <div className="hover:bg-[#EAF5FF] w-1/3">
+                                <p className="text-sm text-gray-500" onClick={handleClickLocation}>City, Property Name Or Location</p>
+                                {showLocationBox && (
+                                    <div
+                                        className="absolute  left-16 w-64  z-10 p-4">
+                                        <div className="relative w-64">
+                                            <input type="text" placeholder="Enter city/ Hotel/ Area/ Building"
+                                                   className="w-full p-3 pl-10 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
 
-                        <div className="flex justify-between items-center p-6 bg-white shadow-md rounded-lg border border-[#19140035] mx-8">
+                                            <div
+                                                className="absolute left-0 w-full mt-2 bg-white shadow-lg rounded-md max-h-60 overflow-y-auto z-10">
+                                                <div className="px-4 py-2 text-gray-700 font-medium">
+                                                    Search: <span className="font-semibold">"Beach"</span>
+                                                </div>
 
-                            <div>
-                                <p className="text-sm text-gray-500" onClick={()=>handleClickLocation}>City, Property Name Or Location</p>
+                                                <div className="px-4 py-2 text-sm font-semibold text-gray-600">
+                                                    <span className="text-xs text-gray-400">Recent Searches</span>
+                                                    <ul className="mt-2">
+                                                        <li className="cursor-pointer py-1 hover:bg-gray-100">Kuala
+                                                            Lumpur, Malaysia - 5298 properties
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div className="px-4 py-2 text-sm font-semibold text-gray-600">
+                                                    <span className="text-xs text-gray-400">Suggestions</span>
+                                                    <ul className="mt-2">
+                                                        <li className="cursor-pointer py-1 hover:bg-gray-100">Dubai -
+                                                            2113 properties
+                                                        </li>
+                                                        <li className="cursor-pointer py-1 hover:bg-gray-100">London -
+                                                            8013 properties
+                                                        </li>
+                                                        <li className="cursor-pointer py-1 hover:bg-gray-100">Bangkok -
+                                                            5500 properties
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
                                 <h2 className="text-2xl font-semibold text-black">Dubai</h2>
                                 <p className="text-sm text-gray-500">United Arab Emirates</p>
+
                             </div>
 
-                            <div className="flex space-x-4">
-                                <div className="text-center">
+                            <div className="flex space-x-4 w-1/3 hover:bg-[#EAF5FF]">
+                                <div className="">
                                     <p className="text-sm text-gray-500">Check-In</p>
                                     <p className="text-xl font-semibold text-black">25 Sep '25</p>
                                     <p className="text-sm text-gray-500">Thursday</p>
                                 </div>
-                                <div className="text-center">
+                                <div className="">
                                     <p className="text-sm text-gray-500">Check-Out</p>
                                     <p className="text-xl font-semibold text-black">30 Sep '25</p>
                                     <p className="text-sm text-gray-500">Tuesday</p>
                                 </div>
                             </div>
 
-                            <div className="text-right">
-                                <p className="text-sm text-gray-500">Rooms & Guests</p>
-                                <p className="text-xl font-semibold text-black">1 Room 2 Adults</p>
+                            <div className="flex-col  w-1/3 hover:bg-[#EAF5FF] h-16">
+                                <div className="">
+                                    <p className="text-sm text-gray-500">Rooms & Guests</p>
+                                </div>
+                                <div className="">
+                                    <p className="text-xl font-semibold text-black">1 Room 2 Adults</p>
+                                </div>
                             </div>
+
+
                         </div>
 
-                        <div className="text-center items-center ">
-                            <div className="">
-                                <div className="">
+                        <div className="flex text-center items-center justify-center mx-auto border mt-2">
+                            <div className="flex">
+                                <div className="text-sm item-center flex item-center justify-center mt-2">
                                     Last Search:
                                 </div>
-                                <div className="bg-gray-5000">
+                                <div className="bg-gray-100 w-[200px] rounded-md p-2 text-xs">
                                     Dubai, United Arab E...
-
                                     25 Sep 25 - 30 Sep 25
                                 </div>
                             </div>
