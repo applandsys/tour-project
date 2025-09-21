@@ -29,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
             // share wallet balance for the logged-in user
             'walletBalance' => fn () =>
             Auth::check()
-                ? WalletBalance::where('user_id', Auth::id())->first()
+                ? WalletBalance::where('user_id', Auth::id())
+                ->latest()
+                ->first()
                 : null,
         ]);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CommissionLevel;
 use App\Models\Package;
+use App\Models\TransactionHistory;
 use App\Models\User;
 use App\Models\WalletBalance;
 use Illuminate\Http\Request;
@@ -33,26 +34,63 @@ class MemberController extends Controller
     public function PaymentProcess(Request $request) {
         // Get the current user id
         $user_id = Auth::id();
+        $amount = $request->amount;
 
         // Fetch the user chain in descending order (starting from the top-level referrer)
         $userChain = $this->getReferralChainDescending($user_id, 6);
 
         $commissionLevel = CommissionLevel::where('plan_type','affiliate')->get();
 
-       // dd( $commissionLevel);
+        $userLastBalance = WalletBalance::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
 
-        for($i=0 ; $i<count($userChain); $i++) {
-                //echo $userChain[$i]->name;
-                if($i==0){
-                    $userChain[$i]->name;
-                    return response()->json($userChain[$i]->name);
-                }
+        if ($userLastBalance->balance  < $amount) {
+            return redirect()->route('member.deposit')->with('error', 'Insufficient balance!');
         }
 
+        $userNewBalance = $userLastBalance ? $userLastBalance->balance - $amount :  $amount;
+
+        WalletBalance::create(
+            [
+                'user_id' => $user_id,
+                'balance' => $userNewBalance,
+                'income'=> $amount,
+                'expense' => 0,
+                'type'=>'package',
+            ]);
+
+        TransactionHistory::create([
+            'user_id' => $user_id,
+            'package_id' => 1,
+            'transaction_type'=>'purchase-package',
+            'amount' => $amount
+        ]);
+
+        for($i=0 ; $i<count($userChain); $i++) {
+            $commissionPercentage =  $commissionLevel[$i]->commission_amount;
+
+            $lastBalance = WalletBalance::where('user_id', $userChain[$i]->id)
+                ->orderBy('created_at', 'desc') // Ensure you get the latest balance
+                ->first();
+
+            $commission =  $this->calculatePercentage($commissionPercentage, $amount);
+
+            //   $newBalance = $lastBalance ? $lastBalance->balance + $income - $expense : $income - $expense;
+            $newBalance = $lastBalance ? $lastBalance->balance + $commission :   $commission;
+
+            WalletBalance::create(
+                [
+                    'user_id' => $userChain[$i]->id,
+                    'balance' => $newBalance,
+                    'income'=> $newBalance,
+                    'expense' => 0,
+                    'type'=>'affiliate-commission',
+                ]);
 
 
-        // Output or process the chain as needed (for example, return it as a response)
-        return response()->json($userChain);
+        }
+
+        return redirect()->route('member.deposit')->with('success', 'Payment processed successfully!');
+
     }
 
     private function getReferralChainDescending($userId, $maxLevels, $currentLevel = 0) {
@@ -82,6 +120,34 @@ class MemberController extends Controller
         // $referralChain[] = $referrer;
 
         return $referralChain;
+    }
+
+    private function calculatePercentage($percentage, $total)
+    {
+        if ($percentage == 0 || $total == 0) {
+            return 0;
+        }
+
+        // Calculate the amount from percentage
+        $amount = ($percentage / 100) * $total;
+
+        return $amount;
+    }
+
+    private function commissionLevel($level){
+        switch ($level) {
+            case 0:
+                return 8;
+                break;
+            case 1:
+                return 4;
+                break;
+            case label3:
+                //code block
+                break;
+            default:
+                //code block
+        }
     }
 
 

@@ -1,4 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
+import {useState} from "react";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const handleImageError = () => {
@@ -12,101 +13,144 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         document.getElementById('background')?.classList.add('!hidden');
     };
 
+    const [selectedService,setSelectedService] = useState('hotels');
+
+    const handleClickLocation = () =>{
+
+    }
+
     return (
         <>
             <Head title="Welcome" />
-            <div>
-                <nav className="bg-gray-900 text-white p-4">
-                    <div className="flex items-center justify-between max-w-screen-xl mx-auto">
-                        <div className="flex items-center space-x-4">
-                            <img
-                                src="/images/logo.jpg"
-                                alt="Application Logo"
-                                width="100px"
-                            />
-                            <ul className="flex space-x-6">
-                                <li><a href="#" className="hover:text-yellow-500">Home</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Destinations</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Activities</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Blog</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Contact</a></li>
-                            </ul>
+            <header>
+                <div className="bg-[#F1E0FA] flex items-center justify-center">
+                    <div>
+                        <img src="/images/newuserreward.webp" className="h-16 w-16"/>
+                    </div>
+                    <div className="font-bold">
+                        Get up to 25% OFF on your first booking
+                    </div>
+                    <div className=" mx-4">
+                        USE CODE: MMTWELCOME
+                    </div>
+                    <div className="ml-10 text-blue-500">
+                        Copy Code
+                    </div>
+                    <div className="absolute right-0 top-50 mr-10 text-gray-500">
+                        X
+                    </div>
+                </div>
+            </header>
+
+            <section className="relative w-full h-96 bg-[url('/images/top-bg.png')] bg-cover bg-center bg-no-repeat ">
+                <div className="flex justify-between mx-auto px-12 p-2">
+                    <div className="">
+                        <img src="/images/logo.jpg" className="w-16"/>
+                    </div>
+                    <div className="flex">
+                        <div className="">
+                            <img src="/images/crown.png" className="h-6"/>
                         </div>
-                        <div className="space-x-4">
-                            <Link href="/login" className="text-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded">
-                              Sign In
-                            </Link>
-                            <Link href="/register" className="text-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded">Sign Up</Link>
+                        <div className="">
+                            <img src="/images/crown.png" className="h-6"/>
+                        </div>
+                        <div className="">
+                            <img src="/images/crown.png" className="h-6"/>
                         </div>
                     </div>
-                </nav>
+                </div>
 
-                <header
-                    className="relative h-screen bg-cover bg-center"
-                    style={{ backgroundImage: "url('hero-image.jpg')" }}
-                >
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <div className="text-center text-white space-y-4">
-                            <h1 className="text-4xl md:text-5xl font-bold">Unleash Your Wanderlust</h1>
-                            <p className="text-xl">Book Your Next Journey</p>
-                            <form className="mt-8 space-x-4">
-                                <input
-                                    type="text"
-                                    placeholder="Location"
-                                    className="px-4 py-2 rounded-md w-56"
-                                />
-                                <input
-                                    type="date"
-                                    className="px-4 py-2 rounded-md w-56"
-                                />
-                                <input
-                                    type="date"
-                                    className="px-4 py-2 rounded-md w-56"
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Guests"
-                                    className="px-4 py-2 rounded-md w-56"
-                                />
-                                <button
-                                    type="submit"
-                                    className="px-6 py-3 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
-                                >
-                                    Search
-                                </button>
-                            </form>
+                <div className="flex items-center justify-center">
+                    <div className="bg-white p-4 border  rounded-lg flex font-bold">
+                        <div className={`flex-col px-8 ${selectedService==='flights' ? 'text-blue-500': ''}`} onClick={()=>setSelectedService('flights')}>
+                            <img src="/images/airoplane.png" className="h-12"/>
+                            Flight
+                        </div>
+                        <div className={`flex-col px-8 ${selectedService==='hotels' ? 'text-blue-500': ''}`} onClick={()=>setSelectedService('hotels')}>
+                            <img src="/images/hotels.png" className="h-12"/>
+                            Hotels
                         </div>
                     </div>
-                </header>
+                </div>
 
-                <footer className="bg-gray-900 text-white py-10">
-                    <div className="max-w-screen-xl mx-auto flex justify-between">
-                        <div>
-                            <h2 className="font-bold text-lg">Global Trips 24</h2>
-                            <p className="mt-2">Crafting exceptional journeys across the globe.</p>
+                <div className="bg-white -m-16 rounded-md mx-8">
+                    <div className="flex justify-between mx-8 pt-24">
+                        <div className="">
+                            <div className="flex items-center space-x-6 text-sm">
+                                <label className="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="option" className="form-radio text-blue-500"/>
+                                    <span>One Way</span>
+                                </label>
+
+                                <label className="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="option" className="form-radio text-blue-500"/>
+                                    <span>Round Trip</span>
+                                </label>
+
+                                <label className="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="option" className="form-radio text-blue-500"/>
+                                    <span>Multi way</span>
+                                </label>
+                            </div>
+
                         </div>
-                        <div>
-                            <ul className="space-y-2">
-                                <li><a href="#" className="hover:text-yellow-500">Terms</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Privacy Policy</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Legal Notice</a></li>
-                                <li><a href="#" className="hover:text-yellow-500">Accessibility</a></li>
-                            </ul>
+                        <div className="font-bold">
+                            Cheap Flights
                         </div>
-                        <div>
-                            <h3 className="font-bold text-lg">Follow Us</h3>
-                            <div className="flex space-x-4 mt-2">
-                                <a href="#" className="hover:text-yellow-500">Facebook</a>
-                                <a href="#" className="hover:text-yellow-500">Instagram</a>
-                                <a href="#" className="hover:text-yellow-500">Twitter</a>
+                    </div>
+                    <div>
+
+
+                        <div className="flex justify-between items-center p-6 bg-white shadow-md rounded-lg border border-[#19140035] mx-8">
+
+                            <div>
+                                <p className="text-sm text-gray-500" onClick={()=>handleClickLocation}>City, Property Name Or Location</p>
+                                <h2 className="text-2xl font-semibold text-black">Dubai</h2>
+                                <p className="text-sm text-gray-500">United Arab Emirates</p>
+                            </div>
+
+                            <div className="flex space-x-4">
+                                <div className="text-center">
+                                    <p className="text-sm text-gray-500">Check-In</p>
+                                    <p className="text-xl font-semibold text-black">25 Sep '25</p>
+                                    <p className="text-sm text-gray-500">Thursday</p>
+                                </div>
+                                <div className="text-center">
+                                    <p className="text-sm text-gray-500">Check-Out</p>
+                                    <p className="text-xl font-semibold text-black">30 Sep '25</p>
+                                    <p className="text-sm text-gray-500">Tuesday</p>
+                                </div>
+                            </div>
+
+                            <div className="text-right">
+                                <p className="text-sm text-gray-500">Rooms & Guests</p>
+                                <p className="text-xl font-semibold text-black">1 Room 2 Adults</p>
                             </div>
                         </div>
+
+                        <div className="text-center items-center ">
+                            <div className="">
+                                <div className="">
+                                    Last Search:
+                                </div>
+                                <div className="bg-gray-5000">
+                                    Dubai, United Arab E...
+
+                                    25 Sep 25 - 30 Sep 25
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className="text-center text-sm mt-4">
-                        <p>&copy; 2025 Global Trips 24. All Rights Reserved.</p>
-                    </div>
-                </footer>
-            </div>
+                </div>
+            </section>
+
+            <section>
+                <div className="">
+                    jljklj
+                </div>
+            </section>
+
         </>
     );
 }

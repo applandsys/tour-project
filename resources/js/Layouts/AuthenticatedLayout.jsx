@@ -93,7 +93,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                             href={route('member.deposit')}
                                             active={route().current('member.deposit')}
                                         >
-                                            Deposit
+                                            Purchase Package
                                         </NavLink>
 
                                         <Dropdown>
@@ -127,6 +127,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 </Dropdown.Link>
                                                 <Dropdown.Link href={route('logout')} method="post" as="button">
                                                    My Earning
+                                                </Dropdown.Link>
+                                                <Dropdown.Link href={route('logout')} method="post" as="button">
+                                                   All Transactions
                                                 </Dropdown.Link>
                                             </Dropdown.Content>
                                         </Dropdown>
