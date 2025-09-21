@@ -9,6 +9,8 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        phone: '',
+        referral: '',
         password: '',
         password_confirmation: '',
     });
@@ -58,6 +60,38 @@ export default function Register() {
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="phone" value="Phone" />
+
+                    <TextInput
+                        id="phone"
+                        type="text"
+                        name="phone"
+                        value={data.phone}
+                        className="mt-1 block w-full"
+                        autoComplete="phone"
+                        onChange={(e) => setData('phone', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="Referral" value="Referral ID" />
+                    <TextInput
+                        id="referral"
+                        type="text"
+                        name="referral"
+                        value={data.referral}
+                        className="mt-1 block w-full"
+                        autoComplete="referral"
+                        onChange={(e) => setData('referral', e.target.value)}
+                        required
+                    />
+                    <InputError message={errors.referral} className="mt-2" />
                 </div>
 
                 <div className="mt-4">

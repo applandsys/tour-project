@@ -33,10 +33,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </ul>
                         </div>
                         <div className="space-x-4">
-                            <Link href="/login">
-                                <button className="text-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded">Sign In</button>
+                            <Link href="/login" className="text-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded">
+                              Sign In
                             </Link>
-                            <button className="text-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded">Sign Up</button>
+                            <Link href="/register" className="text-yellow-500 hover:bg-yellow-500 hover:text-white px-4 py-2 rounded">Sign Up</Link>
                         </div>
                     </div>
                 </nav>

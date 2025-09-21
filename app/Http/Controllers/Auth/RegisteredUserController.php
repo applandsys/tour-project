@@ -33,12 +33,27 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'phone' => 'required',
+            'referral' => 'required',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        $uniqueId = User::latest()->value('unique_id');
+
+        $referral = User::where('unique_id',  $request->referral)->first();
+
+        if(!$referral){
+            return back()->withErrors([
+                'referral' => 'Your Referral Id is not Correct',
+            ]);
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'unique_id'=>$uniqueId+1,
+            'referrer'=>$referral->id,
             'password' => Hash::make($request->password),
         ]);
 

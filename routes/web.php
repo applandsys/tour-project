@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('user/deposit',[MemberController::class,'Page'])->name('member.deposit');
     Route::get('user/package/payment/{id}', [MemberController::class, 'Payment'])->name('member.package.payment');
+    Route::post('user/package/payment-process', [MemberController::class, 'PaymentProcess'])->name('member.package.paymentProcess');
 
 });
 
