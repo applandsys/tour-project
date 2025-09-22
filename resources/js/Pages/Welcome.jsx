@@ -1,5 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import {useState} from "react";
+import BasicDateRangePicker from "@/Components/UI/BasicDataRangePicker.jsx";
+import ResponsiveDateRangePickers from "@/Components/UI/BasicDataRangePicker.jsx";
+import BasicDataRangePicker from "@/Components/UI/BasicDataRangePicker.jsx";
+import NumberSelect from "@/Components/UI/NumberSelect.jsx";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const handleImageError = () => {
@@ -15,6 +19,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
     const [selectedService,setSelectedService] = useState('hotels');
     const [showLocationBox, setShowLocationBox] = useState(false);
+    const [showDatePicker,setShowDatePicker] = useState(false);
 
     const handleClickLocation = () =>{
         setShowLocationBox(!showLocationBox);
@@ -152,28 +157,69 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </div>
 
                             <div className="flex space-x-4 w-1/3 hover:bg-[#EAF5FF]">
+
                                 <div className="">
-                                    <p className="text-sm text-gray-500">Check-In</p>
-                                    <p className="text-xl font-semibold text-black">25 Sep '25</p>
-                                    <p className="text-sm text-gray-500">Thursday</p>
+                                    <div onClick={()=>setShowDatePicker(prev=> !prev)}>
+                                        <p className="text-sm text-gray-500">Check-In</p>
+                                        <p className="text-xl font-semibold text-black">25 Sep '25</p>
+                                        <p className="text-sm text-gray-500">Thursday</p>
+                                    </div>
                                 </div>
-                                <div className="">
+                                <div className="" onClick={()=>setShowDatePicker(prev=> !prev)}>
                                     <p className="text-sm text-gray-500">Check-Out</p>
                                     <p className="text-xl font-semibold text-black">30 Sep '25</p>
                                     <p className="text-sm text-gray-500">Tuesday</p>
                                 </div>
+                                <div className="z-50 absolute">
+                                    {
+                                        showDatePicker && ( <BasicDataRangePicker/>)
+                                    }
+                                </div>
                             </div>
 
-                            <div className="flex-col  w-1/3 hover:bg-[#EAF5FF] h-16">
+                            <div className="flex-col relative  w-1/3 hover:bg-[#EAF5FF] h-16">
                                 <div className="">
                                     <p className="text-sm text-gray-500">Rooms & Guests</p>
                                 </div>
                                 <div className="">
                                     <p className="text-xl font-semibold text-black">1 Room 2 Adults</p>
                                 </div>
+                                <div
+                                    className="absolute bg-white rounded-md border border-gray-200 z-10  h-100  w-100  p-4">
+                                    <div className="relative w-80  flex-col">
+                                        <div>
+                                            <div className="flex justify-between item-center">
+                                                <div className="text-xl font-bold items-center">Room </div>
+                                                <div>
+                                                    <NumberSelect defaultValue={1}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="flex justify-between">
+                                                <div className="text-xl font-bold items-center">Adult</div>
+                                                <div>
+                                                    <NumberSelect defaultValue={1}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="flex justify-between">
+                                                <div>
+                                                    <div className="text-xl font-bold items-center">Child</div>
+                                                    <div className="text-xs text-gray-500">0 - 17 Years Old</div>
+                                                </div>
+                                                <div>
+                                                    <NumberSelect defaultValue={0}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="my-4">
+                                           <p>Please provide right number of children along with their right age for best options and prices.</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-
                         </div>
 
                         <div className="flex text-center items-center justify-center mx-auto border mt-2">

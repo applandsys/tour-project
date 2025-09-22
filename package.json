@@ -32,7 +32,14 @@
         "vite": "^7.0.4"
     },
     "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@mui/material": "^7.3.2",
+        "@mui/x-date-pickers": "^8.11.3",
+        "@mui/x-date-pickers-pro": "^8.11.3",
+        "dayjs": "^1.11.18",
         "lucide-react": "^0.544.0",
-        "react-router-dom": "^7.9.1"
+        "react-router-dom": "^7.9.1",
+        "rsuite": "^5.83.3"
     }
 }
