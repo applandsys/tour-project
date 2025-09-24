@@ -1,15 +1,12 @@
 import { Head, Link } from '@inertiajs/react';
 import {useState} from "react";
-import BasicDataRangePicker from "@/Components/UI/BasicDataRangePicker.jsx";
-import NumberSelect from "@/Components/UI/NumberSelect.jsx";
-import PromoCard from "@/Components/Site/PromoCard.jsx";
 import PromoGrid from "@/Components/Site/PromoGrid.jsx";
 import {FaBeer, FaGift, FaPercent} from "react-icons/fa";
 import InfoBox from "@/Components/Site/InfoBox.jsx";
 import HotelSearch from "@/Components/Site/HotelSearch.jsx";
 import FlightSearch from "@/Components/Site/FlightSearch.jsx";
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({ auth }) {
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')
@@ -30,6 +27,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         setShowLocationBox(!showLocationBox);
         console.log("fuck");
     }
+
+    console.log("Auth data", auth);
 
     return (
         <>
