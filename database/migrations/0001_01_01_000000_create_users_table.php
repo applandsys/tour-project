@@ -19,6 +19,10 @@ return new class extends Migration
             $table->integer('unique_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('transaction_password')->default(12345678);
+            $table->integer('selected_currency')->default(1);
+            $table->integer('selected_country')->default(1);
+            $table->integer('selected_language')->default(1);
             $table->integer('referrer')->default(0);
             $table->rememberToken();
             $table->timestamps();

@@ -1,6 +1,9 @@
 import React, {useState} from "react";
-import {usePage} from "@inertiajs/react";
+import {useForm, usePage} from "@inertiajs/react";
 import ErrorAlert from "@/Components/UI/ErrorAlert.jsx";
+import TextInput from "@/Components/TextInput.jsx";
+import {InputLabel} from "@mui/material";
+import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
 const BuyPackageOption = ({user,packages}) => {
 
@@ -8,6 +11,16 @@ const BuyPackageOption = ({user,packages}) => {
 
     const [selected, setSelected] = useState("");
 
+    const { data, setData, post, processing, errors } = useForm({
+        userId: '',
+        transactionPassword:''
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route('password.email'));
+    };
 
     return (
         <div className="max-w-5xl mx-auto p-10">
@@ -54,11 +67,38 @@ const BuyPackageOption = ({user,packages}) => {
                 selected  &&
                 (
                     <>
+                    <form onSubmit={submit}>
                         <div className=" border border-gray-300 p-2 rounded-md mt-2 bg-blue-100 mt-4">
                             <div>
                                 Your available balance: <span className="font-bold "> BDT. {walletBalance.balance} </span>
                             </div>
+
                         </div>
+
+                        <div className="mt-4">
+                            <InputLabel>GT User Id</InputLabel>
+                            <TextInput
+                                id="userId"
+                                type="text"
+                                name="userId"
+                                value={data.userId}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                onChange={(e) => setData('userId', e.target.value)}
+                            />
+
+                            <InputLabel>Transaction Password</InputLabel>
+                            <TextInput
+                                id="transactionPassword"
+                                type="text"
+                                name="transactionPassword"
+                                value={data.transactionPassword}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                onChange={(e) => setData('transactionPassword', e.target.value)}
+                            />
+                        </div>
+
 
                         {
                             parseInt(walletBalance.balance) <  packages.filter(item=>item.id===parseInt(selected))[0].amount ? (
@@ -67,13 +107,15 @@ const BuyPackageOption = ({user,packages}) => {
                                 </div>
                             ): (
                             <div className="flex item-center justify-center mt-8">
-                                <button
-                                    className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1">
-                                    Confirm
-                                </button>
+                                <div className="mt-4 flex items-center justify-end">
+                                    <PrimaryButton className="ms-4" disabled={processing}>
+                                       Submit
+                                    </PrimaryButton>
+                                </div>
                             </div>
                             )
                         }
+                    </form>
                     </>
                 )
             }

@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BalanceSeeder::class,
             PackageSeeder::class,
-            CommissionLevelSeeder::class
+            CommissionLevelSeeder::class,
+            CurrencySeeder::class,
         ]);
 
 
