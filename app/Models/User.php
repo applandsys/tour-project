@@ -12,6 +12,25 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->unique_id = "GT".self::generateUniqueId();
+        });
+    }
+
+    private static function generateUniqueId()
+    {
+        do {
+            $uniqueId = rand(10000, 99999); // 5 digit random number
+        } while (self::where('unique_id', $uniqueId)->exists());
+
+        return $uniqueId;
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *

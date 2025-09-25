@@ -39,6 +39,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('purchase',[PurchaseController::class,'PurchasePackage'])->name('member.purchase');
 
+    Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
+
+    Route::post('gt-user',[MemberController::class, 'GTUser'])->name('member.gtuser');
+
     Route::get('user/deposit',[MemberController::class,'Page'])->name('member.deposit');
     Route::get('user/package/payment/{id}', [MemberController::class, 'Payment'])->name('member.package.payment');
     Route::post('user/package/payment-process', [MemberController::class, 'PaymentProcess'])->name('member.package.paymentProcess');

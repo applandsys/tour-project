@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->integer('unique_id');
+            $table->string('unique_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('transaction_password')->default(12345678);
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('selected_country')->default(1);
             $table->integer('selected_language')->default(1);
             $table->integer('referrer')->default(0);
+            $table->integer('otp')->default(4478);
             $table->rememberToken();
             $table->timestamps();
         });

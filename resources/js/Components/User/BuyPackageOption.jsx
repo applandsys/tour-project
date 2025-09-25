@@ -4,22 +4,50 @@ import ErrorAlert from "@/Components/UI/ErrorAlert.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import {InputLabel} from "@mui/material";
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
-
+import axios from "axios";
+// import route from "ziggy-js";
 const BuyPackageOption = ({user,packages}) => {
 
     const { walletBalance } = usePage().props;
 
     const [selected, setSelected] = useState("");
+    const [gtUsername,setGtUsername] = useState("");
+    const [gtError,setGtError] = useState(false);
 
     const { data, setData, post, processing, errors } = useForm({
         userId: '',
-        transactionPassword:''
+        transactionPassword:'',
+        packageId: '',
+        amount: ''
     });
 
+
+    const handleChangePackage =  (packageId) =>{
+        setSelected(packageId);
+        setData('packageId',packageId);
+    }
+
+    const handleChangeUser = async (gtUser) =>{
+        setData('userId',gtUser);
+        if(gtUser.length >= 7){
+            try {
+                const response = await axios.post(route("member.gtuser"), {
+                    gtUser: gtUser,
+                });
+                console.log(response.data);
+
+                setGtUsername(response.data.user.name);
+                setGtError(false);
+            } catch (error) {
+                setGtError(true);
+                console.error(error.response?.data || error.message);
+            }
+        }
+    }
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('password.email'));
+        post(route('member.package-buy-process'));
     };
 
     return (
@@ -28,25 +56,27 @@ const BuyPackageOption = ({user,packages}) => {
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Buy Package</h2>
             </div>
-            {/*{JSON.stringify(packages)}*/}
+
             <div>
                 <div>
                     <select
                         id="options"
                         value={selected}
-                        onChange={(e) => setSelected(e.target.value)}
+                        onChange={(e) => handleChangePackage(e.target.value)}
                         className="block w-64 rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     >
                         <option value="" disabled>
                             -- Select a Package --
                         </option>
-                        {
-                            packages.map((item) => (
-                            <option value={item.id} key={item.id}>
-                                {item.name}
+                        {packages.map((item) => (
+                            <option
+                                value={item.id}
+                                key={item.id}
+                                className="text-blue-500 text-sm" // ✅ Tailwind works in modern browsers
+                            >
+                                {item.name} ($ {item.amount})
                             </option>
-                        ))
-                        }
+                        ))}
                     </select>
 
                     {selected && (
@@ -54,12 +84,11 @@ const BuyPackageOption = ({user,packages}) => {
                            <div>
                                You selected: <span className=" font-bold text-blue-500">{packages.filter(item=>item.id===parseInt(selected))[0].name}</span>
                            </div>
-                            <div className="">
-                                Price: <span className="font-bold">BDT. {packages.filter(item=>item.id===parseInt(selected))[0].amount * 120}</span>
-                            </div>
+                            {/*<div className="">*/}
+                            {/*    Price: <span className="font-bold">BDT. {packages.filter(item=>item.id===parseInt(selected))[0].amount * 120}</span>*/}
+                            {/*</div>*/}
                         </div>
                     )}
-
                 </div>
             </div>
 
@@ -68,9 +97,11 @@ const BuyPackageOption = ({user,packages}) => {
                 (
                     <>
                     <form onSubmit={submit}>
-                        <div className=" border border-gray-300 p-2 rounded-md mt-2 bg-blue-100 mt-4">
+                        <input type="hidden" name="packageId" value={selected}/>
+
+                        <div className=" border border-gray-300 p-2 rounded-md  bg-blue-100 mt-4">
                             <div>
-                                Your available balance: <span className="font-bold "> BDT. {walletBalance.balance} </span>
+                                 Available Balance: <span className="font-bold "> BDT. {walletBalance.balance} </span>
                             </div>
 
                         </div>
@@ -78,17 +109,60 @@ const BuyPackageOption = ({user,packages}) => {
                         <div className="mt-4">
                             <InputLabel>GT User Id</InputLabel>
                             <TextInput
+                                required
                                 id="userId"
                                 type="text"
                                 name="userId"
                                 value={data.userId}
                                 className="mt-1 block w-full"
                                 isFocused={true}
-                                onChange={(e) => setData('userId', e.target.value)}
+                                onChange={(e) => handleChangeUser(e.target.value)}
                             />
+
+                            {
+                               !gtError && gtUsername ? (
+                                    <div className="my-4">
+                                        <div className="my-4 bg-gray-100 p-2 rounded-md ">
+                                            <div>{gtUsername} </div>
+                                        </div>
+                                        <div className="flex flex-end">
+                                            <div className="bg-green-200 p-1 rounded-lg w-24 text-center">Confirm ?</div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {
+                                            gtError && (
+                                                <div className="my-4">
+                                                    <div className="my-4 bg-gray-100 p-2 rounded-md ">
+                                                        <div> No Name Found </div>
+                                                    </div>
+                                                    <div className="">
+                                                        <div className="bg-red-200 p-1 rounded-lg w-24 text-center"> Wrong </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                )
+                            }
+
+                            <InputLabel>Amount ($)</InputLabel>
+                            <TextInput
+                                required
+                                id="amount"
+                                type="text"
+                                name="amount"
+                                value={data.amount}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                                onChange={(e) => setData('transactionPassword', e.target.value)}
+                            />
+
 
                             <InputLabel>Transaction Password</InputLabel>
                             <TextInput
+                                required
                                 id="transactionPassword"
                                 type="text"
                                 name="transactionPassword"
@@ -98,6 +172,17 @@ const BuyPackageOption = ({user,packages}) => {
                                 onChange={(e) => setData('transactionPassword', e.target.value)}
                             />
                         </div>
+
+                        {/* ✅ Validation Errors */}
+                        {Object.keys(errors).length > 0 && (
+                            <div className="mb-4 p-3 ">
+                                <ul>
+                                    {Object.values(errors).map((error, i) => (
+                                        <li key={i}><ErrorAlert>{error}</ErrorAlert></li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
 
 
                         {

@@ -142,12 +142,32 @@ class MemberController extends Controller
             case 1:
                 return 4;
                 break;
-            case label3:
-                //code block
+            case 2:
+                return 3;
                 break;
             default:
-                //code block
+                return 0;
         }
+    }
+
+
+    public function GTUser(Request $request){
+
+        $user = User::where('unique_id',$request->gtUser)->first();
+
+        if(!$user){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No Name found',
+                'user' =>  null,
+            ], 422);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Package purchased successfully!',
+            'user' =>  $user,
+        ]);
     }
 
 

@@ -46,10 +46,12 @@ const ShortNav = ({user}) => {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center rounded-md border border-transparent  text-white px-3 py-2 text-sm font-medium leading-4  transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none"
+                                                className="inline-flex  rounded-md border border-transparent  text-white px-3 py-2  font-medium leading-4  transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none"
                                             >
-                                              Hi,  {getFirstName(user.name)}
-
+                                                <div className="flex-col">
+                                                    <div>Hi,  {getFirstName(user.name)} ({user.unique_id})</div>
+                                                    {/*<div className="text-xs"></div>*/}
+                                                </div>
                                                 <svg
                                                     className="-me-0.5 ms-2 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
