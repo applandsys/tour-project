@@ -7,6 +7,7 @@ import HotelSearch from "@/Components/Site/HotelSearch.jsx";
 import FlightSearch from "@/Components/Site/FlightSearch.jsx";
 import LocalSettings from "@/Components/Site/LocalSettings.jsx";
 import ShortNav from "@/Components/User/ShortNav.jsx";
+import LoginSignupModal from "@/Components/Site/LoginSignupModal.jsx";
 
 export default function Welcome({ auth }) {
 
@@ -28,12 +29,15 @@ export default function Welcome({ auth }) {
     const [showDatePicker,setShowDatePicker] = useState(false);
     const [showGuestBox, setShowGetBox] = useState(false);
 
+    const [isLoginOpen,setIsLoginOpen] = useState(false);
     const [isOpenLocal,setIsOpenLocal] = useState(false);
 
     const handleClickLocation = () =>{
         setShowLocationBox(!showLocationBox);
         console.log("fuck");
     }
+
+
 
     return (
         <>
@@ -66,13 +70,26 @@ export default function Welcome({ auth }) {
                         </div>
                         <div className="flex gap-2">
                         {
-                            user && (
+                            user ? (
                                 <ShortNav user={user}/>
+                            ):(
+                                <>
+                                    <button
+                                        onClick={() => setIsLoginOpen(true)}
+                                        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium px-6 py-2 rounded-md shadow hover:from-blue-600 hover:to-blue-700 flex items-center justify-between">
+                                        <span>Login or Create Account</span>
+                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2"
+                                             viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+                                </>
                             )
                         }
-                            <div className="flex item-center justify-center bg-gray-500 p-2 text-white rounded-md"  onClick={() => setIsOpenLocal(true)}>
+                            <div className="flex item-center justify-center hover:bg-gray-400 bg-gray-500 p-2 text-white rounded-md"
+                                 onClick={() => setIsOpenLocal(true)}>
                                 <div className="flex mr-1 itme-center justify-center">
-                                    <img src="/images/palestine_flag.png" className="h-6 w-6 mx-1 -mt-1" />
+                                    <img src="/images/palestine_flag.png" className="h-6 w-6 mx-1 -mt-1"/>
                                 </div>
                                 <div> BDT | English</div>
                             </div>
@@ -214,12 +231,18 @@ export default function Welcome({ auth }) {
                 </section>
             </footer>
 
-            {/* Overlay */}
+            {/* Overlay Local*/}
             {isOpenLocal && (
-
               <div>
                <LocalSettings setIsOpen={setIsOpenLocal}/>
               </div>
+            )}
+
+            {/* Overlay Local*/}
+            {isLoginOpen && (
+                <div>
+                    <LoginSignupModal setIsLoginOpen={setIsLoginOpen}/>
+                </div>
             )}
 
         </>

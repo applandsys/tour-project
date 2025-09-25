@@ -4,8 +4,9 @@ import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 import BuyPackageOption from "@/Components/User/BuyPackageOption.jsx";
+import PaytoCompany from "@/Components/User/PaytoCompany.jsx";
 
-export default function PurchasePackage() {
+export default function PurchasePackage({packages}) {
     const user = usePage().props.auth.user;
 
     return (
@@ -47,7 +48,14 @@ export default function PurchasePackage() {
                                 <AccountSidebar/>
                             </div>
                             <div className="col-span-3 border-r">
-                                <BuyPackageOption user={user}/>
+                                <div className="flex">
+                                    <div className="w-1/2 border-r border-gray-300">
+                                        <BuyPackageOption user={user} packages={packages}/>
+                                    </div>
+                                    <div className="w-1/">
+                                        <PaytoCompany/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
