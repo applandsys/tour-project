@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,6 +22,12 @@ Route::get('/home', function () {
     ]);
 });
 
+Route::get('/promo', function () {
+    return Inertia::render('Promo', [
+        'name' => 'Tarique Mosharraf'
+    ]);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -29,6 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('purchase',[PurchaseController::class,'PurchasePackage'])->name('member.purchase');
+
     Route::get('user/deposit',[MemberController::class,'Page'])->name('member.deposit');
     Route::get('user/package/payment/{id}', [MemberController::class, 'Payment'])->name('member.package.payment');
     Route::post('user/package/payment-process', [MemberController::class, 'PaymentProcess'])->name('member.package.paymentProcess');

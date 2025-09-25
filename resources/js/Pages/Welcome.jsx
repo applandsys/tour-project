@@ -1,12 +1,17 @@
-import { Head, Link } from '@inertiajs/react';
+import {Head, Link, usePage} from '@inertiajs/react';
 import {useState} from "react";
 import PromoGrid from "@/Components/Site/PromoGrid.jsx";
-import {FaBeer, FaGift, FaPercent} from "react-icons/fa";
+import {FaArrowCircleDown, FaBeer, FaGift, FaPercent} from "react-icons/fa";
 import InfoBox from "@/Components/Site/InfoBox.jsx";
 import HotelSearch from "@/Components/Site/HotelSearch.jsx";
 import FlightSearch from "@/Components/Site/FlightSearch.jsx";
+import LocalSettings from "@/Components/Site/LocalSettings.jsx";
+import ShortNav from "@/Components/User/ShortNav.jsx";
 
 export default function Welcome({ auth }) {
+
+    const user = usePage().props.auth.user;
+
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')
@@ -23,12 +28,12 @@ export default function Welcome({ auth }) {
     const [showDatePicker,setShowDatePicker] = useState(false);
     const [showGuestBox, setShowGetBox] = useState(false);
 
+    const [isOpenLocal,setIsOpenLocal] = useState(false);
+
     const handleClickLocation = () =>{
         setShowLocationBox(!showLocationBox);
         console.log("fuck");
     }
-
-    console.log("Auth data", auth);
 
     return (
         <>
@@ -59,17 +64,20 @@ export default function Welcome({ auth }) {
                         <div className="">
                             <img src="/images/logo.jpg" className="w-16"/>
                         </div>
-                        <div className="flex">
-                            <div className="">
-                                <img src="/images/crown.png" className="h-6"/>
-                            </div>
-                            <div className="">
-                                <img src="/images/crown.png" className="h-6"/>
-                            </div>
-                            <div className="">
-                                <img src="/images/crown.png" className="h-6"/>
+                        <div className="flex gap-2">
+                        {
+                            user && (
+                                <ShortNav user={user}/>
+                            )
+                        }
+                            <div className="flex item-center justify-center bg-gray-500 p-2 text-white rounded-md"  onClick={() => setIsOpenLocal(true)}>
+                                <div className="flex mr-1 itme-center justify-center">
+                                    <img src="/images/palestine_flag.png" className="h-6 w-6 mx-1 -mt-1" />
+                                </div>
+                                <div> BDT | English</div>
                             </div>
                         </div>
+
                     </div>
 
                     <div className="flex items-center justify-center z-50">
@@ -205,6 +213,14 @@ export default function Welcome({ auth }) {
                     </div>
                 </section>
             </footer>
+
+            {/* Overlay */}
+            {isOpenLocal && (
+
+              <div>
+               <LocalSettings setIsOpen={setIsOpenLocal}/>
+              </div>
+            )}
 
         </>
     );

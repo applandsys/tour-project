@@ -3,8 +3,9 @@ import {Head, usePage} from '@inertiajs/react';
 import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
+import BuyPackageOption from "@/Components/User/BuyPackageOption.jsx";
 
-export default function Dashboard() {
+export default function PurchasePackage() {
     const user = usePage().props.auth.user;
 
     return (
@@ -12,18 +13,18 @@ export default function Dashboard() {
             header={
                 <div>
                     <h2 className="text-xl font-semibold leading-tight text-white">
-                        Home > My Account
+                        Home > Purchase Package
                     </h2>
                     <div className="flex justify-between mt-10 text-white">
                         <div className="flex items-center">
                             <div className="w-20 h-20 p-2">
-                               <img src="/images/add_photo_icon.png"/>
+                                <img src="/images/add_photo_icon.png"/>
                             </div>
                             <div className="">
                                 <h2 className="text-3xl font-bold">{user.name}</h2>
                                 <div className="flex gap-2 item-center mt-2">
-                                   <div className="flex  text-sm gap-2"><FaPhone/>+88 01837664478</div>
-                                   <div className="flex text-sm gap-2"><FaMailBulk/>applandsys@gmail.com</div>
+                                    <div className="flex  text-sm gap-2"><FaPhone/>+88 01837664478</div>
+                                    <div className="flex text-sm gap-2"><FaMailBulk/>applandsys@gmail.com</div>
                                 </div>
                             </div>
                         </div>
@@ -34,18 +35,19 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
+
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Purchase Package" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="grid grid-cols-4">
-                             <div className="col-span-1 border-r border-gray-300">
-                                 <AccountSidebar/>
-                             </div>
+                            <div className="col-span-1 border-r border-gray-300">
+                                <AccountSidebar/>
+                            </div>
                             <div className="col-span-3 border-r">
-                                <ProfileForm user={user}/>
+                                <BuyPackageOption user={user}/>
                             </div>
                         </div>
                     </div>

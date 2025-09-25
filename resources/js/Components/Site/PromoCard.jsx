@@ -1,3 +1,5 @@
+import { Link, usePage } from '@inertiajs/react';
+
 export default function PromoCard({ image, title, description, code, terms, packageData }) {
     return (
         <div className="w-full overflow-hidden">
@@ -23,9 +25,9 @@ export default function PromoCard({ image, title, description, code, terms, pack
 
                         <div className="flex justify-between mt-16">
                             <div className="font-bold">Code: {code}</div>
-                            <button className="text-blue-600 font-extrabold bg-gray-100 hover:bg-gray-200 p-2 rounded-md">
-                                BOOK NOW
-                            </button>
+                            <Link href="/promo" className="text-blue-600 font-extrabold bg-gray-100 hover:bg-gray-200 p-2 rounded-md">
+                                Book Now
+                            </Link>
                         </div>
                     </div>
                 </div>
