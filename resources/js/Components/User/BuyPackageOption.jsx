@@ -126,7 +126,7 @@ const BuyPackageOption = ({user,packages}) => {
                                             <div>{gtUsername} </div>
                                         </div>
                                         <div className="flex flex-end">
-                                            <div className="bg-green-200 p-1 rounded-lg w-24 text-center">Confirm ?</div>
+                                            <div className="bg-green-200 p-1 rounded-lg w-24 text-center">Confirm </div>
                                         </div>
                                     </div>
                                 ) : (
@@ -156,7 +156,7 @@ const BuyPackageOption = ({user,packages}) => {
                                 value={data.amount}
                                 className="mt-1 block w-full"
                                 isFocused={true}
-                                onChange={(e) => setData('transactionPassword', e.target.value)}
+                                onChange={(e) => setData('amount', e.target.value)}
                             />
 
 

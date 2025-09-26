@@ -5,7 +5,7 @@ export default function PromoGrid() {
     const items = [
         {
             id: 1,
-            image: "/images/hotels/1.png",
+            image: "/images/hotels/starter.png",
             title: "Welcome Deal for you upto 25% - Tips 24",
             description: "On First Flight and Hotel Booking",
             code: "GTMDDDD25",
@@ -29,7 +29,7 @@ export default function PromoGrid() {
         },
         {
             id: 2,
-            image: "/images/hotels/2.png",
+            image: "/images/hotels/executive.jpg",
             title: "Flat 15% Off on Hotels",
             description: "Valid on your first hotel booking",
             code: "HOTEL15",
@@ -53,8 +53,8 @@ export default function PromoGrid() {
         },
         {
             id: 3,
-            image: "/images/hotels/3.png",
-            title: "Special Discount on Flights",
+            image: "/images/hotels/deluxe.jpg",
+            title: "Special Discount on Hotels",
             description: "Save more when you book round trips",
             code: "FLY20",
             terms: "Conditions Apply",
@@ -79,8 +79,8 @@ export default function PromoGrid() {
         },
         {
             id: 4,
-            image: "/images/hotels/4.png",
-            title: "Special Discount on Flights",
+            image: "/images/hotels/premium.webp",
+            title: "Special Discount on Hotels",
             description: "Save more when you book round trips",
             code: "FLY20",
             terms: "Conditions Apply",
@@ -103,8 +103,8 @@ export default function PromoGrid() {
         },
         {
             id: 5,
-            image: "/images/hotels/3.png",
-            title: "Special Discount on Flights",
+            image: "/images/hotels/royal.png",
+            title: "Special Discount on Hotels",
             description: "Save more when you book round trips",
             code: "FLY20",
             terms: "Conditions Apply",
@@ -127,8 +127,8 @@ export default function PromoGrid() {
         },
         {
             id: 6,
-            image: "/images/hotels/3.png",
-            title: "Special Discount on Flights",
+            image: "/images/hotels/ambassador.png",
+            title: "Special Discount on Hotels",
             description: "Save more when you book round trips",
             code: "FLY20",
             terms: "Conditions Apply",

@@ -15,16 +15,17 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone');
             $table->string('unique_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->nullable();
             $table->string('transaction_password')->default(12345678);
             $table->integer('selected_currency')->default(1);
             $table->integer('selected_country')->default(1);
             $table->integer('selected_language')->default(1);
             $table->integer('referrer')->default(0);
             $table->integer('otp')->default(4478);
+            $table->boolean("otp_verified")->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

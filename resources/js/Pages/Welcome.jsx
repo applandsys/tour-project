@@ -34,9 +34,11 @@ export default function Welcome({ auth }) {
 
     const handleClickLocation = () =>{
         setShowLocationBox(!showLocationBox);
-        console.log("fuck");
     }
 
+    const { url } = usePage();
+    const queryParams = new URLSearchParams(url.split("?")[1]);
+    const referral = queryParams.get("ref") || '';
 
 
     return (
@@ -205,9 +207,9 @@ export default function Welcome({ auth }) {
                 <section className="bg-[#E7E7E7]  px-16 py-4">
                     <div className="flex gap-16">
                         <div>
-                            <h5>Q. How to book a hotel online with MakeMyTrip In UAE?</h5>
+                            <h5>Q. How to book a hotel online with GlobalTrips24 In UAE?</h5>
                             <p className="text-xs mt-4">
-                                A. Booking a hotel online is easy through MakeMyTrip. All you need to do first is to download our app on your Android or iOS device or simply use your computer. On the app, tap on the Hotels section on the top left corner and enter the details of the city, the area or the hotel. Fill out the check-in and check-out dates, along with the other details and tap Search. Use the Sort & Filter options so that you can book one as per your convenience. You can also choose hotels according to user reviews and ratings. The same follows on our site.
+                                A. Booking a hotel online is easy through GlobalTrips24. All you need to do first is to download our app on your Android or iOS device or simply use your computer. On the app, tap on the Hotels section on the top left corner and enter the details of the city, the area or the hotel. Fill out the check-in and check-out dates, along with the other details and tap Search. Use the Sort & Filter options so that you can book one as per your convenience. You can also choose hotels according to user reviews and ratings. The same follows on our site.
                             </p>
                         </div>
                         <div>
@@ -241,7 +243,7 @@ export default function Welcome({ auth }) {
             {/* Overlay Local*/}
             {isLoginOpen && (
                 <div>
-                    <LoginSignupModal setIsLoginOpen={setIsLoginOpen}/>
+                    <LoginSignupModal setIsLoginOpen={setIsLoginOpen} referral={referral}/>
                 </div>
             )}
 

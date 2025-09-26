@@ -1,7 +1,10 @@
 import React from 'react';
 import {FaArrowCircleDown} from "react-icons/fa";
 import Dropdown from "@/Components/Dropdown.jsx";
+import {usePage} from "@inertiajs/react";
 const ShortNav = ({user}) => {
+
+    const { walletBalance } = usePage().props;
 
     function getFirstName(fullName) {
         if (!fullName) return "";
@@ -18,7 +21,7 @@ const ShortNav = ({user}) => {
                         <img src="/images/wallet_icon.png" className=""/>
                     </div>
                     <div>
-                        <div className="text-xs text-white">BDT 3000</div>
+                        <div className="text-xs text-white">US$ {walletBalance?.balance || 0}</div>
                         <div className="text-xs text-gray-300 ">In your wallet</div>
                     </div>
                 </div>
@@ -70,7 +73,7 @@ const ShortNav = ({user}) => {
 
                         <Dropdown.Content>
                             <Dropdown.Link
-                                href={route('profile.edit')}
+                                href={route('dashboard')}
                             >
                                 Profile
                             </Dropdown.Link>

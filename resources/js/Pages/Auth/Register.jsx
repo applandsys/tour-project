@@ -6,11 +6,18 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
+
+    const { url } = usePage();
+    const queryParams = new URLSearchParams(url.split("?")[1]);
+    const ref = queryParams.get("ref") || '';
+
+    console.log("referralis",ref);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         phone: '',
-        referral: '',
+        referral: ref,
         password: '',
         password_confirmation: '',
     });

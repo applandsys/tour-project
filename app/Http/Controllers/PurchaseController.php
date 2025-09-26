@@ -68,8 +68,6 @@ class PurchaseController extends Controller
 
         $userNewBalance = $userLastBalance ? $userLastBalance->balance - $amount :  $amount;
 
-        dd($amount);
-
         WalletBalance::create(
             [
                 'user_id' => $user_id,
@@ -90,6 +88,7 @@ class PurchaseController extends Controller
         $userChain = $this->getReferralChainDescending($GTUserId, 6);
 
         for($i=0 ; $i<count($userChain); $i++) {
+
             $commissionPercentage =  $commissionLevel[$i]->commission_amount;
 
             $lastBalance = WalletBalance::where('user_id', $userChain[$i]->id)
@@ -109,8 +108,6 @@ class PurchaseController extends Controller
                     'expense' => 0,
                     'type'=>'affiliate-commission',
                 ]);
-
-
         }
 
         return redirect()->route('member.deposit')->with('success', 'Payment processed successfully!');

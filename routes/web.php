@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\MemberCreateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,7 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('user/deposit',[MemberController::class,'Page'])->name('member.deposit');
     Route::get('user/package/payment/{id}', [MemberController::class, 'Payment'])->name('member.package.payment');
     Route::post('user/package/payment-process', [MemberController::class, 'PaymentProcess'])->name('member.package.paymentProcess');
-
 });
+
+
+Route::post('/signup-step-one', [MemberCreateController::class,'Signup'])->name('signup.step.one');
+Route::post('/signup-otp-verify', [MemberCreateController::class,'Verify'])->name('signup.otp.verify');
+Route::post('/modal-login', [MemberCreateController::class,'Login'])->name('signup.step.one');
 
 require __DIR__.'/auth.php';

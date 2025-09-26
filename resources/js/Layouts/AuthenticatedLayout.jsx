@@ -49,7 +49,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <div className="px-4 flex">
                                        <img src="/images/wallet_icon.png"/>
                                         <div>
-                                            <div className="font-bold">BDT. 3.3K</div>
+                                            <div className="font-bold">US$  {walletBalance?.balance || 0}</div>
                                             <div className="text-xs">In your GT Wallet</div>
                                         </div>
                                     </div>
