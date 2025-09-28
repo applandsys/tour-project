@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('purchase',[PurchaseController::class,'PurchasePackage'])->name('member.purchase');
+    Route::get('subscription',[PurchaseController::class,'Subscription'])->name('member.subscription');
 
     Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
 

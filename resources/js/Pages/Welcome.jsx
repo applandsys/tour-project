@@ -73,7 +73,11 @@ export default function Welcome({ auth }) {
                         <div className="flex gap-2">
                         {
                             user ? (
-                                <ShortNav user={user}/>
+                                <>
+
+                                        <ShortNav user={user}/>
+
+                                </>
                             ):(
                                 <>
                                     <button
@@ -96,10 +100,16 @@ export default function Welcome({ auth }) {
                                 <div> BDT | English</div>
                             </div>
                         </div>
+                    </div>
 
+                    <div className="flex item-center justify-center my-4">
+                        <div className="text-white text-wxl font-bold bg-gray-100 p-3 rounded-md">
+                            <Link  href={route('member.subscription')}>You must be a Subscribed Member to get all the features</Link>
+                        </div>
                     </div>
 
                     <div className="flex items-center justify-center z-50">
+
                         <div className="bg-white p-4 border  rounded-lg flex font-bold">
                             <div className={`flex-col px-8 ${selectedService==='flights' ? 'text-blue-500': ''}`} onClick={()=>setSelectedService('flights')}>
                                 <img src="/images/airoplane.png" className="h-12"/>

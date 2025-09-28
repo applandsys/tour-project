@@ -172,4 +172,12 @@ class PurchaseController extends Controller
     }
 
 
+    public function Subscription(){
+        return Inertia::render('User/Subscription', [
+            'packages' => Package::all(),
+            'status' => session('status'),
+        ]);
+    }
+
+
 }
