@@ -90,23 +90,34 @@ class MemberCreateController extends Controller
         ], 200);
     }
 
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\User;
+
     public function Verify(Request $request)
     {
-        // verify OTP here later
-        $user = User::where('otp',$request->otp)->first();
-        if(!$user){
-            return response()->json([
-                'status' => 'error',
-                'errors' => [
-                    'otp' => ['Incorrect OTP'],
-                ]
-            ], 422);
+        $request->validate([
+            'otp' => 'required|numeric'
+        ]);
+
+        $user = User::where('otp', $request->otp)->first();
+
+        if (!$user) {
+            return back()->withErrors([
+                'otp' => 'Incorrect OTP'
+            ]);
         }
 
-        Auth::login($user, $request->remember); // remember is optional checkbox
+        // Clear OTP after successful verification (security best practice)
+        $user->otp = null;
+        $user->save();
 
-        // ✅ Redirect after login
+        // Log the user in
+        Auth::login($user, $request->remember);
+
+        // ✅ With Inertia, redirect using intended
         return redirect()->intended('/');
     }
+
 
 }

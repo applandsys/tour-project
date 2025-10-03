@@ -11,7 +11,7 @@ const OtpVerification = ({setIsLoginOpen}) => {
         e.preventDefault();
         try {
              await axios.post(route("signup.otp.verify"), {otp});
-
+            window.location.reload();
         } catch (error) {
             if (error.response?.data?.errors) {
                 setErrors(error.response?.data?.errors);

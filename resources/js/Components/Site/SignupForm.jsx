@@ -51,9 +51,9 @@ const SignupForm = () => {
                 otpWaiting === 0 && (
                     <>
                         <div>
-                        <span className="bg-gray-100 p-1 rounded-md px-4 py-2">
-                            Referred By : {referral}
-                        </span>
+                            <div className="bg-gray-100  rounded-md p-4 my-4">
+                                Referred By : {referral}
+                            </div>
                             <InputError message={errors.referral} className="mt-2" />
 
                             <TextInput
@@ -122,12 +122,12 @@ const SignupForm = () => {
                                     checked={agreePrivacy}
                                     onChange={() => setAgreePrivacy(!agreePrivacy)}
                                 />
-                                <span>
-                        By signing in or creating an account, you agree to GlobalTrips24's
-                        <a href="#" className="text-blue-600 underline"> Privacy Policy</a>,
-                        <a href="#" className="text-blue-600 underline"> User Agreement</a>, and
-                        <a href="#" className="text-blue-600 underline"> T&amp;Cs</a>
-                    </span>
+                                <span className="text-xs">
+                                    By signing in or creating an account, you agree to GlobalTrips24's
+                                    <a href="#" className="text-blue-600 underline"> Privacy Policy</a>,
+                                    <a href="#" className="text-blue-600 underline"> User Agreement</a>, and
+                                    <a href="#" className="text-blue-600 underline"> T&amp;Cs</a>
+                                </span>
                             </label>
 
                             <label className="flex items-start space-x-2">
@@ -137,9 +137,9 @@ const SignupForm = () => {
                                     checked={allowContact}
                                     onChange={() => setAllowContact(!allowContact)}
                                 />
-                                <span>
-                        I hereby allow GlobalTrips24 to contact me regarding travel services that may be of interest to me
-                    </span>
+                                <span className="text-xs">
+                                    I hereby allow GlobalTrips24 to contact me regarding travel services that may be of interest to me
+                                </span>
                             </label>
                         </div>
 

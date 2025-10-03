@@ -36,17 +36,22 @@ const LoginSignupModal = ({ setIsLoginOpen, referral }) => {
                     <div className="flex items-center my-4">
                         <hr className="flex-grow border-gray-300" />
 
-                        <div className="flex">
-                            <div className={`px-2 ${activeForm==='signup' ? 'text-blue-600 font-bold bg-green-400 rounded-md': ''}`} onClick={()=>setActiveForm('signup')}> Signup </div>
-                            <div className={`px-2 ${activeForm==='login' ? 'text-blue-600 font-bold bg-green-400 rounded-md': ''}`} onClick={()=>setActiveForm('login')}> Login </div>
+                        <div className="flex gap-4">
+                            <div className={`p-2 rounded-md ${activeForm==='signup' ? 'text-blue-600 font-bold bg-green-400  border-l border-gray-500': 'bg-gray-200'}`} onClick={()=>setActiveForm('signup')}> Signup </div>
+
+                            <div className={`p-2 rounded-md ${activeForm==='login' ? 'text-blue-600 font-bold bg-green-400  border-l border-gray-500': 'bg-gray-200'}`} onClick={()=>setActiveForm('login')}> Login </div>
                         </div>
                         <hr className="flex-grow border-gray-300" />
                     </div>
 
-                    {
-                        activeForm==='signup' ?
-                            (<SignupForm setIsLoginOpen={setIsLoginOpen}  />):(<><LoginForm setIsLoginOpen={setIsLoginOpen}/></>)
-                    }
+                    <div>
+                        {
+                            activeForm==='signup' ?
+                                (<SignupForm setIsLoginOpen={setIsLoginOpen}  />):(<><LoginForm setIsLoginOpen={setIsLoginOpen}/></>)
+                        }
+                    </div>
+
+
 
                     <button
                         type="button"
