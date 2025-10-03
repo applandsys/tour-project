@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     @routes
-     @viteReactRefresh
+{{--     @viteReactRefresh--}}
     @vite(['resources/js/app.jsx'])
     @inertiaHead
 

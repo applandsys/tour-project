@@ -37,8 +37,8 @@ const LoginSignupModal = ({ setIsLoginOpen, referral }) => {
                         <hr className="flex-grow border-gray-300" />
 
                         <div className="flex">
-                            <div className={`px-2 ${activeForm==='signup' ? 'text-blue-600 font-bold': ''}`} onClick={()=>setActiveForm('signup')}> Signup </div>
-                            <div className={`px-2 ${activeForm==='login' ? 'text-blue-600 font-bold': ''}`} onClick={()=>setActiveForm('login')}> Login </div>
+                            <div className={`px-2 ${activeForm==='signup' ? 'text-blue-600 font-bold bg-green-400 rounded-md': ''}`} onClick={()=>setActiveForm('signup')}> Signup </div>
+                            <div className={`px-2 ${activeForm==='login' ? 'text-blue-600 font-bold bg-green-400 rounded-md': ''}`} onClick={()=>setActiveForm('login')}> Login </div>
                         </div>
                         <hr className="flex-grow border-gray-300" />
                     </div>

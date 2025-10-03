@@ -47,7 +47,7 @@ export default function Welcome({ auth }) {
             <header>
                 <div className="bg-[#F1E0FA] flex items-center justify-center">
                     <div>
-                        <img src="/images/newuserreward.webp" className="h-16 w-16"/>
+                        <img src="/images/newuserreward.webp" className="h-16 w-16" alt=""/>
                     </div>
                     <div className="font-bold">
                         Get up to 25% OFF on your first booking
@@ -143,15 +143,14 @@ export default function Welcome({ auth }) {
                                 showGuestBox={showGuestBox}
                                 showLocationBox={showLocationBox}/>
                         )}
-
                     </div>
-
                     <div className="flex item-center w-full justify-center mt-10">
                         <button className="bg-sky-500 px-6 py-4 rounded-3xl text-white">SEARCH</button>
                     </div>
                 </section>
-                <section className="w-full  mx-auto px-8 relative 2nd-red z-0">
-                    <div className="rounded-md bg-white p-8 -mt-10 border">
+
+                <section className="w-full  mx-auto px-8 relative  z-0">
+                    <div className="rounded-md bg-white p-8 my-20 border">
                         <div className="flex">
                             <h2 className="font-bold">Super Offers</h2>
                             <div className="flex mt-4 mx-8 gap-4 font-bold">
@@ -163,7 +162,6 @@ export default function Welcome({ auth }) {
                         <PromoGrid/>
                     </div>
                 </section>
-
                 <section className="w-full border bg-[#EAF5FF] mt-10 px-16 pt-4">
                     <div className="grid grid-cols-3 gap-4">
                         <div className="col-span-1">
@@ -199,7 +197,6 @@ export default function Welcome({ auth }) {
                         </div>
                     </div>
                 </section>
-
                 <section className="w-full border bg-gray-300 mt-10 px-16 py-4">
                     <InfoBox title="Top Flight Routes" content="  Abu Dhabi to Kutaisi Flight, Aqaba to Abu Dhabi Flight, Al Ain to Peshawar Flight, Kutaisi to Abu Dhabi Flight, Dubai to Quetta Flight, Dammam to Dubai Flight, Dubai to Dammam Flight, Alexandria to Abu Dhabi Flight, Doha to Abu Dhabi Flight, Abu Dhabi to Lahore Flight, Abu Dhabi to Bangkok Flight, Abu Dhabi to Islamabad Flight, Abu Dhabi to Peshawar Flight, Manila to Abu Dhabi Flight, Islamabad to Sharjah Flight, Islamabad to Dubai Flight, Dubai to Bahrain Flight, Beirut to Dubai Flight, Dubai to Bangkok Flight, Abu Dhabi to Beirut Flight, Abu Dhabi to Manila Flight, Amman to Dubai Flight, Dubai to Alexandria Flight, Dubai to Amsterdam Flight, Dubai to Cairo Flight, Dubai to Hong Kong Flight, Dubai to Istanbul Flight, Dubai to Jakarta Flight, Dubai to London Flight, Dubai to Mauritius Flight, Dubai to New York Flight, Dubai to Paris Flight, Dubai to Riyadh Flight, Dubai to Rome Flight, Dubai to Toronto Flight, Dubai to Zurich Flight, Dubai to Faisalabad Flight, Dubai to Lagos Flight, Dubai to Los Angeles Flight, Dubai to Phuket Flight, Manila to Dubai Flight, Abu Dhabi to Cairo Flight, Dubai to Athens Flight, Dubai to Casablanca Flight, Casablanca to Dubai Flight, Dubai to Beirut Flight, Dubai to Lahore Flight, Dubai to Seychelles Flight, Dubai to Amman Flight, Dubai to Entebbe Flight, Dubai to Peshawar Flight, Dubai to Tunis Flight, Abu Dhabi to Casablanca Flight"/>
                     <InfoBox title=" International Flight Routes" content="Abu Dhabi To Amman Flight, Abu Dhabi To Dhaka Flight, Abu Dhabi To Doha Flight, Abu Dhabi To Kathmandu Flight, Cairo To Sharjah Flight, Dhaka To Sharjah Flight, Kathmandu To Abu Dhabi Flight, Kathmandu To Sharjah Flight, Sharjah To Dhaka Flight, Sharjah To Islamabad Flight, Sharjah To Beirut Flight, Sharjah To Dhaka Flight, Sharjah To Kathmandu Flight, Karachi To Sharjah Flight, Sharjah To Istanbul Flight, Sharjah To Doha Flight, Dubai to Manila Flight, Dubai to Kuwait Flight, Dubai to Islamabad Flight, Dubai to Karachi Flight, Dubai to Kathmandu Flight, Dubai to Delhi Flight, Dubai to Mumbai Flight, Dubai to Chennai Flight, Dubai to Hyderabad Flight, Dubai to Mangalore Flight, Dubai to Kochi Flight, Mumbai to Dubai Flight, Mumbai to Trivandrum Flight, Sharjah to Trivandrum Flight, Ahmedabad to Dubai Flight, Kochi to Dubai Flight, Dubai to Kozhikode Flight, Amritsar to Dubai Flight, Sharjah to Kochi Flight, Trivandrum to Dubai Flight, Calicut to Dubai Flight, Kochi to Sharjah Flight, Dubai to Thiruvananthapuram Flight, Thiruvananthapuram to Sharjah Flight, Dubai to Abu Dhabi Flight, Dubai to Sialkot Flight"/>
@@ -210,7 +207,6 @@ export default function Welcome({ auth }) {
                     <InfoBox title="Product Offering" content="  Book Flights From UAE, Book Hotels From UAEIndigo, Emirates, Spicejet, Air India, Air India Express, Vistara, Biman Bangladesh, Gulf Air, Qatar Airways, Etihad Airways, Flydubai, Kuwait Airways, Oman Air, Thai Airways, Royal Nepal Airlines, Turkish Airlines, Srilankan Airlines, Air Arabia, Airblue"/>
                     <InfoBox title=" About the Site" content=" Contact Us, Privacy Policy, Cookie Policy, User Agreement, Terms of Service"/>
                 </section>
-
             </main>
 
             <footer>

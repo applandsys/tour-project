@@ -48,7 +48,6 @@ class MemberCreateController extends Controller
                     'otp' => ['OTP Verification needed'],
                 ],
                 'otp'=> 1
-
             ], 200);
         }
 
@@ -75,17 +74,18 @@ class MemberCreateController extends Controller
         // ✅ generate OTP
         $otp = rand(1000, 9999);
         $created->otp = $otp;
-        // $created->otp_expires_at = now()->addMinutes(10); // optional
+        $created->otp_expires_at = now()->addMinutes(10); // optional
         $created->save();
 
         // ✅ send email
-        Mail::to($created->email)->send(new SendOtpMail($otp));
+        $sendMail = Mail::to($created->email)->send(new SendOtpMail($otp));
 
         // ✅ If not exist -> send OTP (dummy response for now)
         return response()->json([
             'status' => 'success',
             'message' => 'OTP sent to your email!',
             'otp'=> 2,
+            'mail'=>$sendMail,
             'user'=>$created
         ], 200);
     }

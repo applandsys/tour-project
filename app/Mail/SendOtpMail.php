@@ -18,7 +18,7 @@ class SendOtpMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Your OTP Code')
+        return $this->subject('Your OTP Code for GlobabTrips24.com')
             ->view('emails.otp')
             ->with(['otp' => $this->otp]);
     }

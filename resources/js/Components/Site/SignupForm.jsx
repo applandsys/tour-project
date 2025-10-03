@@ -51,7 +51,7 @@ const SignupForm = () => {
                 otpWaiting === 0 && (
                     <>
                         <div>
-                        <span className="bg-gray-100 p-1 rounded-md px-4">
+                        <span className="bg-gray-100 p-1 rounded-md px-4 py-2">
                             Referred By : {referral}
                         </span>
                             <InputError message={errors.referral} className="mt-2" />
@@ -164,7 +164,11 @@ const SignupForm = () => {
             }
 
             {
-                otpWaiting === 2 && (<div>OTP FORM DEKHAN</div>)
+                otpWaiting === 2 && (
+                    <>
+                        <OtpVerification errors={errors}/>
+                    </>
+                )
 
             }
 
