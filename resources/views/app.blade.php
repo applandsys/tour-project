@@ -12,12 +12,9 @@
 
     <!-- Scripts -->
     @routes
-     @viteReactRefresh
-    @vite(['resources/js/app.jsx'])
+	@viteReactRefresh
+	@vite('resources/js/app.jsx')
     @inertiaHead
-
-{{--    <link rel="stylesheet" href="{{ asset('build/assets/app-Bjo5siv0.css') }}">--}}
-{{--    <script type="module" src="{{ asset('build/assets/app-D_cNdYQ0.js') }}"></script>--}}
 </head>
 <body class="font-sans antialiased">
 @inertia

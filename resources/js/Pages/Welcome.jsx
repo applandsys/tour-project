@@ -149,7 +149,7 @@ export default function Welcome({ auth }) {
                     </div>
                 </section>
 
-                <section className="w-full  mx-auto px-8 relative  z-0">
+                <section className="w-full  mx-auto px-8 relative ">
                     <div className="rounded-md bg-white p-8 my-20 border">
                         <div className="flex">
                             <h2 className="font-bold">Super Offers</h2>
@@ -162,6 +162,7 @@ export default function Welcome({ auth }) {
                         <PromoGrid/>
                     </div>
                 </section>
+
                 <section className="w-full border bg-[#EAF5FF] mt-10 px-16 pt-4">
                     <div className="grid grid-cols-3 gap-4">
                         <div className="col-span-1">

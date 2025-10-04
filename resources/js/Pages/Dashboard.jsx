@@ -3,6 +3,7 @@ import {Head, usePage} from '@inertiajs/react';
 import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
+import ReferralLink from "@/Components/User/ReferralLink.jsx";
 
 export default function Dashboard() {
     const user = usePage().props.auth.user;
@@ -22,8 +23,8 @@ export default function Dashboard() {
                             <div className="">
                                 <h2 className="text-3xl font-bold">{user.name}</h2>
                                 <div className="flex gap-2 item-center mt-2">
-                                   <div className="flex  text-sm gap-2"><FaPhone/>+88 01837664478</div>
-                                   <div className="flex text-sm gap-2"><FaMailBulk/>applandsys@gmail.com</div>
+                                   <div className="flex  text-sm gap-2"><FaPhone/>{user?.phone}</div>
+                                   <div className="flex text-sm gap-2"><FaMailBulk/>{user.email}</div>
                                 </div>
                             </div>
                         </div>
@@ -45,6 +46,7 @@ export default function Dashboard() {
                                  <AccountSidebar/>
                              </div>
                             <div className="col-span-3 border-r">
+                                <ReferralLink user={user}/>
                                 <ProfileForm user={user}/>
                             </div>
                         </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Mail\SendOtpMail;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // ✅ CORRECT
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -90,10 +90,6 @@ class MemberCreateController extends Controller
         ], 200);
     }
 
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
-    use App\Models\User;
-
     public function Verify(Request $request)
     {
         $request->validate([
@@ -109,7 +105,7 @@ class MemberCreateController extends Controller
         }
 
         // Clear OTP after successful verification (security best practice)
-        $user->otp = null;
+        $user->otp_verified = 1 ;
         $user->save();
 
         // Log the user in
