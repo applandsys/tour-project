@@ -8,6 +8,8 @@ import FlightSearch from "@/Components/Site/FlightSearch.jsx";
 import LocalSettings from "@/Components/Site/LocalSettings.jsx";
 import ShortNav from "@/Components/User/ShortNav.jsx";
 import LoginSignupModal from "@/Components/Site/LoginSignupModal.jsx";
+import {US} from "country-flag-icons/react/1x1";
+import ReferralLink from "@/Components/User/ReferralLink.jsx";
 
 export default function Welcome({ auth }) {
 
@@ -45,44 +47,50 @@ export default function Welcome({ auth }) {
         <>
             <Head title="Welcome" />
             <header>
+                {/* ✅ Show header only if NOT authenticated */}
+                {!user && (
                 <div className="bg-[#F1E0FA] flex items-center justify-center">
                     <div>
                         <img src="/images/newuserreward.webp" className="h-16 w-16" alt=""/>
                     </div>
                     <div className="font-bold">
-                        Get up to 25% OFF on your first booking
+                        Get up to 25% Direct BONUS on your SUBSCRIPTION
                     </div>
                     <div className=" mx-4">
-                        USE CODE: GTTWELCOME
-                    </div>
-                    <div className="ml-10 text-blue-500">
-                        Copy Code
-                    </div>
-                    <div className="absolute right-0 top-50 mr-10 text-gray-500">
-                        X
+                        USE INTRODUCER CODE
+                        Ex : GT25183
                     </div>
                 </div>
+                    )
+                }
+
+
+                {/* ✅ Show header only if NOT authenticated */}
+                {user && (
+                    <div className="bg-[#F1E0FA] flex items-center justify-center p-4">
+                        <ReferralLink user={user}/>
+                    </div>
+                )
+                }
             </header>
 
             <main className="flex-col">
-                <section className="relative w-full h-[500px] bg-[url('/images/top-bg.png')] bg-cover bg-center bg-no-repeat ">
-                    <div className="flex justify-between mx-auto px-12 p-2">
+                <section className="relative w-full h-[500px] bg-[url('/images/top-bg.png')] bg-cover bg-center bg-no-repeat  ">
+                    <div className="flex justify-between mx-auto px-2 p-2">
                         <div className="">
-                            <img src="/images/logo.jpg" className="w-16"/>
+                            <img src="/images/logo.jpg" className="w-[110px]"/>
                         </div>
                         <div className="flex gap-2">
                         {
                             user ? (
                                 <>
-
-                                        <ShortNav user={user}/>
-
+                                   <ShortNav user={user}/>
                                 </>
                             ):(
                                 <>
                                     <button
                                         onClick={() => setIsLoginOpen(true)}
-                                        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium px-6 py-2 rounded-md shadow hover:from-blue-600 hover:to-blue-700 flex items-center justify-between">
+                                        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-medium px-4 py-2 rounded-md shadow hover:from-blue-600 hover:to-blue-700 flex items-center justify-between h-12">
                                         <span>Login or Create Account</span>
                                         <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" strokeWidth="2"
                                              viewBox="0 0 24 24">
@@ -92,13 +100,15 @@ export default function Welcome({ auth }) {
                                 </>
                             )
                         }
-                            <div className="flex item-center justify-center hover:bg-gray-400 bg-gray-500 p-2 text-white rounded-md"
-                                 onClick={() => setIsOpenLocal(true)}>
-                                <div className="flex mr-1 itme-center justify-center">
-                                    <img src="/images/palestine_flag.png" className="h-6 w-6 mx-1 -mt-1"/>
-                                </div>
-                                <div> BDT | English</div>
-                            </div>
+                            {/*<div*/}
+                            {/*    className="flex items-center justify-center hover:bg-gray-400 bg-gray-500 p-2 text-white rounded-md h-12 cursor-pointer"*/}
+                            {/*    onClick={() => setIsOpenLocal(true)}*/}
+                            {/*>*/}
+                            {/*    <div className="flex items-center justify-center mr-1">*/}
+                            {/*        <US title="United States" className="h-6 w-6 mx-1" />*/}
+                            {/*    </div>*/}
+                            {/*    <div className="flex items-center">USD | English</div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
 
@@ -109,7 +119,6 @@ export default function Welcome({ auth }) {
                     </div>
 
                     <div className="flex items-center justify-center z-50">
-
                         <div className="bg-white p-4 border  rounded-lg flex font-bold">
                             <div className={`flex-col px-8 ${selectedService==='flights' ? 'text-blue-500': ''}`} onClick={()=>setSelectedService('flights')}>
                                 <img src="/images/airoplane.png" className="h-12"/>

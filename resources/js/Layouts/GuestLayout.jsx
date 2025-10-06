@@ -10,6 +10,20 @@ export default function GuestLayout({ children }) {
                 </Link>
             </div>
             <div className="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
+                <header>
+                    <div className="bg-[#F1E0FA] flex items-center justify-center">
+                        <div>
+                            <img src="/images/newuserreward.webp" className="h-16 w-16" alt=""/>
+                        </div>
+                        <div className="font-bold">
+                            Get up to 25% Direct BONUS on your SUBSCRIPTION
+                        </div>
+                        <div className=" mx-4">
+                            USE INTRODUCER CODE
+                            Ex : GT25183
+                        </div>
+                    </div>
+                </header>
                 {children}
             </div>
         </div>

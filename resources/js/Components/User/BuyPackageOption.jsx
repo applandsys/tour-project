@@ -51,7 +51,7 @@ const BuyPackageOption = ({user,packages}) => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto p-10">
+        <div className="mx-auto p-10">
 
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Buy Package</h2>

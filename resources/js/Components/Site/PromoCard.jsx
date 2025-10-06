@@ -3,14 +3,16 @@ import { Link, usePage } from '@inertiajs/react';
 export default function PromoCard({ image, title, description, code, terms, packageData }) {
     return (
         <div className="w-full overflow-hidden">
-            <div className="grid grid-cols-3 gap-2">
+            {/* On mobile: single column; on md+: 3 columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+
                 {/* Image */}
                 <div className="col-span-1">
                     <div className="relative rounded-md">
                         <img
                             src={image}
                             alt="Promo"
-                            className="h-full w-full object-cover rounded-lg"
+                            className="w-full h-48 md:h-full object-cover rounded-lg"
                         />
                     </div>
                 </div>
@@ -23,11 +25,16 @@ export default function PromoCard({ image, title, description, code, terms, pack
                         <h4 className="font-semibold">{title}</h4>
                         <div className="text-gray-600 text-sm">{description}</div>
 
-                        <div className="flex justify-between mt-16">
+                        <div className="flex-col md:flex-row justify-between mt-8 md:mt-16">
                             <div className="font-bold">Code: {code}</div>
-                            <Link href="/promo" className="text-blue-600 font-extrabold bg-gray-100 hover:bg-gray-200 p-2 rounded-md">
-                                Book Now
-                            </Link>
+                            <div className="mt-4 w-full">
+                                <Link
+                                    href="/promo"
+                                    className="text-blue-600 font-extrabold bg-gray-100 hover:bg-gray-200 p-2 rounded-md w-full flex item-center justify-center"
+                                >
+                                    Book Now
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

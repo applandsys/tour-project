@@ -18,7 +18,7 @@ export default function ReferralLink({ user }) {
     };
 
     return (
-        <div className="mt-10 mx-auto text-center">
+        <div className=" mx-auto text-center">
             <div className="flex items-center justify-center space-x-2">
                 <a
                     href={referralLink}

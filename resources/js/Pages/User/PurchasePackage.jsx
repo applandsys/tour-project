@@ -24,8 +24,8 @@ export default function PurchasePackage({packages}) {
                             <div className="">
                                 <h2 className="text-3xl font-bold">{user.name}</h2>
                                 <div className="flex gap-2 item-center mt-2">
-                                    <div className="flex  text-sm gap-2"><FaPhone/>+88 01837664478</div>
-                                    <div className="flex text-sm gap-2"><FaMailBulk/>applandsys@gmail.com</div>
+                                    <div className="flex  text-sm gap-2"><FaPhone/>{user?.phone}</div>
+                                    <div className="flex text-sm gap-2"><FaMailBulk/>{user.email}</div>
                                 </div>
                             </div>
                         </div>
@@ -43,21 +43,28 @@ export default function PurchasePackage({packages}) {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="grid grid-cols-4">
-                            <div className="col-span-1 border-r border-gray-300">
-                                <AccountSidebar/>
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            {/* Sidebar */}
+                            <div className="md:col-span-1 border-b md:border-b-0 md:border-r border-gray-300">
+                                <AccountSidebar />
                             </div>
-                            <div className="col-span-3 border-r">
-                                <div className="flex">
-                                    <div className="w-1/2 border-r border-gray-300">
-                                        <BuyPackageOption user={user} packages={packages}/>
+
+                            {/* Main Content */}
+                            <div className="md:col-span-3 border-gray-300">
+                                <div className="flex flex-col md:flex-row">
+                                    {/* Left Section */}
+                                    <div className="md:w-1/2 border-b md:border-b-0 md:border-r border-gray-300">
+                                        <BuyPackageOption user={user} packages={packages} />
                                     </div>
-                                    <div className="w-1/">
-                                        <PaytoCompany/>
+
+                                    {/* Right Section */}
+                                    <div className="md:w-1/2">
+                                        <PaytoCompany />
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
