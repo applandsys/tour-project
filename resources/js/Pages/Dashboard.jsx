@@ -42,12 +42,11 @@ export default function Dashboard() {
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="grid grid-cols-4">
-                             <div className="col-span-1 border-r border-gray-300">
+                        <div className="flex ">
+                             <div className="w-1/4 border-r border-gray-300 hidden md:block">
                                  <AccountSidebar/>
                              </div>
-                            <div className="col-span-3 border-r">
-                                <ReferralLink user={user}/>
+                            <div className=" border-r">
                                 <ProfileForm user={user}/>
                             </div>
                         </div>

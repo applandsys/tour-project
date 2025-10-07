@@ -20,6 +20,7 @@ export default function ReferralLink({ user }) {
     return (
         <div className=" mx-auto text-center">
             <div className="flex items-center justify-center space-x-2">
+                <span className="mx-2">Your Referral Link : </span>
                 <a
                     href={referralLink}
                     target="_blank"

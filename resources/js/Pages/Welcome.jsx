@@ -173,40 +173,16 @@ export default function Welcome({ auth }) {
                 </section>
 
                 <section className="w-full border bg-[#EAF5FF] mt-10 px-16 pt-4">
-                    <div className="grid grid-cols-3 gap-4">
-                        <div className="col-span-1">
-                            <img src="/images/mobile_device.png" />
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                        <div>
+                            <img src="/images/mobile_device.png" alt="Mobile device" />
                         </div>
-                        <div className="col-span-1">
-                            <div className="flex items-center h-full">
-                                <div>
-                                    <h3>
-                                        Elevate your experience, Download our app now & manage your trips with a tap!
-                                    </h3>
-                                    <div className="text-blue-400 mt-4 flex-col">
-                                        <div className=" flex ">
-                                            <FaPercent className="p-1 h-4 w-4 text-white rounded-full bg-blue-500"/> Explore best deals on the app & exclusive discounts
-                                        </div>
-                                        <div className=" flex ">
-                                            <FaGift className="p-1 h-4 w-4 text-white rounded-full bg-blue-500"/> Receive real-time trip updates at your fingertips
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-span-1">
-                            <div className="flex items-center h-full">
-                                <div>
-                                    <img src="/images/playstore_icon.png" className="w-4/5" />
-                                    {/* OR */}
-                                    {/* <img src="/images/playsrote_image.webp" className="w-[80%]" /> */}
-                                </div>
-                                <h4>Coming soon</h4>
-                            </div>
+                        <div>
+                            <img src="/images/scanner.png" alt="Scanner" />
                         </div>
                     </div>
                 </section>
+
                 <section className="w-full border bg-gray-300 mt-10 px-16 py-4">
                     <InfoBox title="Top Flight Routes" content="  Abu Dhabi to Kutaisi Flight, Aqaba to Abu Dhabi Flight, Al Ain to Peshawar Flight, Kutaisi to Abu Dhabi Flight, Dubai to Quetta Flight, Dammam to Dubai Flight, Dubai to Dammam Flight, Alexandria to Abu Dhabi Flight, Doha to Abu Dhabi Flight, Abu Dhabi to Lahore Flight, Abu Dhabi to Bangkok Flight, Abu Dhabi to Islamabad Flight, Abu Dhabi to Peshawar Flight, Manila to Abu Dhabi Flight, Islamabad to Sharjah Flight, Islamabad to Dubai Flight, Dubai to Bahrain Flight, Beirut to Dubai Flight, Dubai to Bangkok Flight, Abu Dhabi to Beirut Flight, Abu Dhabi to Manila Flight, Amman to Dubai Flight, Dubai to Alexandria Flight, Dubai to Amsterdam Flight, Dubai to Cairo Flight, Dubai to Hong Kong Flight, Dubai to Istanbul Flight, Dubai to Jakarta Flight, Dubai to London Flight, Dubai to Mauritius Flight, Dubai to New York Flight, Dubai to Paris Flight, Dubai to Riyadh Flight, Dubai to Rome Flight, Dubai to Toronto Flight, Dubai to Zurich Flight, Dubai to Faisalabad Flight, Dubai to Lagos Flight, Dubai to Los Angeles Flight, Dubai to Phuket Flight, Manila to Dubai Flight, Abu Dhabi to Cairo Flight, Dubai to Athens Flight, Dubai to Casablanca Flight, Casablanca to Dubai Flight, Dubai to Beirut Flight, Dubai to Lahore Flight, Dubai to Seychelles Flight, Dubai to Amman Flight, Dubai to Entebbe Flight, Dubai to Peshawar Flight, Dubai to Tunis Flight, Abu Dhabi to Casablanca Flight"/>
                     <InfoBox title=" International Flight Routes" content="Abu Dhabi To Amman Flight, Abu Dhabi To Dhaka Flight, Abu Dhabi To Doha Flight, Abu Dhabi To Kathmandu Flight, Cairo To Sharjah Flight, Dhaka To Sharjah Flight, Kathmandu To Abu Dhabi Flight, Kathmandu To Sharjah Flight, Sharjah To Dhaka Flight, Sharjah To Islamabad Flight, Sharjah To Beirut Flight, Sharjah To Dhaka Flight, Sharjah To Kathmandu Flight, Karachi To Sharjah Flight, Sharjah To Istanbul Flight, Sharjah To Doha Flight, Dubai to Manila Flight, Dubai to Kuwait Flight, Dubai to Islamabad Flight, Dubai to Karachi Flight, Dubai to Kathmandu Flight, Dubai to Delhi Flight, Dubai to Mumbai Flight, Dubai to Chennai Flight, Dubai to Hyderabad Flight, Dubai to Mangalore Flight, Dubai to Kochi Flight, Mumbai to Dubai Flight, Mumbai to Trivandrum Flight, Sharjah to Trivandrum Flight, Ahmedabad to Dubai Flight, Kochi to Dubai Flight, Dubai to Kozhikode Flight, Amritsar to Dubai Flight, Sharjah to Kochi Flight, Trivandrum to Dubai Flight, Calicut to Dubai Flight, Kochi to Sharjah Flight, Dubai to Thiruvananthapuram Flight, Thiruvananthapuram to Sharjah Flight, Dubai to Abu Dhabi Flight, Dubai to Sialkot Flight"/>
@@ -231,7 +207,7 @@ export default function Welcome({ auth }) {
                         <div>
                             <h5>Q. How to find the best hotels near me?</h5>
                             <p className="text-xs mt-4">
-                                A. If you are travelling to a city for the first time and are looking for hotels in the best areas, it is easy to find them on our website and our app. Let’s say, you are going to Goa and planning to book one near the most happening beaches. Once you have hit the Search option, you will find a list of all the hotels in North Goa near the famed beach areas including Baga and Calangute. You can even find out which of the areas are ideal for couples and families. Similarly, if you are looking for booking hotels in Mumbai, you can either book ones that are near the city’s major business districts, tourist areas and transportation hubs.
+                                A. If you are travelling to a city for the first time and are looking for hotels in the best areas, it is easy to find them on our website and our app. Let’s say, you are going to Pattaya and planning to book one near the most happening beaches. Once you have hit the Search option, you will find a list of all the hotels in  Pattaya, Thailand near the famed beach areas including Baga and Calangute. You can even find out which of the areas are ideal for couples and families. Similarly, if you are looking for booking hotels in Mumbai, you can either book ones that are near the city’s major business districts, tourist areas and transportation hubs.
                             </p>
                         </div>
                     </div>

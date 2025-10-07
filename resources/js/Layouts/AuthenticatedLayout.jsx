@@ -6,6 +6,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import UserHeader from "@/Components/User/UserHeader.jsx";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
+import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -157,8 +158,17 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </nav>
 
+                <div
+                    className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform ${
+                        showingNavigationDropdown ? 'translate-x-0' : '-translate-x-full'
+                    } transition-transform duration-300 ease-in-out sm:hidden`}
+                >
+                    <AccountSidebar/>
+                </div>
+
+
                 {header && (
-                    <header className="bg-white shadow bg-[url('/images/dashboard_bg.png')] min-h-[220px]">
+                    <header className="bg-white shadow bg-[url('/images/dashboard_bg.png')] min-h-[260px]">
                         <UserHeader user={user} walletBalance={walletBalance}/>
                     </header>
                 )}
