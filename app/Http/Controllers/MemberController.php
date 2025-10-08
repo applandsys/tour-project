@@ -172,4 +172,55 @@ class MemberController extends Controller
 
 
 
+    public function BackOffice(){
+        return Inertia::render('User/BackOffice', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+
+    public function ProfileSettings(){
+        return Inertia::render('User/ProfileSetting', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+
+    public function GiftCards(){
+        return Inertia::render('User/GiftCard', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+
+    public function WithdrawFund(){
+        return Inertia::render('User/WithdrawFund', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+
+    public function Generation(){
+        return Inertia::render('User/Generation', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+
+    public function RankAchieved(){
+        return Inertia::render('User/RankAchieved', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
 }

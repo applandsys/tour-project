@@ -48,6 +48,15 @@ Route::middleware('auth')->group(function () {
     Route::get('user/deposit',[MemberController::class,'Page'])->name('member.deposit');
     Route::get('user/package/payment/{id}', [MemberController::class, 'Payment'])->name('member.package.payment');
     Route::post('user/package/payment-process', [MemberController::class, 'PaymentProcess'])->name('member.package.paymentProcess');
+
+    Route::get('user/back-office',[MemberController::class,'BackOffice'])->name('member.back-office');
+    Route::get('user/profile-settings',[MemberController::class,'ProfileSettings'])->name('member.profile-settings');
+    Route::get('user/gift-cards',[MemberController::class,'GiftCards'])->name('member.gift-cards');
+    Route::get('user/purchase-tour-package',[PurchaseController::class,'PurchasePackage'])->name('member.purchase-tour-package');
+    Route::get('user/withdraw-fund',[MemberController::class,'WithdrawFund'])->name('member.withdraw-fund');
+    Route::get('user/generation',[MemberController::class,'Generation'])->name('member.generation');
+    Route::get('user/rank-achieved',[MemberController::class,'RankAchieved'])->name('member.rank-achieved');
+
 });
 
 

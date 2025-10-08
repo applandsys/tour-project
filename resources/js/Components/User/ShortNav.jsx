@@ -12,12 +12,12 @@ const ShortNav = ({user}) => {
     }
 
     return (
-        <>
+        <div className="flex">
                 <div className="">
-                    <img src="/images/crown.png" className="h-6"/>
+                    <img src="/images/crown.png" className="h-8"/>
                 </div>
                 <div className="flex">
-                    <div className="bg-gray-100 bg-opacity-50 rounded-full h-6 w-6 mx-2">
+                    <div className="bg-gray-100 bg-opacity-50 rounded-full h-8 w-8 mx-2">
                         <img src="/images/wallet_icon.png" className=""/>
                     </div>
                     <div>
@@ -26,7 +26,7 @@ const ShortNav = ({user}) => {
                     </div>
                 </div>
                 <div className="flex item-center justify-center">
-                    <div className="bg-gray-100 bg-opacity-50 rounded-full h-6 w-6 mx-2">
+                    <div className="bg-gray-100 bg-opacity-50 rounded-full h-8 w-8 mx-2">
                         <img src="/images/wallet_icon.png" className=""/>
                     </div>
                     <div>
@@ -87,9 +87,7 @@ const ShortNav = ({user}) => {
                         </Dropdown.Content>
                     </Dropdown>
                 </div>
-
-
-        </>
+        </div>
     );
 };
 

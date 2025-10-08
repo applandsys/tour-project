@@ -1,5 +1,6 @@
 import {FaBusinessTime, FaCrown, FaDollarSign, FaGift, FaHome, FaMoneyBill, FaUser, FaVideo} from "react-icons/fa";
 import TotalEarnDropdown from "@/Components/User/TotalEarnDropdown.jsx";
+import { Link } from '@inertiajs/react';
 
 export default function AccountSidebar() {
     return (
@@ -13,37 +14,85 @@ export default function AccountSidebar() {
             <div className="space-y-2">
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaHome/>
-                    <span className="flex-1 text-left">Back Office</span>
+                    <span className="flex-1 text-left">
+                        <Link
+                        href={route('member.back-office')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >
+                            Back Office
+                        </Link>
+                    </span>
                     <span className="w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaUser/>
-                    <span className="flex-1 text-left">Profile Setting</span>
+                    <span className="flex-1 text-left">   <Link
+                        href={route('member.profile-settings')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >Profile Setting</Link></span>
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaGift/>
-                    <span className="flex-1 text-left">Gift Card</span>
+                    <span className="flex-1 text-left"><Link
+                        href={route('member.gift-cards')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >Gift Card</Link></span>
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaGift/>
-                    <span className="flex-1 text-left">Purchase Tour Package</span>
+                    <span className="flex-1 text-left"><Link
+                        href={route('member.purchase-tour-package')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >Purchase Tour Package</Link></span>
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaMoneyBill/>
-                    <span className="flex-1 text-left">Withdraw Fund</span>
+                    <span className="flex-1 text-left"><Link
+                        href={route('member.withdraw-fund')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >Withdraw Fund</Link></span>
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaMoneyBill/>
-                    <span className="flex-1 text-left">Generation</span>
+                    <span className="flex-1 text-left">
+                        <Link
+                        href={route('member.withdraw-fund')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >Generation</Link>
+                    </span>
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 
@@ -51,7 +100,14 @@ export default function AccountSidebar() {
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaCrown/>
-                    <span className="flex-1 text-left">Rank Achievement</span>
+                    <span className="flex-1 text-left">  <Link
+                        href={route('member.rank-achieved')}
+                        className={({ isActive }) =>
+                            `px-3 py-2 rounded ${
+                                isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                            }`
+                        }
+                    >Rank Achievement</Link></span>
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 

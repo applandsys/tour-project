@@ -76,11 +76,12 @@ export default function Welcome({ auth }) {
 
             <main className="flex-col">
                 <section className="relative w-full h-[500px] bg-[url('/images/top-bg.png')] bg-cover bg-center bg-no-repeat  ">
+
                     <div className="flex justify-between mx-auto px-2 p-2">
-                        <div className="">
+                        <div className="w-1/5">
                             <img src="/images/logo.jpg" className="w-[110px]"/>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="">
                         {
                             user ? (
                                 <>
