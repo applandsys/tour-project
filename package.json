@@ -39,6 +39,7 @@
         "@mui/x-date-pickers-pro": "^8.11.3",
         "country-flag-icons": "^1.5.21",
         "dayjs": "^1.11.18",
+        "framer-motion": "^12.23.22",
         "lucide-react": "^0.544.0",
         "react-icons": "^5.5.0",
         "react-router-dom": "^7.9.1",

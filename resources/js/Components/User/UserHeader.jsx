@@ -41,12 +41,12 @@ export default function UserHeader({ user, walletBalance }) {
                 <div className="flex justify-center sm:justify-end">
                     <div className="bg-black bg-opacity-80 rounded-md flex items-center justify-center h-10 sm:h-8 px-4 py-2 text-sm sm:text-base">
                         <img
-                            src="/images/my_wallet_icon.png"
+                            src="/images/wallet_icon.png"
                             alt="Wallet"
                             className="h-5 w-5 sm:h-6 sm:w-6 mx-1"
                         />
-                        Wallet&nbsp;US${walletBalance?.balance ?? 0}
-                        <FaArrowCircleRight className="text-blue-500 mx-2" />
+                        Wallet&nbsp;${walletBalance?.balance ?? 0}
+                        <FaArrowCircleRight className="text-yellow-500 mx-2" />
                     </div>
                 </div>
             </div>

@@ -10,6 +10,8 @@ import ShortNav from "@/Components/User/ShortNav.jsx";
 import LoginSignupModal from "@/Components/Site/LoginSignupModal.jsx";
 import {US} from "country-flag-icons/react/1x1";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
+import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
+import MemberCards from "@/Components/Site/MemberCards.jsx";
 
 export default function Welcome({ auth }) {
 
@@ -42,6 +44,8 @@ export default function Welcome({ auth }) {
     const queryParams = new URLSearchParams(url.split("?")[1]);
     const referral = queryParams.get("ref") || '';
 
+    const [showingNavigationDropdown, setShowingNavigationDropdown] =
+        useState(false);
 
     return (
         <>
@@ -64,7 +68,6 @@ export default function Welcome({ auth }) {
                     )
                 }
 
-
                 {/* ✅ Show header only if NOT authenticated */}
                 {user && (
                     <div className="bg-[#F1E0FA] flex items-center justify-center p-4">
@@ -75,11 +78,25 @@ export default function Welcome({ auth }) {
             </header>
 
             <main className="flex-col">
-                <section className="relative w-full h-[500px] bg-[url('/images/top-bg.png')] bg-cover bg-center bg-no-repeat  ">
-
+                <section className="relative w-full h-[700px] bg-[url('/images/top-bg.png')] bg-cover bg-center bg-no-repeat  ">
                     <div className="flex justify-between mx-auto px-2 p-2">
                         <div className="w-1/5">
-                            <img src="/images/logo.jpg" className="w-[110px]"/>
+                            <img src="/images/logo.jpg" className="w-[110px]" onClick={() =>
+                                setShowingNavigationDropdown(
+                                    (previousState) => !previousState,
+                                )
+                            } />
+                            <div
+                                className={`fixed inset-y-0 left-0 z-50 w-64  shadow-lg transform ${
+                                    showingNavigationDropdown ? 'translate-x-0' : '-translate-x-full'
+                                } transition-transform duration-300 ease-in-out bg-white`}
+                            >
+                                <AccountSidebar onClick={() =>
+                                    setShowingNavigationDropdown(
+                                        (previousState) => !previousState,
+                                    )
+                                }/>
+                            </div>
                         </div>
                         <div className="">
                         {
@@ -132,7 +149,7 @@ export default function Welcome({ auth }) {
                         </div>
                     </div>
 
-                    <div className="bg-white -m-16 rounded-md mx-8 p-4">
+                    <div className="bg-white rounded-md mx-8 p-4 mt-4">
                         {}
                         {selectedService==='hotels' &&(
                             <HotelSearch
@@ -153,14 +170,18 @@ export default function Welcome({ auth }) {
                                 showGuestBox={showGuestBox}
                                 showLocationBox={showLocationBox}/>
                         )}
-                    </div>
-                    <div className="flex item-center w-full justify-center mt-10">
-                        <button className="bg-sky-500 px-6 py-4 rounded-3xl text-white">SEARCH</button>
+                        <div className="flex item-center w-full justify-center mt-10">
+                            <button className="bg-sky-500 px-6 py-4 rounded-3xl text-white">SEARCH</button>
+                        </div>
                     </div>
                 </section>
 
+                <section className="md:w-1/2  mx-auto px-8 relative ">
+                   <MemberCards/>
+                </section>
+
                 <section className="w-full  mx-auto px-8 relative ">
-                    <div className="rounded-md bg-white p-8 my-20 border">
+                    <div className="rounded-md  p-8 my-20 border">
                         <div className="flex">
                             <h2 className="font-bold">Super Offers</h2>
                             <div className="flex mt-4 mx-8 gap-4 font-bold">
@@ -178,16 +199,18 @@ export default function Welcome({ auth }) {
                         <div>
                             <img src="/images/mobile_device.png" alt="Mobile device" />
                         </div>
+
                         <div>
-                            <img src="/images/scanner.png" alt="Scanner" />
+                            <h3>App Coming soon</h3>
+                            <img src="/images/playstore_icon.png" alt="Scanner"  className="max-w-[200px]"/>
                         </div>
                     </div>
                 </section>
 
                 <section className="w-full border bg-gray-300 mt-10 px-16 py-4">
-                    <InfoBox title="Top Flight Routes" content="  Abu Dhabi to Kutaisi Flight, Aqaba to Abu Dhabi Flight, Al Ain to Peshawar Flight, Kutaisi to Abu Dhabi Flight, Dubai to Quetta Flight, Dammam to Dubai Flight, Dubai to Dammam Flight, Alexandria to Abu Dhabi Flight, Doha to Abu Dhabi Flight, Abu Dhabi to Lahore Flight, Abu Dhabi to Bangkok Flight, Abu Dhabi to Islamabad Flight, Abu Dhabi to Peshawar Flight, Manila to Abu Dhabi Flight, Islamabad to Sharjah Flight, Islamabad to Dubai Flight, Dubai to Bahrain Flight, Beirut to Dubai Flight, Dubai to Bangkok Flight, Abu Dhabi to Beirut Flight, Abu Dhabi to Manila Flight, Amman to Dubai Flight, Dubai to Alexandria Flight, Dubai to Amsterdam Flight, Dubai to Cairo Flight, Dubai to Hong Kong Flight, Dubai to Istanbul Flight, Dubai to Jakarta Flight, Dubai to London Flight, Dubai to Mauritius Flight, Dubai to New York Flight, Dubai to Paris Flight, Dubai to Riyadh Flight, Dubai to Rome Flight, Dubai to Toronto Flight, Dubai to Zurich Flight, Dubai to Faisalabad Flight, Dubai to Lagos Flight, Dubai to Los Angeles Flight, Dubai to Phuket Flight, Manila to Dubai Flight, Abu Dhabi to Cairo Flight, Dubai to Athens Flight, Dubai to Casablanca Flight, Casablanca to Dubai Flight, Dubai to Beirut Flight, Dubai to Lahore Flight, Dubai to Seychelles Flight, Dubai to Amman Flight, Dubai to Entebbe Flight, Dubai to Peshawar Flight, Dubai to Tunis Flight, Abu Dhabi to Casablanca Flight"/>
+                    {/*<InfoBox title="Top Flight Routes" content="  Abu Dhabi to Kutaisi Flight, Aqaba to Abu Dhabi Flight, Al Ain to Peshawar Flight, Kutaisi to Abu Dhabi Flight, Dubai to Quetta Flight, Dammam to Dubai Flight, Dubai to Dammam Flight, Alexandria to Abu Dhabi Flight, Doha to Abu Dhabi Flight, Abu Dhabi to Lahore Flight, Abu Dhabi to Bangkok Flight, Abu Dhabi to Islamabad Flight, Abu Dhabi to Peshawar Flight, Manila to Abu Dhabi Flight, Islamabad to Sharjah Flight, Islamabad to Dubai Flight, Dubai to Bahrain Flight, Beirut to Dubai Flight, Dubai to Bangkok Flight, Abu Dhabi to Beirut Flight, Abu Dhabi to Manila Flight, Amman to Dubai Flight, Dubai to Alexandria Flight, Dubai to Amsterdam Flight, Dubai to Cairo Flight, Dubai to Hong Kong Flight, Dubai to Istanbul Flight, Dubai to Jakarta Flight, Dubai to London Flight, Dubai to Mauritius Flight, Dubai to New York Flight, Dubai to Paris Flight, Dubai to Riyadh Flight, Dubai to Rome Flight, Dubai to Toronto Flight, Dubai to Zurich Flight, Dubai to Faisalabad Flight, Dubai to Lagos Flight, Dubai to Los Angeles Flight, Dubai to Phuket Flight, Manila to Dubai Flight, Abu Dhabi to Cairo Flight, Dubai to Athens Flight, Dubai to Casablanca Flight, Casablanca to Dubai Flight, Dubai to Beirut Flight, Dubai to Lahore Flight, Dubai to Seychelles Flight, Dubai to Amman Flight, Dubai to Entebbe Flight, Dubai to Peshawar Flight, Dubai to Tunis Flight, Abu Dhabi to Casablanca Flight"/>*/}
                     <InfoBox title=" International Flight Routes" content="Abu Dhabi To Amman Flight, Abu Dhabi To Dhaka Flight, Abu Dhabi To Doha Flight, Abu Dhabi To Kathmandu Flight, Cairo To Sharjah Flight, Dhaka To Sharjah Flight, Kathmandu To Abu Dhabi Flight, Kathmandu To Sharjah Flight, Sharjah To Dhaka Flight, Sharjah To Islamabad Flight, Sharjah To Beirut Flight, Sharjah To Dhaka Flight, Sharjah To Kathmandu Flight, Karachi To Sharjah Flight, Sharjah To Istanbul Flight, Sharjah To Doha Flight, Dubai to Manila Flight, Dubai to Kuwait Flight, Dubai to Islamabad Flight, Dubai to Karachi Flight, Dubai to Kathmandu Flight, Dubai to Delhi Flight, Dubai to Mumbai Flight, Dubai to Chennai Flight, Dubai to Hyderabad Flight, Dubai to Mangalore Flight, Dubai to Kochi Flight, Mumbai to Dubai Flight, Mumbai to Trivandrum Flight, Sharjah to Trivandrum Flight, Ahmedabad to Dubai Flight, Kochi to Dubai Flight, Dubai to Kozhikode Flight, Amritsar to Dubai Flight, Sharjah to Kochi Flight, Trivandrum to Dubai Flight, Calicut to Dubai Flight, Kochi to Sharjah Flight, Dubai to Thiruvananthapuram Flight, Thiruvananthapuram to Sharjah Flight, Dubai to Abu Dhabi Flight, Dubai to Sialkot Flight"/>
-                    <InfoBox title=" International Flight Routes" content=" Hotels In Dubai, Hotels In Abu Dhabi, Hotels In Sharjah, Hotels In Ras Al Khaimah, Hotels In Ajman, Hotels In Fujairah, Hotels In Al Ain, Hotels In Kalba, Hotels In Singapore, Hotels In Bangkok, Hotels In Pattaya, Hotels In London, Hotels In Phuket, Hotels In Bali, Hotels In Hong Kong, Hotels In Paris, Hotels In Koh Samui, Hotels In New York, Hotels In Las Vegas, Hotels In Colombo, Hotels In Macau, Hotels In Kuala Lumpur, Hotels In Sydney, Hotels In Kathmandu, Hotels In Maldives, Hotels In Langkawi, Hotels In Istanbul, Hotels In Rome, Hotels in Tbilisi, Hotels in Baku, Hotels in Cairo, Hotels in Islamabad, Hotels in Muscat, Hotels in Mykonos, Hotels in Santorini, Hotels in Mykonos, Hotels in Yerevan, Hotels in Zanzibar, Hotels in Moscow"/>
+
                     <InfoBox title="International Hotels" content="Hotels In Dubai, Hotels In Abu Dhabi, Hotels In Sharjah, Hotels In Ras Al Khaimah, Hotels In Ajman, Hotels In Fujairah, Hotels In Al Ain, Hotels In Kalba, Hotels In Singapore, Hotels In Bangkok, Hotels In Pattaya, Hotels In London, Hotels In Phuket, Hotels In Bali, Hotels In Hong Kong, Hotels In Paris, Hotels In Koh Samui, Hotels In New York, Hotels In Las Vegas, Hotels In Colombo, Hotels In Macau, Hotels In Kuala Lumpur, Hotels In Sydney, Hotels In Kathmandu, Hotels In Maldives, Hotels In Langkawi, Hotels In Istanbul, Hotels In Rome, Hotels in Tbilisi, Hotels in Baku, Hotels in Cairo, Hotels in Islamabad, Hotels in Muscat, Hotels in Mykonos, Hotels in Santorini, Hotels in Mykonos, Hotels in Yerevan, Hotels in Zanzibar, Hotels in Moscow"/>
                     <InfoBox title="Top Hotels" content="  Paramount Hotel Dubai, Grand Hyatt Dubai, Jw Marriott Marquis Hotel Dubai, Gevora Hotel, Jumeirah Beach Hotel, Citymax Hotel Bur Dubai, Atana Hotel, Sheraton Grand Hotel Dubai, Millennium Airport Hotel Dubai, Media One Hotel, Grand Excelsior Hotel Bur Dubai, Ghaya Grand Hotel, Marco Polo Hotel, Copthorne Hotel Dubai, Kempinski Hotel Mall Of The Emirates, The Meydan Hotel, Park Regis Kris Kin Hotel, Armani Hotel Dubai, York International Hotel, Signature 1 Hotel Tecom"/>
                     <InfoBox title=" Airlines" content="  Indigo, Emirates, Spicejet, Air India, Air India Express, Vistara, Biman Bangladesh, Gulf Air, Qatar Airways, Etihad Airways, Flydubai, Kuwait Airways, Oman Air, Thai Airways, Royal Nepal Airlines, Turkish Airlines, Srilankan Airlines, Air Arabia, Airblue"/>
@@ -208,7 +231,7 @@ export default function Welcome({ auth }) {
                         <div>
                             <h5>Q. How to find the best hotels near me?</h5>
                             <p className="text-xs mt-4">
-                                A. If you are travelling to a city for the first time and are looking for hotels in the best areas, it is easy to find them on our website and our app. Let’s say, you are going to Pattaya and planning to book one near the most happening beaches. Once you have hit the Search option, you will find a list of all the hotels in  Pattaya, Thailand near the famed beach areas including Baga and Calangute. You can even find out which of the areas are ideal for couples and families. Similarly, if you are looking for booking hotels in Mumbai, you can either book ones that are near the city’s major business districts, tourist areas and transportation hubs.
+                                A. If you are travelling to a city for the first time and are looking for hotels in the best areas, it is easy to find them on our website and our app. Let’s say, you are going to Pattaya and planning to book one near the most happening beaches. Once you have hit the Search option, you will find a list of all the hotels in  Pattaya, Thailand near the famed beach areas including Phuket and Pattaya. You can even find out which of the areas are ideal for couples and families. Similarly, if you are looking for booking hotels in Dubai, you can either book ones that are near the city’s major business districts, tourist areas and transportation hubs.
                             </p>
                         </div>
                     </div>

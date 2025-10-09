@@ -214,11 +214,12 @@ class MemberController extends Controller
         ]);
     }
 
-
-
-
-
-
+    public function TransactionPassword(){
+        return Inertia::render('User/TransactionPassword', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
 
 
 

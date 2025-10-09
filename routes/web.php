@@ -57,11 +57,15 @@ Route::middleware('auth')->group(function () {
     Route::get('user/generation',[MemberController::class,'Generation'])->name('member.generation');
     Route::get('user/rank-achieved',[MemberController::class,'RankAchieved'])->name('member.rank-achieved');
 
+    Route::post('user/reset-transaction-password', [MemberCreateController::class,'TransactionPassword'])->name('member.transaction-password');
+
 });
 
 
 Route::post('/signup-step-one', [MemberCreateController::class,'Signup'])->name('signup.step.one');
 Route::post('/signup-otp-verify', [MemberCreateController::class,'Verify'])->name('signup.otp.verify');
 Route::post('/modal-login', [MemberCreateController::class,'Login'])->name('signup.step.one');
+
+
 
 require __DIR__.'/auth.php';

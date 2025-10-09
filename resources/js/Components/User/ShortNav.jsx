@@ -16,13 +16,13 @@ const ShortNav = ({user}) => {
                 <div className="">
                     <img src="/images/crown.png" className="h-8"/>
                 </div>
-                <div className="flex">
+                <div className="flex text-[#FFD700]">
                     <div className="bg-gray-100 bg-opacity-50 rounded-full h-8 w-8 mx-2">
                         <img src="/images/wallet_icon.png" className=""/>
                     </div>
                     <div>
-                        <div className="text-xs text-white">US$ {walletBalance?.balance || 0}</div>
-                        <div className="text-xs text-gray-300 ">In your wallet</div>
+                        <div className="text-xs text-[#FFD700] font-bold">$ {walletBalance?.balance || 0}</div>
+                        <div className="text-xs bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-600 text-transparent bg-clip-text ">Wallet Balance</div>
                     </div>
                 </div>
                 <div className="flex item-center justify-center">
@@ -30,8 +30,8 @@ const ShortNav = ({user}) => {
                         <img src="/images/wallet_icon.png" className=""/>
                     </div>
                     <div>
-                        <div className="text-xs text-white">My Trips</div>
-                        <div className="text-xs text-gray-300">Manage your booking</div>
+                        <div className="text-xs text-[#FFD700] font-bold">$0000</div>
+                        <div className="text-xs bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-600 text-transparent bg-clip-text">My Tour Package</div>
                     </div>
                 </div>
                 <div className="flex item-center justify-center">
@@ -52,7 +52,7 @@ const ShortNav = ({user}) => {
                                                 className="inline-flex  rounded-md border border-transparent  text-white px-3 py-2  font-medium leading-4  transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none"
                                             >
                                                 <div className="flex-col">
-                                                    <div>Hi,  {getFirstName(user.name)} ({user.unique_id})</div>
+                                                    <div className=""><span className='bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-transparent bg-clip-text font-bold '>Hi,  {getFirstName(user.name)}</span> <span className="font-bold text-yellow-400">({user.unique_id})</span></div>
                                                     {/*<div className="text-xs"></div>*/}
                                                 </div>
                                                 <svg
@@ -76,6 +76,16 @@ const ShortNav = ({user}) => {
                                 href={route('dashboard')}
                             >
                                 Profile
+                            </Dropdown.Link>
+                            <Dropdown.Link
+                                href={route('password.request')}
+                            >
+                                Reset Password
+                            </Dropdown.Link>
+                            <Dropdown.Link
+                                href={route('member.transaction-password')}
+                            >
+                                Trans Password
                             </Dropdown.Link>
                             <Dropdown.Link
                                 href={route('logout')}

@@ -1,12 +1,11 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import UserHeader from "@/Components/User/UserHeader.jsx";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
 import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
+import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -20,22 +19,36 @@ export default function AuthenticatedLayout({ header, children }) {
         <>
             <header>
                 {/* ✅ Show header only if NOT authenticated */}
-                {user && (
-                    <div className="bg-[#F1E0FA] flex items-center justify-center p-4">
-                        <ReferralLink user={user}/>
-                    </div>
-                )
+                    {user && (
+                        <div className="bg-[#F1E0FA] flex items-center justify-center p-4">
+                            <ReferralLink user={user}/>
+                        </div>
+                    )
                 }
             </header>
+
             <div className="min-h-screen bg-gray-100">
                 <nav className="border-b border-gray-100 bg-white">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex h-16 justify-between">
                             <div className="flex">
                                 <div className="flex shrink-0 items-center">
-                                    <Link href="/">
+                                    <div onClick={() =>
+                                        setShowingNavigationDropdown(
+                                            (previousState) => !previousState,
+                                        )
+                                    } >
                                         <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                    </Link>
+                                        <div
+                                            className={`fixed inset-y-0 left-0 z-50 w-64  shadow-lg transform ${
+                                                showingNavigationDropdown ? 'translate-x-0' : '-translate-x-full'
+                                            } transition-transform duration-300 ease-in-out bg-white`}
+                                        >
+                                            <AccountSidebar onClick={() =>
+                                                setShowingNavigationDropdown(false)
+                                            }/>
+                                        </div>
+                                    </div>
                                     <div className="flex flex-col justify-center items-center px-2">
                                         <div className="items-center flex">
                                             <img src="/images/plane_icon_gray.png" className="h-8 w-8"/>
@@ -62,12 +75,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <div className="px-4 flex">
                                             <img src="/images/wallet_icon.png"/>
                                             <div>
-                                                <div className="font-bold">US$  {walletBalance?.balance || 0}</div>
-                                                <div className="text-xs">In your GT Wallet</div>
+                                                <div className="font-bold">$  {walletBalance?.balance || 0}</div>
+                                                <div className="text-xs">Your Wallet</div>
                                             </div>
                                         </div>
                                         <div
-                                            className="mt-1 w-6 h-6 flex items-center justify-center rounded-full bg-blue-500 text-white text-xl font-bold p-2">
+                                            className="mt-1 w-6 h-6 flex items-center justify-center rounded-full bg-yellow-500 text-white text-xl font-bold p-2">
                                             T
                                         </div>
                                         <Dropdown>
@@ -168,8 +181,8 @@ export default function AuthenticatedLayout({ header, children }) {
 
 
                 {header && (
-                    <header className="bg-white shadow bg-[url('/images/dashboard_bg.png')] min-h-[260px]">
-                        <UserHeader user={user} walletBalance={walletBalance}/>
+                    <header className="bg-white shadow bg-[url('/images/dashboard_bg.png')] bg-no-repeat bg-cover min-h-[260px]">
+                        <UserHeader user={user} walletBalance={walletBalance} />
                     </header>
                 )}
                 <main>{children}</main>

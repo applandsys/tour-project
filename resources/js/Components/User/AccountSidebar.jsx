@@ -1,17 +1,40 @@
-import {FaBusinessTime, FaCrown, FaDollarSign, FaGift, FaHome, FaMoneyBill, FaUser, FaVideo} from "react-icons/fa";
+import {
+    FaBusinessTime,
+    FaCross,
+    FaCrown,
+    FaDollarSign,
+    FaGift,
+    FaHome,
+    FaMoneyBill,
+    FaUser,
+    FaVideo
+} from "react-icons/fa";
 import TotalEarnDropdown from "@/Components/User/TotalEarnDropdown.jsx";
 import { Link } from '@inertiajs/react';
+import {FaXmark} from "react-icons/fa6";
 
-export default function AccountSidebar() {
+export default function AccountSidebar({onClick}) {
     return (
         <div className="w-full  p-4  ">
             {/* Heading */}
-            <h3 className="text-xs font-semibold text-gray-500 mb-4">
-                Member Area
-            </h3>
+            <div className="flex justify-between">
+                <h3 className="text-xs font-semibold text-gray-500 mb-4">
+                    Member Area
+                </h3>
+                <div
+                    className="flex flex-end text-right cursor-pointer"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onClick();
+                    }}
+                >
+                    <FaXmark />
+                </div>
+            </div>
 
             {/* Profile */}
             <div className="space-y-2">
+
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaHome/>
                     <span className="flex-1 text-left">
@@ -135,42 +158,42 @@ export default function AccountSidebar() {
             <div className="my-6 border-t"></div>
 
             {/* Reset Password */}
-            <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 15v2m0 4a9 9 0 100-18 9 9 0 000 18z"
-                    />
-                </svg>
-                <span>Reset Password</span>
-            </button>
+            {/*<button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50">*/}
+            {/*    <svg*/}
+            {/*        xmlns="http://www.w3.org/2000/svg"*/}
+            {/*        className="h-5 w-5 text-gray-500"*/}
+            {/*        fill="none"*/}
+            {/*        viewBox="0 0 24 24"*/}
+            {/*        stroke="currentColor"*/}
+            {/*    >*/}
+            {/*        <path*/}
+            {/*            strokeLinecap="round"*/}
+            {/*            strokeLinejoin="round"*/}
+            {/*            strokeWidth={2}*/}
+            {/*            d="M12 15v2m0 4a9 9 0 100-18 9 9 0 000 18z"*/}
+            {/*        />*/}
+            {/*    </svg>*/}
+            {/*    <span>Reset Password</span>*/}
+            {/*</button>*/}
 
             {/* Logout */}
-            <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    />
-                </svg>
-                <span>Logout</span>
-            </button>
+            {/*<button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50">*/}
+            {/*    <svg*/}
+            {/*        xmlns="http://www.w3.org/2000/svg"*/}
+            {/*        className="h-5 w-5 text-gray-500"*/}
+            {/*        fill="none"*/}
+            {/*        viewBox="0 0 24 24"*/}
+            {/*        stroke="currentColor"*/}
+            {/*    >*/}
+            {/*        <path*/}
+            {/*            strokeLinecap="round"*/}
+            {/*            strokeLinejoin="round"*/}
+            {/*            strokeWidth={2}*/}
+            {/*            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"*/}
+            {/*        />*/}
+            {/*    </svg>*/}
+            {/*    <span>Logout</span>*/}
+            {/*</button>*/}
         </div>
     );
 }
