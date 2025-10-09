@@ -31,7 +31,10 @@ export default function PurchasePackage({packages}) {
                         </div>
                         <div className="flex">
                             <div className="flex">
-                                <div className="bg-black bg-opacity-80  rounded-md flex items-center justify-center h-8 p-2"><img src="/images/my_wallet_icon.png" className="h-6 w-6 mx-1"/> Wallet BDT. 3000 <FaArrowCircleRight className="text-blue-500 mx-2"/></div>
+                                <div className="bg-black bg-opacity-80  rounded-md flex items-center justify-center h-8 p-2">
+                                    <img src="/images/my_wallet_icon.png" className="h-6 w-6 mx-1"/>
+                                    Wallet $ 3000 <FaArrowCircleRight className="text-blue-500 mx-2"/>
+                                </div>
                             </div>
                         </div>
                     </div>

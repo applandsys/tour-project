@@ -1,7 +1,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import UserHeader from "@/Components/User/UserHeader.jsx";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
 import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
@@ -15,6 +15,10 @@ export default function AuthenticatedLayout({ header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+    function getFirstName(fullName) {
+        if (!fullName) return "";
+        return fullName.trim().split(" ")[0];
+    }
     return (
         <>
             <header>
@@ -88,10 +92,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                                className="inline-flex  rounded-md border border-transparent  text-white px-3 py-2  font-medium leading-4  transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none"
                                             >
-                                                {user.name}
-
+                                                <div className="flex-col">
+                                                    <div className=""><span className='bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-transparent bg-clip-text font-bold '>Hi,  {getFirstName(user.name)}</span> <span className="font-bold text-yellow-400">({user.unique_id})</span></div>
+                                                    {/*<div className="text-xs"></div>*/}
+                                                </div>
                                                 <svg
                                                     className="-me-0.5 ms-2 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +116,19 @@ export default function AuthenticatedLayout({ header, children }) {
 
                                             <Dropdown.Content>
                                                 <Dropdown.Link
-                                                    href={route('profile.edit')}
+                                                    href={route('dashboard')}
                                                 >
                                                     Profile
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route('member.reset-password')}
+                                                >
+                                                    Reset Password
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route('member.transaction-password')}
+                                                >
+                                                    Trans Password
                                                 </Dropdown.Link>
                                                 <Dropdown.Link
                                                     href={route('logout')}
@@ -171,13 +187,6 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </nav>
 
-                <div
-                    className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform ${
-                        showingNavigationDropdown ? 'translate-x-0' : '-translate-x-full'
-                    } transition-transform duration-300 ease-in-out sm:hidden`}
-                >
-                    <AccountSidebar/>
-                </div>
 
 
                 {header && (

@@ -13,16 +13,15 @@ export default function Dashboard() {
             header={
                 <div>
                     <h2 className="text-xl font-semibold leading-tight text-white">
-                        Home 	&#8594; My Account
+                        Home 	&#8594; Transfer Balance
                     </h2>
                 </div>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Balance Transfer" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {JSON.stringify(user.is_franchaise)}
-                    <ProfileForm user={user}/>
+                    Transfer balance
                 </div>
             </div>
         </AuthenticatedLayout>

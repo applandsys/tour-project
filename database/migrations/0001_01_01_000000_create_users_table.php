@@ -26,6 +26,7 @@ return new class extends Migration
             $table->integer('referrer')->default(0);
             $table->integer('otp')->default(4478);
             $table->boolean("otp_verified")->default(false);
+            $table->string("is_franchaise")->default('no');
             $table->rememberToken();
             $table->timestamps();
         });

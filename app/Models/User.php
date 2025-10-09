@@ -47,7 +47,8 @@ class User extends Authenticatable
         'phone',
         'unique_id',
         'referrer',
-        'otp_verified'
+        'otp_verified',
+        'is_franchaise'
     ];
 
 

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\WalletBalance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class MemberController extends Controller
@@ -220,7 +221,61 @@ class MemberController extends Controller
             'status' => session('status'),
         ]);
     }
+    public function ResetPassword(){
+        return Inertia::render('User/ResetPassword', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
+    public function update(Request $request)
+    {
 
+        $type = $request->type;
+        $message = "";
+
+        $request->validate([
+            'oldPassword' => ['required'],
+            'newPassword' => ['required', 'min:8', 'confirmed'], // confirm field should be newPassword_confirmation
+        ]);
+
+        $user = $request->user();
+
+
+        // Update password
+        if( $type==="transaction"){
+            // Check if old password matches
+//            if (!Hash::check($request->oldPassword, $user->transaction_password)) {
+//                return back()->withErrors(['oldPassword' => 'Your transaction current password is incorrect.']);
+//            }
+
+            $user->update([
+                'transaction_password' => Hash::make($request->newPassword),
+            ]);
+
+            $message = 'Transaction Password   updated successfully!';
+        }else{
+            // Check if old password matches
+            if (!Hash::check($request->oldPassword, $user->password)) {
+                return back()->withErrors(['oldPassword' => 'Your current password is incorrect.']);
+            }
+
+            $user->update([
+                'password' => Hash::make($request->newPassword),
+            ]);
+
+            $message = 'Password   updated successfully!';
+        }
+
+
+        return back()->with('success', $message);
+    }
+
+    public function TransferBalance(){
+        return Inertia::render('User/TransferBalance', [
+            'stats' => [],
+            'status' => session('status'),
+        ]);
+    }
 
 
 

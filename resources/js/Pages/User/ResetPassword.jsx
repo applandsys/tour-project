@@ -42,7 +42,7 @@ export default function TransactionPassword() {
             <Head title="Back Office" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <ResetPasswordForm passType="transaction"/>
+                    <ResetPasswordForm passType="regular"/>
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -15,7 +15,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/home', function () {
     return Inertia::render('Home', [
@@ -57,7 +57,11 @@ Route::middleware('auth')->group(function () {
     Route::get('user/generation',[MemberController::class,'Generation'])->name('member.generation');
     Route::get('user/rank-achieved',[MemberController::class,'RankAchieved'])->name('member.rank-achieved');
 
-    Route::post('user/reset-transaction-password', [MemberCreateController::class,'TransactionPassword'])->name('member.transaction-password');
+    Route::get('user/reset-transaction-password', [MemberController::class,'TransactionPassword'])->name('member.transaction-password');
+    Route::get('user/reset-password', [MemberController::class,'ResetPassword'])->name('member.reset-password');
+    Route::post('/user/update-password', [MemberController::class, 'update'])->name('user.password.update');
+
+    Route::post('user/transfer-balance', [MemberController::class,'TransferBalance'])->name('member.transfer-balance');
 
 });
 

@@ -25,10 +25,11 @@ class PurchaseController extends Controller
 
 
         $packageId = $request->packageId;
-        $inputAmount = $request->amount;
+        $inputAmount = (int)$request->amount;
         $transactionPassword = $request->transactionPassword;
         // check the GT user exist
         $GTUser = User::where('unique_id',$request->userId)->first();
+
 
         if(!$GTUser){
             return back()->withErrors([
@@ -50,9 +51,12 @@ class PurchaseController extends Controller
         $package = Package::find($packageId);
         $amount =  $package->amount;
 
+       // dd([$inputAmount, $package->amount] );
+
+
         if($inputAmount !== $amount){
             return back()->withErrors([
-                'input_amount' => 'Wrong Amount is Incorrect',
+                'input_amount' => 'Amount is Incorrect',
             ]);
         }
 

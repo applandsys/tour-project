@@ -10,12 +10,15 @@ import {
     FaVideo
 } from "react-icons/fa";
 import TotalEarnDropdown from "@/Components/User/TotalEarnDropdown.jsx";
-import { Link } from '@inertiajs/react';
+import {Link, usePage} from '@inertiajs/react';
 import {FaXmark} from "react-icons/fa6";
 
 export default function AccountSidebar({onClick}) {
+
+    const user = usePage().props.auth.user;
     return (
         <div className="w-full  p-4  ">
+
             {/* Heading */}
             <div className="flex justify-between">
                 <h3 className="text-xs font-semibold text-gray-500 mb-4">
@@ -33,13 +36,14 @@ export default function AccountSidebar({onClick}) {
             </div>
 
             {/* Profile */}
-            <div className="space-y-2">
+            <div className="space-y-2 text-xs">
+
 
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaHome/>
                     <span className="flex-1 text-left">
                         <Link
-                        href={route('member.back-office')}
+                        href={route('home')}
                         className={({ isActive }) =>
                             `px-3 py-2 rounded ${
                                 isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
@@ -146,6 +150,27 @@ export default function AccountSidebar({onClick}) {
                     <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
                 </button>
 
+                {
+                    user && user.is_franchaise ==="yes" && (
+                        <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
+                            <FaMoneyBill/>
+                            <span className="flex-1 text-left">
+                         <Link
+                             href={route('member.withdraw-fund')}
+                             className={({ isActive }) =>
+                                 `px-3 py-2 rounded ${
+                                     isActive ? 'bg-blue-600 text-white' : 'text-gray-700'
+                                 }`
+                             }
+                         >
+                        Transfer Balance
+                         </Link>
+                    </span>
+                            <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
+                        </button>
+                    )
+                }
+
                 <button className="flex items-center gap-2 w-full px-3 py-2 rounded-lg bg-blue-50 text-gray-900 font-medium">
                     <FaBusinessTime/>
                     <span className="flex-1 text-left">Support Tickets</span>
@@ -194,6 +219,8 @@ export default function AccountSidebar({onClick}) {
             {/*    </svg>*/}
             {/*    <span>Logout</span>*/}
             {/*</button>*/}
+
+
         </div>
     );
 }

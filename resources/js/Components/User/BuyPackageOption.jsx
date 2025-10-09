@@ -101,7 +101,7 @@ const BuyPackageOption = ({user,packages}) => {
 
                         <div className=" border border-gray-300 p-2 rounded-md  bg-blue-100 mt-4">
                             <div>
-                                 Available Balance: <span className="font-bold "> BDT. {walletBalance.balance} </span>
+                                 Available Balance: <span className="font-bold "> $ {walletBalance.balance} </span>
                             </div>
 
                         </div>
