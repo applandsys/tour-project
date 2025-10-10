@@ -5,6 +5,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\MemberCreateController;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -42,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('subscription',[PurchaseController::class,'Subscription'])->name('member.subscription');
 
     Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
+    Route::get('user/purchase-package-success/{package}/{purchase}',[PurchaseController::class,'PurchasePackageSuccess'])->name('member.purchase-package-success');
 
     Route::post('gt-user',[MemberController::class, 'GTUser'])->name('member.gtuser');
 
@@ -54,14 +56,23 @@ Route::middleware('auth')->group(function () {
     Route::get('user/gift-cards',[MemberController::class,'GiftCards'])->name('member.gift-cards');
     Route::get('user/purchase-tour-package',[PurchaseController::class,'PurchasePackage'])->name('member.purchase-tour-package');
     Route::get('user/withdraw-fund',[MemberController::class,'WithdrawFund'])->name('member.withdraw-fund');
+
+    Route::post('user/withdraw-process', [MemberController::class,'WithdrawProcess'])->name('member.withdraw-process');
+
+
     Route::get('user/generation',[MemberController::class,'Generation'])->name('member.generation');
+
     Route::get('user/rank-achieved',[MemberController::class,'RankAchieved'])->name('member.rank-achieved');
 
     Route::get('user/reset-transaction-password', [MemberController::class,'TransactionPassword'])->name('member.transaction-password');
     Route::get('user/reset-password', [MemberController::class,'ResetPassword'])->name('member.reset-password');
-    Route::post('/user/update-password', [MemberController::class, 'update'])->name('user.password.update');
 
-    Route::post('user/transfer-balance', [MemberController::class,'TransferBalance'])->name('member.transfer-balance');
+    Route::post('user/update-password', [MemberController::class, 'update'])->name('user.password.update');
+
+    Route::get('user/transfer-balance', [MemberController::class,'TransferBalance'])->name('member.transfer-balance');
+
+    Route::post('user/transfer-balance-process',  [MemberController::class,'TransferBalanceProcess'])->name('member.balance-transfer-process');
+
 
 });
 

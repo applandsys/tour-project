@@ -30,6 +30,52 @@ class User extends Authenticatable
         return $uniqueId;
     }
 
+//    public function referredUsers()
+//    {
+//        return $this->hasMany(User::class, 'referrer', 'id')
+//            ->with(['purchasePackages', 'referredUsers']);
+//    }
+
+    public function referredUsers()
+    {
+        return $this->hasMany(User::class, 'referrer', 'id')
+            ->with(['purchasePackages', 'referredUsers']);
+    }
+
+    /**
+     * Recursively collect all referred users with their level.
+     */
+    public function getReferralsWithLevel($level = 1)
+    {
+        $referrals = collect();
+
+        foreach ($this->referredUsers as $referral) {
+            // Attach level info
+            $referral->level = $level;
+
+            // Add current referral
+            $referrals->push($referral);
+
+            // Recursively collect child referrals
+            $referrals = $referrals->merge(
+                $referral->getReferralsWithLevel($level + 1)
+            );
+        }
+
+        return $referrals;
+    }
+
+
+    public function referrerUser()
+    {
+        return $this->belongsTo(User::class, 'referrer');
+    }
+
+    public function purchasePackages()
+    {
+        return $this->hasMany(PurchasePackage::class, 'user_id', 'id');
+    }
+
 
     /**
      * The attributes that are mass assignable.

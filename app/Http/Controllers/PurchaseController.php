@@ -5,20 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\CommissionLevel;
 use App\Models\Package;
+use App\Models\PurchasePackage;
 use App\Models\TransactionHistory;
 use App\Models\User;
 use App\Models\WalletBalance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class PurchaseController extends Controller
 {
     public function PurchasePackage(){
+
+        $user =  Auth::user();
+
+        $purchase_history =  PurchasePackage::where('user_id', $user->id)->with('package')->get();
+
         return Inertia::render('User/PurchasePackage', [
             'packages' => Package::all(),
+            'purchaseHistory' => $purchase_history,
             'status' => session('status'),
         ]);
+
+
     }
 
     public function PackageBuyProcess(Request $request) {
@@ -83,13 +93,28 @@ class PurchaseController extends Controller
 
         TransactionHistory::create([
             'user_id' => $user_id,
-            'package_id' => 1,
+            'package_id' =>  $package->id,
             'transaction_type'=>'purchase-package',
             'amount' => $amount
         ]);
 
+        $now = Carbon::now();
+        // after 24 months (approx. 24 × 30 days)
+        $after24Months = Carbon::now()->addDays(24 * 30);
+
+        // or, if you prefer actual calendar months:
+        $after24RealMonths = Carbon::now()->addMonths(24);
+
+       $purchase=  PurchasePackage::create([
+            'user_id' => $GTUserId,
+            'package_id' => $package->id,
+            'to_date' =>   $now ,
+            'from_date' =>   $after24RealMonths ,
+            'amount' => $amount
+        ]);
+
         // Fetch the user chain in descending order (starting from the top-level referrer)
-        $userChain = $this->getReferralChainDescending($GTUserId, 6);
+        $userChain = $this->getReferralChainDescending($GTUserId, 3);
 
         for($i=0 ; $i<count($userChain); $i++) {
 
@@ -114,8 +139,19 @@ class PurchaseController extends Controller
                 ]);
         }
 
-        return redirect()->route('member.deposit')->with('success', 'Payment processed successfully!');
+        return redirect()
+            ->route('member.purchase-package-success', ['package' => $package->id,'purchase'=>$purchase->id])
+            ->with('success', 'Payment processed successfully!');
+    }
 
+    public function PurchasePackageSuccess($package,$purchase){
+        $PackageDetail = Package::find($package);
+        $Purchase = PurchasePackage::find($purchase);
+        return Inertia::render('User/PurchasePackageSuccess', [
+            'purchase'=>$Purchase,
+            'packageDetail' =>  $PackageDetail,
+            'status' => session('status'),
+        ]);
     }
 
     private function getReferralChainDescending($userId, $maxLevels, $currentLevel = 0) {

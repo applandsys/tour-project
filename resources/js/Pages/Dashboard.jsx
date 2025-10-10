@@ -21,7 +21,6 @@ export default function Dashboard() {
             <Head title="Dashboard" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {JSON.stringify(user.is_franchaise)}
                     <ProfileForm user={user}/>
                 </div>
             </div>

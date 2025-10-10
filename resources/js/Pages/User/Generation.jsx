@@ -1,13 +1,16 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, usePage} from '@inertiajs/react';
+import {Head, Link, usePage} from '@inertiajs/react';
 import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
+import CommonTable from "@/Components/UI/CommonTable.jsx";
+import {formatDate} from "@/utils.js";
 
-export default function Generation() {
+export default function Generation({myReferrals,directRefer}) {
     const user = usePage().props.auth.user;
     const { walletBalance } = usePage().props;
+    const columns = ['Level','GT id','Name', 'Package','Amount','View'];
 
     return (
         <AuthenticatedLayout
@@ -41,15 +44,46 @@ export default function Generation() {
             <Head title="Generation" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="flex ">
-                            <div className="w-1/4 border-r border-gray-300 hidden md:block">
-                                <AccountSidebar/>
-                            </div>
-                            <div className="p4 border-r">
-                                Your Generation Loading..
-                            </div>
-                        </div>
+                    <div className="mt-4">
+                        <h5 className="font-bold">Referred Team</h5>
+                        <CommonTable tableData={directRefer} columns={columns}>
+                            {directRefer.map((item) => (
+                                <tr key={item.id} className="hover:bg-gray-50">
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Direct</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{item.unique_id}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{item.name}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{item.name}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">$ {JSON.stringify(item.purchase_packages[0]?.amount || 0)}</td>
+
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-center">
+                                        <div className="flex items-center justify-center space-x-2">
+                                            <Link href={`/payments/${item.id}`} className="text-sm px-2 py-1 rounded-md border border-gray-200 text-gray-700 hover:bg-gray-100">View</Link>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </CommonTable>
+                    </div>
+
+                    <div className="mt-4">
+                        <h5 className="font-bold">Referred Team</h5>
+                        <CommonTable tableData={myReferrals} columns={columns}>
+                            {myReferrals.map((item) => (
+                                <tr key={item.id} className="hover:bg-gray-50">
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">Level - {item.level}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{item.unique_id}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{item.name}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{item.name}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">$ {JSON.stringify(item.purchase_packages[0]?.amount || 0)}</td>
+
+                                    <td className="px-4 py-3 whitespace-nowrap text-sm text-center">
+                                        <div className="flex items-center justify-center space-x-2">
+                                            <Link href={`/payments/${item.id}`} className="text-sm px-2 py-1 rounded-md border border-gray-200 text-gray-700 hover:bg-gray-100">View</Link>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </CommonTable>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
+import WithdrawForm from "@/Components/User/WithdrawForm.jsx";
 
 export default function WithdrawFund() {
     const user = usePage().props.auth.user;
@@ -41,18 +42,10 @@ export default function WithdrawFund() {
             <Head title="Withdraw Fund" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                        <div className="flex ">
-                            <div className="w-1/4 border-r border-gray-300 hidden md:block">
-                                <AccountSidebar/>
-                            </div>
-                            <div className="p4 border-r">
-                                Withdraw fund Loading..
-                            </div>
-                        </div>
-                    </div>
+                    <WithdrawForm/>
                 </div>
             </div>
+
         </AuthenticatedLayout>
     );
 }

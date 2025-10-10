@@ -17,6 +17,10 @@ export default function Welcome({ auth }) {
 
     const user = usePage().props.auth.user;
 
+    const { url } = usePage();
+    const queryParams = new URLSearchParams(url.split("?")[1]);
+    const referral = queryParams.get("ref") || '';
+
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')
@@ -33,16 +37,14 @@ export default function Welcome({ auth }) {
     const [showDatePicker,setShowDatePicker] = useState(false);
     const [showGuestBox, setShowGetBox] = useState(false);
 
-    const [isLoginOpen,setIsLoginOpen] = useState(false);
+    const [isLoginOpen,setIsLoginOpen] = useState(referral!=='');
     const [isOpenLocal,setIsOpenLocal] = useState(false);
 
     const handleClickLocation = () =>{
         setShowLocationBox(!showLocationBox);
     }
 
-    const { url } = usePage();
-    const queryParams = new URLSearchParams(url.split("?")[1]);
-    const referral = queryParams.get("ref") || '';
+
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);

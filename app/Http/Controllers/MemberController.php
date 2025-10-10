@@ -7,10 +7,12 @@ use App\Models\Package;
 use App\Models\TransactionHistory;
 use App\Models\User;
 use App\Models\WalletBalance;
+use App\Models\WithdrawModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class MemberController extends Controller
 {
@@ -201,11 +203,41 @@ class MemberController extends Controller
         ]);
     }
 
+    public function WithdrawProcess(Request $request){
+
+        $user = auth()->user();
+
+        WithdrawModel::create([
+            'user_id'=>$user->id,
+            'pay_method'=>$request->pay_method,
+            'pay_id'=>$request->pay_id,
+            'pay_info'=>$request->pay_info,
+            'amount'=>$request->amount,
+            'note'=>$request->note
+        ]);
+
+        return back()->with('success', $message);
+    }
+
+
     public function Generation(){
+
+        $user = auth()->user();
+
+        // Load referrals and packages recursively
+        $user->load('referredUsers.purchasePackages');
+
+        // Get flat list with levels
+        $referralsWithLevel = $user->getReferralsWithLevel();
+
+        $directReferred = User::where('referrer',$user->id)->with(['purchasePackages'])->get();
+
         return Inertia::render('User/Generation', [
-            'stats' => [],
+            'myReferrals' => $referralsWithLevel,
+            'directRefer' => $directReferred,
             'status' => session('status'),
         ]);
+
     }
 
     public function RankAchieved(){
@@ -275,6 +307,32 @@ class MemberController extends Controller
             'stats' => [],
             'status' => session('status'),
         ]);
+    }
+
+    public function TransferBalanceProcess(Request $request)
+    {
+        $request->validate([
+            'gt_user' => ['required'],
+            'amount' => ['required', 'numeric'],
+        ]);
+
+        $GTUser = User::where('unique_id', $request->gt_user)->first();
+
+        if (!$GTUser) {
+            return back()->withErrors([
+                'gt_user' => 'GT User does not exist in the system',
+            ]);
+        }
+
+        WalletBalance::create([
+            'user_id' => $GTUser->id,
+            'balance' => $request->amount,
+            'income' => $request->amount,
+            'expense' => 0,
+            'type' => 'received-transfer',
+        ]);
+
+        return back()->with('success', 'Balance Transfer Successful!');
     }
 
 

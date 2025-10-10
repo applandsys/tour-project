@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, usePage} from '@inertiajs/react';
 import ProfileForm from "@/Components/User/ProfileForm.jsx";
+import TransferBalanceForm from "@/Components/User/TransferBalanceForm.jsx";
 
 
 export default function Dashboard() {
@@ -21,7 +22,7 @@ export default function Dashboard() {
             <Head title="Balance Transfer" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    Transfer balance
+                   <TransferBalanceForm/>
                 </div>
             </div>
         </AuthenticatedLayout>
