@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
     Route::post('subscription-buy-process',[PurchaseController::class,'SubscriptionBuyProcess'])->name('member.subscription-buy-process');
-    Route::get('user/purchase-package-success/{package}/{purchase}',[PurchaseController::class,'PurchasePackageSuccess'])->name('member.purchase-package-success');
+    Route::get('user/purchase-package-success/{gtuser}/{package}/{purchase}',[PurchaseController::class,'PurchasePackageSuccess'])->name('member.purchase-package-success');
     Route::get('user/purchase-subscription-success/{gtuser}/{purchase}',[PurchaseController::class,'PurchaseSubscriptionSuccess'])->name('member.purchase-subscription-success');
 
     Route::post('gt-user',[MemberController::class, 'GTUser'])->name('member.gtuser');
@@ -83,6 +83,7 @@ Route::post('/signup-step-one', [MemberCreateController::class,'Signup'])->name(
 Route::post('/signup-otp-verify', [MemberCreateController::class,'Verify'])->name('signup.otp.verify');
 Route::post('/modal-login', [MemberCreateController::class,'Login'])->name('signup.step.one');
 
+Route::get('generate-daily-roi',[\App\Http\Controllers\RoiController::class,'GenerateDailyRoi'])->name('generate-daily-roi');
 
 
 require __DIR__.'/auth.php';
