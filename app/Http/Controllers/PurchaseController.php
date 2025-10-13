@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CommissionLevel;
 use App\Models\Package;
 use App\Models\PurchasePackage;
+use App\Models\PurchaseSubscription;
 use App\Models\TransactionHistory;
 use App\Models\User;
 use App\Models\WalletBalance;
@@ -144,12 +145,129 @@ class PurchaseController extends Controller
             ->with('success', 'Payment processed successfully!');
     }
 
+    public function SubscriptionBuyProcess(Request $request) {
+;
+        $inputAmount = (int)$request->amount;
+        $transactionPassword = $request->transactionPassword;
+        // check the GT user exist
+        $GTUser = User::where('unique_id',$request->userId)->first();
+
+
+        if(!$GTUser){
+            return back()->withErrors([
+                'gt_user' => 'GT User not Exist in the System',
+            ]);
+        }
+
+        $user_id = Auth::id();
+        $GTUserId = $GTUser->id;
+
+        $transactionPassword = User::find($user_id)->where('transaction_password',  $transactionPassword)->first();
+
+        if(!$transactionPassword){
+            return back()->withErrors([
+                'transaction_password' => 'Wrong Transaction Password',
+            ]);
+        }
+
+        if($inputAmount !== 25){
+            return back()->withErrors([
+                'input_amount' => 'Amount is Incorrect',
+            ]);
+        }
+
+        $commissionLevel = CommissionLevel::where('plan_type','affiliate')->get();
+
+        $userLastBalance = WalletBalance::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
+
+        if ($userLastBalance->balance  < 25) {
+            return back()->withErrors([
+                'balance' => 'Insufficient Balance',
+            ]);
+        }
+
+        $userNewBalance =  $userLastBalance->balance - 25 ;
+
+        WalletBalance::create(
+            [
+                'user_id' => $user_id,
+                'balance' => $userNewBalance,
+                'income'=> 0,
+                'expense' => 25,
+                'type'=>'package',
+            ]);
+
+        TransactionHistory::create([
+            'user_id' => $user_id,
+            'package_id' =>  $GTUserId,
+            'transaction_type'=>'purchase-subscription',
+            'amount' => 25
+        ]);
+
+        $now = Carbon::now();
+        // after 24 months (approx. 24 × 30 days)
+        $after30Days = Carbon::now()->addDays( 30);
+
+        // or, if you prefer actual calendar months:
+       // $after24RealMonths = Carbon::now()->addMonths(24);
+
+        $purchase=  PurchaseSubscription::create(
+            [
+                'user_id'=>$GTUserId,
+                'expiry_date'=>$after30Days,
+                'buy_date'=>$now,
+                'purchase_by'=>$user_id,
+                'amount'=>25
+            ]
+        );
+
+        // Fetch the user chain in descending order (starting from the top-level referrer)
+        $userChain = $this->getReferralChainDescending($GTUserId, 3);
+
+        for($i=0 ; $i<count($userChain); $i++) {
+
+            $commissionPercentage =  $commissionLevel[$i]->commission_amount;
+
+            $lastBalance = WalletBalance::where('user_id', $userChain[$i]->id)
+                ->orderBy('created_at', 'desc') // Ensure you get the latest balance
+                ->first();
+
+            $commission =  $this->calculatePercentage($commissionPercentage, 25);
+
+            //   $newBalance = $lastBalance ? $lastBalance->balance + $income - $expense : $income - $expense;
+            $newBalance = $lastBalance ? $lastBalance->balance + $commission :   $commission;
+
+            WalletBalance::create(
+                [
+                    'user_id' => $userChain[$i]->id,
+                    'balance' => $newBalance,
+                    'income'=> $newBalance,
+                    'expense' => 0,
+                    'type'=>'affiliate-commission',
+                ]);
+        }
+
+        return redirect()
+            ->route('member.purchase-subscription-success', ['gtuser' => $GTUserId,'purchase'=>$purchase->id])
+            ->with('success', 'Payment processed successfully!');
+    }
+
     public function PurchasePackageSuccess($package,$purchase){
         $PackageDetail = Package::find($package);
         $Purchase = PurchasePackage::find($purchase);
         return Inertia::render('User/PurchasePackageSuccess', [
             'purchase'=>$Purchase,
             'packageDetail' =>  $PackageDetail,
+            'status' => session('status'),
+        ]);
+    }
+
+    public function PurchaseSubscriptionSuccess($GtUserId,$purchase){
+        $GtUser = User::find($GtUserId);
+        $Purchase = PurchaseSubscription::find($purchase);
+        return Inertia::render('User/PurchaseSubscriptionSuccess', [
+            'purchase'=>$Purchase,
+            'GtUser' =>  $GtUser,
             'status' => session('status'),
         ]);
     }

@@ -309,7 +309,7 @@ class MemberController extends Controller
         ]);
     }
 
-    public function TransferBalanceProcess(Request $request)
+    public function  TransferBalanceProcess(Request $request)
     {
         $request->validate([
             'gt_user' => ['required'],

@@ -43,7 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::get('subscription',[PurchaseController::class,'Subscription'])->name('member.subscription');
 
     Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
+    Route::post('subscription-buy-process',[PurchaseController::class,'SubscriptionBuyProcess'])->name('member.subscription-buy-process');
     Route::get('user/purchase-package-success/{package}/{purchase}',[PurchaseController::class,'PurchasePackageSuccess'])->name('member.purchase-package-success');
+    Route::get('user/purchase-subscription-success/{gtuser}/{purchase}',[PurchaseController::class,'PurchaseSubscriptionSuccess'])->name('member.purchase-subscription-success');
 
     Route::post('gt-user',[MemberController::class, 'GTUser'])->name('member.gtuser');
 
