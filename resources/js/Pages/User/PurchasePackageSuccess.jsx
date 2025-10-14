@@ -4,9 +4,9 @@ import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {formatDate} from "@/utils.js";
 
 
-export default function PurchasePackageSuccess({packageDetail,purchase}) {
+export default function PurchasePackageSuccess({gtUser,packageDetail,purchase}) {
 
-    const user = usePage().props.auth.user;
+    const user = gtUser;
     const { walletBalance } = usePage().props;
 
     return (
@@ -14,7 +14,7 @@ export default function PurchasePackageSuccess({packageDetail,purchase}) {
             header={
                 <div>
                     <h2 className="text-xl font-semibold leading-tight text-white">
-                        Home 	&#8594; Purchase Tour Package
+                        Home 	&#8594; Purchase Tour Package Success
                     </h2>
                 </div>
             }

@@ -6,7 +6,7 @@ import {formatDate} from "@/utils.js";
 
 export default function PurchaseSubscriptionSuccess({purchase,GtUser}) {
 
-    const user = usePage().props.auth.user;
+    const user = GtUser;
     const { walletBalance } = usePage().props;
 
     return (

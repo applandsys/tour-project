@@ -141,8 +141,21 @@ class PurchaseController extends Controller
         }
 
         return redirect()
-            ->route('member.purchase-package-success', ['package' => $package->id,'purchase'=>$purchase->id])
+            ->route('member.purchase-package-success', ['gtuser'=>$GTUserId,'package' => $package->id,'purchase'=>$purchase->id])
             ->with('success', 'Payment processed successfully!');
+    }
+
+    public function PurchasePackageSuccess($gtuser,$package,$purchase){
+        $PackageDetail = Package::find($package);
+        $Purchase = PurchasePackage::find($purchase);
+        $GtUser = User::find($gtuser);
+
+        return Inertia::render('User/PurchasePackageSuccess', [
+            'gtUser'=>$GtUser,
+            'purchase'=>$Purchase,
+            'packageDetail' =>  $PackageDetail,
+            'status' => session('status'),
+        ]);
     }
 
     public function SubscriptionBuyProcess(Request $request) {
@@ -252,15 +265,6 @@ class PurchaseController extends Controller
             ->with('success', 'Payment processed successfully!');
     }
 
-    public function PurchasePackageSuccess($package,$purchase){
-        $PackageDetail = Package::find($package);
-        $Purchase = PurchasePackage::find($purchase);
-        return Inertia::render('User/PurchasePackageSuccess', [
-            'purchase'=>$Purchase,
-            'packageDetail' =>  $PackageDetail,
-            'status' => session('status'),
-        ]);
-    }
 
     public function PurchaseSubscriptionSuccess($GtUserId,$purchase){
         $GtUser = User::find($GtUserId);
