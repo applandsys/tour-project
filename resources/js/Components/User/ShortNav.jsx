@@ -5,6 +5,7 @@ import {usePage} from "@inertiajs/react";
 const ShortNav = ({user}) => {
 
     const { walletBalance } = usePage().props;
+    const { purchasePackage } = usePage().props;
 
     function getFirstName(fullName) {
         if (!fullName) return "";
@@ -30,7 +31,7 @@ const ShortNav = ({user}) => {
                         <img src="/images/wallet_icon.png" className=""/>
                     </div>
                     <div>
-                        <div className="text-xs text-[#FFD700] font-bold">$0000</div>
+                        <div className="text-xs text-[#FFD700] font-bold">$ {purchasePackage}</div>
                         <div className="text-xs bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-600 text-transparent bg-clip-text">My Tour Package</div>
                     </div>
                 </div>

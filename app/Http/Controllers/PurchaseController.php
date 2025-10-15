@@ -28,19 +28,15 @@ class PurchaseController extends Controller
             'purchaseHistory' => $purchase_history,
             'status' => session('status'),
         ]);
-
-
     }
 
     public function PackageBuyProcess(Request $request) {
-
 
         $packageId = $request->packageId;
         $inputAmount = (int)$request->amount;
         $transactionPassword = $request->transactionPassword;
         // check the GT user exist
         $GTUser = User::where('unique_id',$request->userId)->first();
-
 
         if(!$GTUser){
             return back()->withErrors([

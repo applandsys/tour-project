@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("level_name");
             $table->tinyInteger("level_number");
-            $table->integer("commission_amount");
+            $table->float("commission_amount");
             $table->enum("plan_type",['affiliate','roi'],)->default("affiliate");
             $table->timestamps();
         });

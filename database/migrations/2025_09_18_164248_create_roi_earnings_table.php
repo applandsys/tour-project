@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('package_id');
-            $table->integer('amount');
+            $table->float('amount');
             $table->integer("earning_level");
             $table->integer("referral_id");
+            $table->string("date_for");
             $table->timestamps();
         });
     }
