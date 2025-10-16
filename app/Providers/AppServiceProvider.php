@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
                 ? WalletBalance::where('user_id', Auth::id())
                 ->latest()
                 ->first()
-                : null,
+                : 0,
         ]);
     }
 }

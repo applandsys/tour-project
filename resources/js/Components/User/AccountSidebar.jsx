@@ -23,7 +23,7 @@ export default function AccountSidebar({ onClick }) {
         { icon: FaMoneyBill, label: "Withdraw Fund", route: "member.withdraw-fund" },
         { icon: FaMoneyBill, label: "Generation", route: "member.generation" },
         { icon: FaCrown, label: "Rank Achievement", route: "member.rank-achieved" },
-        { icon: FaVideo, label: "Video Tutorial" },
+        { icon: FaVideo, label: "Video Tutorial" , route: 'member.video-tutorial' },
         { icon: FaBusinessTime, label: "Business Presentation" },
         { icon: FaBusinessTime, label: "Support Tickets" },
     ];

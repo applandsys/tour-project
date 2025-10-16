@@ -41,41 +41,33 @@ Route::middleware('auth')->group(function () {
 
     Route::get('purchase',[PurchaseController::class,'PurchasePackage'])->name('member.purchase');
     Route::get('subscription',[PurchaseController::class,'Subscription'])->name('member.subscription');
-
     Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
     Route::post('subscription-buy-process',[PurchaseController::class,'SubscriptionBuyProcess'])->name('member.subscription-buy-process');
+
     Route::get('user/purchase-package-success/{gtuser}/{package}/{purchase}',[PurchaseController::class,'PurchasePackageSuccess'])->name('member.purchase-package-success');
     Route::get('user/purchase-subscription-success/{gtuser}/{purchase}',[PurchaseController::class,'PurchaseSubscriptionSuccess'])->name('member.purchase-subscription-success');
-
     Route::post('gt-user',[MemberController::class, 'GTUser'])->name('member.gtuser');
-
     Route::get('user/deposit',[MemberController::class,'Page'])->name('member.deposit');
     Route::get('user/package/payment/{id}', [MemberController::class, 'Payment'])->name('member.package.payment');
     Route::post('user/package/payment-process', [MemberController::class, 'PaymentProcess'])->name('member.package.paymentProcess');
-
     Route::get('user/back-office',[MemberController::class,'BackOffice'])->name('member.back-office');
     Route::get('user/profile-settings',[MemberController::class,'ProfileSettings'])->name('member.profile-settings');
     Route::get('user/gift-cards',[MemberController::class,'GiftCards'])->name('member.gift-cards');
     Route::get('user/purchase-tour-package',[PurchaseController::class,'PurchasePackage'])->name('member.purchase-tour-package');
     Route::get('user/withdraw-fund',[MemberController::class,'WithdrawFund'])->name('member.withdraw-fund');
-
     Route::post('user/withdraw-process', [MemberController::class,'WithdrawProcess'])->name('member.withdraw-process');
-
-
     Route::get('user/generation',[MemberController::class,'Generation'])->name('member.generation');
-
     Route::get('user/rank-achieved',[MemberController::class,'RankAchieved'])->name('member.rank-achieved');
-
     Route::get('user/reset-transaction-password', [MemberController::class,'TransactionPassword'])->name('member.transaction-password');
     Route::get('user/reset-password', [MemberController::class,'ResetPassword'])->name('member.reset-password');
-
     Route::post('user/update-password', [MemberController::class, 'update'])->name('user.password.update');
-
     Route::get('user/transfer-balance', [MemberController::class,'TransferBalance'])->name('member.transfer-balance');
-
     Route::post('user/transfer-balance-process',  [MemberController::class,'TransferBalanceProcess'])->name('member.balance-transfer-process');
 
-
+    Route::get('user/earning-dashboard',  [MemberController::class,'EarningDashboard'])->name('member.earning-dashboard');
+    Route::get('user/support-tickets',  [MemberController::class,'SupportTickets'])->name('member.support-tickets');
+    Route::get('user/business-presentation',  [\App\Http\Controllers\StaticPageController::class,'BusinessPresentation'])->name('member.business-presentation');
+    Route::get('user/video-tutorial',  [\App\Http\Controllers\StaticPageController::class,'VideoTutorial'])->name('member.video-tutorial');
 });
 
 

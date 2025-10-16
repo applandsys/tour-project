@@ -215,8 +215,20 @@ class MemberController extends Controller
             'amount'=>$request->amount,
             'note'=>$request->note
         ]);
-
+        $message = "Withdraw Request Successfully sent";
         return back()->with('success', $message);
+    }
+
+    public function EarningDashboard(){
+        return Inertia::render('User/EarningDashboard', [
+            'stats' => [],
+        ]);
+    }
+
+    public function SupportTickets(){
+        return Inertia::render('User/SupportTickets', [
+            'stats' => [],
+        ]);
     }
 
 
