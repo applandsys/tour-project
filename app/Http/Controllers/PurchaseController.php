@@ -118,12 +118,10 @@ class PurchaseController extends Controller
             $commissionPercentage =  $commissionLevel[$i]->commission_amount;
 
             $lastBalance = WalletBalance::where('user_id', $userChain[$i]->id)
-                ->orderBy('created_at', 'desc') // Ensure you get the latest balance
+                ->orderBy('created_at', 'desc')
                 ->first();
 
             $commission =  $this->calculatePercentage($commissionPercentage, $amount);
-
-            //   $newBalance = $lastBalance ? $lastBalance->balance + $income - $expense : $income - $expense;
             $newBalance = $lastBalance ? $lastBalance->balance + $commission :   $commission;
 
             WalletBalance::create(
