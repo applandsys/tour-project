@@ -12,8 +12,14 @@
 
     <!-- Scripts -->
     @routes
-	@viteReactRefresh
-	@vite('resources/js/app.jsx')
+<!-- Build Assets -->
+@php
+    $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
+@endphp
+
+<link rel="stylesheet" href="{{ asset('build/' . $manifest['resources/js/app.jsx']['css'][0]) }}">
+<script type="module" src="{{ asset('build/' . $manifest['resources/js/app.jsx']['file']) }}"></script>
+
     @inertiaHead
 </head>
 <body class="font-sans antialiased">

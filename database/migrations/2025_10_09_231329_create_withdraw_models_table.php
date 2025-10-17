@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('pay_method');
-            $table->string('pay_id');
-            $table->string('pay_info');
-            $table->string('amount');
+            $table->string('pay_id')->nullable();
+            $table->json('pay_info');
+            $table->float('amount');
             $table->string('note')->nullable();
-            $table->string('status')->default('pending');
+            $table->enum('status',['pending','completed','rejected'])->default('pending');
             $table->string('pay_date')->nullable();
             $table->timestamps();
         });

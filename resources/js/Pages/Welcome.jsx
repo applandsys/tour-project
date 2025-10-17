@@ -44,8 +44,6 @@ export default function Welcome({ auth }) {
         setShowLocationBox(!showLocationBox);
     }
 
-
-
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 

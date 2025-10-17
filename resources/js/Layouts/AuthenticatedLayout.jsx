@@ -89,29 +89,29 @@ export default function AuthenticatedLayout({ header, children }) {
                                         </div>
                                         <Dropdown>
                                             <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex  rounded-md border border-transparent  text-white px-3 py-2  font-medium leading-4  transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none"
-                                            >
-                                                <div className="flex-col">
-                                                    <div className=""><span className='bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-transparent bg-clip-text font-bold '>Hi,  {getFirstName(user.name)}</span> <span className="font-bold text-yellow-400">({user.unique_id})</span></div>
-                                                    {/*<div className="text-xs"></div>*/}
-                                                </div>
-                                                <svg
-                                                    className="-me-0.5 ms-2 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
+                                                <span className="inline-flex rounded-md">
+                                                    <button
+                                                        type="button"
+                                                        className="inline-flex  rounded-md border border-transparent  text-white px-3 py-2  font-medium leading-4  transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none"
+                                                    >
+                                                        <div className="flex-col">
+                                                            <div className=""><span className='bg-gradient-to-r from-yellow-200 via-yellow-300 to-yellow-400 text-transparent bg-clip-text font-bold '>Hi,  {getFirstName(user.name)}</span> <span className="font-bold text-yellow-400">({user.unique_id})</span></div>
+                                                            {/*<div className="text-xs"></div>*/}
+                                                        </div>
+                                                        <svg
+                                                            className="-me-0.5 ms-2 h-4 w-4"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            viewBox="0 0 20 20"
+                                                            fill="currentColor"
+                                                        >
+                                                            <path
+                                                                fillRule="evenodd"
+                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                clipRule="evenodd"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </span>
                                             </Dropdown.Trigger>
 
                                             <Dropdown.Content>
@@ -186,9 +186,6 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
                     </div>
                 </nav>
-
-
-
                 {header && (
                     <header className="bg-white shadow bg-[url('/images/dashboard_bg.png')] bg-no-repeat bg-cover min-h-[260px]">
                         <UserHeader user={user} walletBalance={walletBalance} />

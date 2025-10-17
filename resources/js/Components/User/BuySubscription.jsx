@@ -46,7 +46,7 @@ const BuySubscription = ({user}) => {
         <div className="mx-auto p-10">
 
             <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-semibold">Buy Subscription $25</h2>
+                <h2 className="text-2xl font-semibold">Buy Subscription $30</h2>
             </div>
 
                     <form onSubmit={submit}>
@@ -138,7 +138,7 @@ const BuySubscription = ({user}) => {
                         )}
 
                         {
-                            parseInt(walletBalance.balance) <  25 ? (
+                            parseInt(walletBalance.balance) <  30 ? (
                                 <div className="mt-8">
                                     <ErrorAlert>You dont have sufficient balance</ErrorAlert>
                                 </div>

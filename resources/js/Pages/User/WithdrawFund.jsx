@@ -5,8 +5,9 @@ import ProfileForm from "@/Components/User/ProfileForm.jsx";
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
 import WithdrawForm from "@/Components/User/WithdrawForm.jsx";
+import WithdrawList from '@/Components/User/Withdraw/WithdrawList.jsx';
 
-export default function WithdrawFund() {
+export default function WithdrawFund({withdrawHistory}) {
     const user = usePage().props.auth.user;
     const { walletBalance } = usePage().props;
 
@@ -41,9 +42,16 @@ export default function WithdrawFund() {
         >
             <Head title="Withdraw Fund" />
             <div className="py-12">
-                <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <WithdrawForm/>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="md:col-span-1  p-4">
+                        <WithdrawForm/>
+                    </div>
+
+                    <div className="md:col-span-2  p-4">
+                        <WithdrawList withdrawHistory={withdrawHistory}/>
+                    </div>
                 </div>
+
             </div>
 
         </AuthenticatedLayout>

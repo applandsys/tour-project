@@ -1,7 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, Link, usePage} from '@inertiajs/react';
-import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
-
 import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 import BuyPackageOption from "@/Components/User/BuyPackageOption.jsx";
 import PaytoCompany from "@/Components/User/PaytoCompany.jsx";

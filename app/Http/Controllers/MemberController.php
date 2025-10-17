@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\CommissionLevel;
 use App\Models\Package;
+use App\Models\PurchasePackage;
 use App\Models\TransactionHistory;
 use App\Models\User;
 use App\Models\WalletBalance;
 use App\Models\WithdrawModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Carbon\Carbon;
@@ -197,32 +199,85 @@ class MemberController extends Controller
     }
 
     public function WithdrawFund(){
+        $user_id = Auth::id();
         return Inertia::render('User/WithdrawFund', [
-            'stats' => [],
+            'withdrawHistory' => WithdrawModel::where('user_id', $user_id)->get(),
             'status' => session('status'),
         ]);
     }
 
-    public function WithdrawProcess(Request $request){
-
+    public function WithdrawProcess(Request $request)
+    {
         $user = auth()->user();
 
-        WithdrawModel::create([
-            'user_id'=>$user->id,
-            'pay_method'=>$request->pay_method,
-            'pay_id'=>$request->pay_id,
-            'pay_info'=>$request->pay_info,
-            'amount'=>$request->amount,
-            'note'=>$request->note
-        ]);
-        $message = "Withdraw Request Successfully sent";
-        return back()->with('success', $message);
+        DB::beginTransaction();
+
+        try {
+            $userLastBalance = WalletBalance::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            if (!$userLastBalance) {
+                return back()->withErrors([
+                    'balance' => 'No balance record found.',
+                ]);
+            }
+
+            if ($userLastBalance->balance < $request->amount) {
+                return back()->withErrors([
+                    'balance' => 'Insufficient Balance',
+                ]);
+            }
+
+            $percentage = $request->percentage ?? 10; // default to 10% if not provided
+
+            // Calculate reduced amount (after deduction)
+            $reducedAmount = $request->amount * (1 - $percentage / 100);
+
+            // 1️⃣ Create Withdraw Record
+            WithdrawModel::create([
+                'user_id'    => $user->id,
+                'pay_method' => $request->pay_method,
+                'pay_id'     => $request->account_number,
+                'pay_info'   => json_encode($request->input()),
+                'amount'     => $reducedAmount,
+                'note'       => $request->note
+            ]);
+
+            // 2️⃣ Update Wallet Balance
+            WalletBalance::create([
+                'user_id' => $user->id,
+                'balance' => $userLastBalance->balance - $request->amount,
+                'income'  => 0,
+                'expense' => $request->amount,
+                'type'    => 'withdraw',
+            ]);
+
+            DB::commit(); // ✅ Commit changes
+
+            return back()->with('success', 'Withdraw Request Successfully sent.');
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // ❌ Rollback on error
+
+            return back()->withErrors([
+                'error' => 'Transaction failed: ' . $e->getMessage(),
+            ]);
+        }
     }
 
     public function EarningDashboard(){
+
+        $affiliateCommission = WalletBalance::where("user_id", Auth::id())->where("type","affiliate-commission")->sum('income');
+        $roiEarning = WalletBalance::where("user_id", Auth::id())->where("type","roi")->sum('income');
+        $purchasePackage = PurchasePackage::where("user_id", Auth::id())->sum('amount');
+
         return Inertia::render('User/EarningDashboard', [
-            'stats' => [],
+            'affiliateCommission' => $affiliateCommission,
+            'roiEarning' => $roiEarning,
+            'purchasePackage' => $purchasePackage,
         ]);
+
     }
 
     public function SupportTickets(){

@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::get('user/support-tickets',  [MemberController::class,'SupportTickets'])->name('member.support-tickets');
     Route::get('user/business-presentation',  [\App\Http\Controllers\StaticPageController::class,'BusinessPresentation'])->name('member.business-presentation');
     Route::get('user/video-tutorial',  [\App\Http\Controllers\StaticPageController::class,'VideoTutorial'])->name('member.video-tutorial');
+
 });
 
 

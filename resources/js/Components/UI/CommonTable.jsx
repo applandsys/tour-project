@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 
-export default function CommonTable({ children,tableData = [], columns= [] }) {
+export default function F({ children,tableData = [], columns= [] }) {
 
 
     if (!Array.isArray(tableData) || tableData.length === 0) {
