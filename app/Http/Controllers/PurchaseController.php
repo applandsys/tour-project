@@ -179,7 +179,7 @@ class PurchaseController extends Controller
             ]);
         }
 
-        if($inputAmount !== 25){
+        if($inputAmount !== 30){
             return back()->withErrors([
                 'input_amount' => 'Amount is Incorrect',
             ]);
@@ -189,20 +189,20 @@ class PurchaseController extends Controller
 
         $userLastBalance = WalletBalance::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
 
-        if ($userLastBalance->balance  < 25) {
+        if ($userLastBalance->balance  < 30) {
             return back()->withErrors([
                 'balance' => 'Insufficient Balance',
             ]);
         }
 
-        $userNewBalance =  $userLastBalance->balance - 25 ;
+        $userNewBalance =  $userLastBalance->balance - 30 ;
 
         WalletBalance::create(
             [
                 'user_id' => $user_id,
                 'balance' => $userNewBalance,
                 'income'=> 0,
-                'expense' => 25,
+                'expense' => 30,
                 'type'=>'package',
             ]);
 
@@ -210,7 +210,7 @@ class PurchaseController extends Controller
             'user_id' => $user_id,
             'package_id' =>  $GTUserId,
             'transaction_type'=>'purchase-subscription',
-            'amount' => 25
+            'amount' => 30
         ]);
 
         $now = Carbon::now();
@@ -226,7 +226,7 @@ class PurchaseController extends Controller
                 'expiry_date'=>$after30Days,
                 'buy_date'=>$now,
                 'purchase_by'=>$user_id,
-                'amount'=>25
+                'amount'=>30
             ]
         );
 
@@ -241,7 +241,7 @@ class PurchaseController extends Controller
                 ->orderBy('created_at', 'desc') // Ensure you get the latest balance
                 ->first();
 
-            $commission =  $this->calculatePercentage($commissionPercentage, 25);
+            $commission =  $this->calculatePercentage($commissionPercentage, 30);
 
             //   $newBalance = $lastBalance ? $lastBalance->balance + $income - $expense : $income - $expense;
             $newBalance = $lastBalance ? $lastBalance->balance + $commission :   $commission;

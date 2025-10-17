@@ -13,92 +13,99 @@ use Illuminate\Http\Request;
 
 class RoiController extends Controller
 {
-    public function generateDailyRoi(Request $request){
+    public function generateDailyRoi(Request $request)
+    {
+        $dateFor =  date('Y-m-d');
 
-        $dateFor = date('Y-m-d');
+        $purchasePackages = PurchasePackage::with('package')->get();
 
-        $purchasePackage =  PurchasePackage::with('package')->get();
+        foreach ($purchasePackages as $purchase) {
+            $packageAmount = $purchase->amount;
+            $commissionStructure = $this->commissionDistribution($packageAmount);
+            $commissionAmount = $commissionStructure['daily'] ?? 0;
 
-        foreach($purchasePackage as $purchase){
-           $packageAmount = $purchase->amount;
-           $commissionStructure =  $this->commissionDistribution($packageAmount);
-           $commissionAmount =  $commissionStructure['daily'];
+            // Skip if already paid for today
+            $todayPay = RoiEarning::where('date_for', $dateFor)
+                ->where('user_id', $purchase->user_id)
+                ->where('earning_level', 0)
+                ->exists();
 
-            // check the package purchase is not before
-            $todayPay =  RoiEarning::where('date_for',$dateFor)->where('user_id',$purchase->user_id)->get();
+            if ((strtotime($dateFor) <= strtotime($purchase->from_date)) && !$todayPay) {
+                $user = User::find($purchase->user_id);
 
-            if(( strtotime($dateFor)  > strtotime($purchase->to_date)) && $todayPay->isEmpty()){
-
-                $user =  User::find($purchase->user_id);
-
-               RoiEarning::create([
-                   'user_id' => $purchase->user_id,
-                   'package_id' => $purchase->package_id,
-                   'date_for' => $dateFor,
-                   'amount' => $commissionAmount,
-                   'earning_level' => 0,
-                   'referral_id' => $user->referrer,
-               ]);
-
-                $userLastBalance = WalletBalance::where('user_id', $purchase->user_id)->orderBy('created_at', 'desc')->first();
-                $userNewBalance = $commissionAmount ;
-                if($userLastBalance){
-                    $userNewBalance = $userLastBalance ? $userLastBalance->balance + $commissionAmount :  $userLastBalance->balance;
-                }
-
-                WalletBalance::create([
-                   'user_id' => $purchase->user_id,
-                   'balance' =>  $userNewBalance,
-                   'income' =>  $userNewBalance,
-                   'expense' =>  0,
-                   'type'=> 'roi',
-               ]);
-
-                $userChain = $this->getReferralChainDescending($purchase->user_id, 3);
-                $commissionLevel = CommissionLevel::where('plan_type','roi')->get();
-                for($i=0 ; $i<count($userChain); $i++) {
-
-                    $commissionPercentage =  $commissionLevel[$i]->commission_amount;
-
-                    $lastBalance = WalletBalance::where('user_id', $userChain[$i]->id)
-                        ->orderBy('created_at', 'desc') // Ensure you get the latest balance
-                        ->first();
-
-                    $commission =  $this->calculatePercentage($commissionPercentage, $commissionAmount);
-
-                    $LUser = User::find($userChain[$i]->id);
-
-                    $LuserLastBalance = WalletBalance::where('user_id', $LUser->user_id)->orderBy('created_at', 'desc')->first();
-                    $LUserBalance = $commission ;
-                    if($LuserLastBalance){
-                        $LUserBalance = $LuserLastBalance ? $LuserLastBalance->balance + $commission :  $commission;
-                    }
-
+                if ($commissionAmount > 0) {
                     RoiEarning::create([
-                        'user_id' => $userChain[$i]->id,
+                        'user_id' => $purchase->user_id,
                         'package_id' => $purchase->package_id,
                         'date_for' => $dateFor,
-                        'amount' => $commission,
-                        'earning_level' => $i+1,
-                        'referral_id' =>  $LUser->referrer,
+                        'amount' => $commissionAmount,
+                        'earning_level' => 0,
+                        'referral_id' => $user->referrer,
                     ]);
 
-                    WalletBalance::create(
-                        [
-                            'user_id' => $userChain[$i]->id,
-                            'balance' => $LUserBalance,
-                            'income'=> $LUserBalance,
-                            'expense' => 0,
-                            'type'=>'roi',
-                        ]);
+                    $lastBalance = WalletBalance::where('user_id', $purchase->user_id)
+                        ->orderBy('created_at', 'desc')
+                        ->first();
+
+                    $newBalance = $lastBalance ? $lastBalance->balance + $commissionAmount : $commissionAmount;
+
+                    WalletBalance::create([
+                        'user_id' => $purchase->user_id,
+                        'balance' => $newBalance,
+                        'income' => $commissionAmount,
+                        'expense' => 0,
+                        'type' => 'roi',
+                    ]);
                 }
 
-            }else{
-                echo "NO ROI";
-            }
+                // Referral chain logic
+                $userChain = $this->getReferralChainDescending($purchase->user_id, 3);
+                $commissionLevels = CommissionLevel::where('plan_type', 'roi')->get();
 
+                foreach ($userChain as $index => $chainUser) {
+                    if (!isset($commissionLevels[$index])) continue;
+
+                    $levelPercent = $commissionLevels[$index]->commission_amount;
+                    $levelCommission = $this->calculatePercentage($levelPercent, $commissionAmount);
+
+                    // Still process iteration, but skip DB insert if commission = 0
+                    $lastBalance = WalletBalance::where('user_id', $chainUser->id)
+                        ->orderBy('created_at', 'desc')
+                        ->first();
+
+                    $lastBalanceValue = $lastBalance ? $lastBalance->balance : 0;
+                    $newBalance = number_format($lastBalanceValue + $levelCommission, 4, '.', '');
+
+                    if ($levelCommission > 0) {
+                        RoiEarning::create([
+                            'user_id' => $chainUser->id,
+                            'package_id' => $purchase->package_id,
+                            'date_for' => $dateFor,
+                            'amount' => $levelCommission,
+                            'earning_level' => $index + 1,
+                            'referral_id' => $chainUser->referrer,
+                        ]);
+
+                        WalletBalance::create([
+                            'user_id' => $chainUser->id,
+                            'balance' => $newBalance,
+                            'income' => number_format($levelCommission, 4, '.', ''),
+                            'expense' => 0,
+                            'type' => 'roi',
+                        ]);
+                    }
+
+
+                    // Optional: For debugging/logging (keeps iteration visible)
+                    echo "Processed level " . ($index + 1) . " for user {$chainUser->id} — Commission: {$levelCommission}<br>";
+                }
+
+            } else {
+                echo "NO ROI for user {$purchase->user_id}<br>";
+            }
         }
     }
+
 
 
     private function commissionDistribution($packageAmount){

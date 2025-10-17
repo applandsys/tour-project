@@ -18,14 +18,14 @@ export default function AccountSidebar({ onClick }) {
     const menuItems = [
         { icon: FaHome, label: "Back Office", route: "home" },
         { icon: FaUser, label: "Profile Setting", route: "member.profile-settings" },
-        { icon: FaGift, label: "Gift Card", route: "member.gift-cards" },
+        { icon: FaGift, label: 'Gift Card', route: 'member.gift-cards' },
         { icon: FaGift, label: "Purchase Tour Package", route: "member.purchase-tour-package" },
         { icon: FaMoneyBill, label: "Withdraw Fund", route: "member.withdraw-fund" },
         { icon: FaMoneyBill, label: "Generation", route: "member.generation" },
         { icon: FaCrown, label: "Rank Achievement", route: "member.rank-achieved" },
         { icon: FaVideo, label: "Video Tutorial" , route: 'member.video-tutorial' },
-        { icon: FaBusinessTime, label: "Business Presentation" },
-        { icon: FaBusinessTime, label: "Support Tickets" },
+        { icon: FaBusinessTime, label: "Business Presentation" , route: 'member.business-presentation'},
+        { icon: FaBusinessTime, label: "Support Tickets" , route: 'member.support-tickets'},
     ];
 
     // Add conditional menu
