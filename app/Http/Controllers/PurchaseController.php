@@ -153,12 +153,10 @@ class PurchaseController extends Controller
     }
 
     public function SubscriptionBuyProcess(Request $request) {
-;
         $inputAmount = (int)$request->amount;
         $transactionPassword = $request->transactionPassword;
         // check the GT user exist
         $GTUser = User::where('unique_id',$request->userId)->first();
-
 
         if(!$GTUser){
             return back()->withErrors([

@@ -1,4 +1,7 @@
 import React, {useState} from "react";
+import IndiaPayment from '@/Components/User/PaytoCompany/IndiaPayment.jsx';
+import BangladeshPayment from '@/Components/User/PaytoCompany/BangladeshPayment.jsx';
+import CryptoPayment from '@/Components/User/PaytoCompany/CryptoPayment.jsx';
 
 const PaytoCompany = ({user}) => {
 
@@ -72,7 +75,7 @@ const PaytoCompany = ({user}) => {
 
                     {selected && (
                         <p className="mt-4 text-gray-700">
-                            You selected: <span className="font-medium">{countries.filter(item=>item.id===parseInt(selected))[0].name}</span>
+                            Payee Country : <span className="font-medium">{countries.filter(item=>item.id===parseInt(selected))[0].name}</span>
                         </p>
                     )}
 
@@ -81,22 +84,31 @@ const PaytoCompany = ({user}) => {
 
             <div>
                 {
-                    parseInt(selected)===9 && (
-                        <div className="flex">
-                            <div className="flex">
-                                <div>
-                                    <img src="/images/bank_logo.png"/>
-                                </div>
-                                <div>
-                                    Purhase through Bank
-                                </div>
-                            </div>
-                            <div>BANK</div>
-                            <div>BANK</div>
-                            <div>BANK</div>
+                    parseInt(selected)===8 && (
+                        <div className="">
+                           <IndiaPayment/>
                         </div>
                     )
                 }
+            </div>
+
+            <div>
+                {
+                    parseInt(selected)===9 && (
+                        <div className="">
+                            <BangladeshPayment/>
+                        </div>
+                    )
+                }
+
+                {
+                    selected && (
+                        <div className="">
+                            <CryptoPayment/>
+                        </div>
+                    )
+                }
+
             </div>
 
         </div>
