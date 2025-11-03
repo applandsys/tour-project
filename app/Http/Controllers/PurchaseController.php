@@ -325,6 +325,11 @@ class PurchaseController extends Controller
         }
     }
 
+    public function PreSubscription(){
+        return Inertia::render('User/PreSubscription', [
+            'status' => session('status'),
+        ]);
+    }
 
     public function Subscription(){
         return Inertia::render('User/Subscription', [

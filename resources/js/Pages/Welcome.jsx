@@ -17,6 +17,9 @@ export default function Welcome({ auth }) {
 
     const user = usePage().props.auth.user;
 
+    const { walletBalance, purchaseSubscription } = usePage().props;
+
+
     const { url } = usePage();
     const queryParams = new URLSearchParams(url.split("?")[1]);
     const referral = queryParams.get("ref") || '';
@@ -132,7 +135,8 @@ export default function Welcome({ auth }) {
 
                     <div className="flex item-center justify-center my-4">
                         <div className="text-white text-wxl font-bold bg-gray-100 p-3 rounded-md">
-                            <Link  href={route('member.subscription')}>You must be a Subscribed Member to get all the features</Link>
+                          PROPS  {JSON.stringify(purchaseSubscription)}
+                            <Link  href={route('member.pre-subscription')}>You must be a Subscribed Member to get all the features</Link>
                         </div>
                     </div>
 

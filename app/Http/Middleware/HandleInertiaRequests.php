@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\PurchasePackage;
+use App\Models\PurchaseSubscription;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -45,6 +46,10 @@ class HandleInertiaRequests extends Middleware
             'purchasePackage' => fn () =>
             $request->user()
                 ? PurchasePackage::where('user_id', $request->user()->id)->value('amount')
+                : null,
+            'purchaseSubscription' => fn () =>
+            $request->user()
+                ? PurchaseSubscription::where('user_id', $request->user()->id)->get()
                 : null,
         ];
     }

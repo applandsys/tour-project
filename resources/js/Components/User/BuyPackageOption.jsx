@@ -8,7 +8,6 @@ import axios from "axios";
 // import route from "ziggy-js";
 const BuyPackageOption = ({user,packages}) => {
 
-    const { walletBalance } = usePage().props;
 
     const [selected, setSelected] = useState("");
     const [gtUsername,setGtUsername] = useState("");

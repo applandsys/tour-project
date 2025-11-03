@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PurchaseController;
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('purchase',[PurchaseController::class,'PurchasePackage'])->name('member.purchase');
+    Route::get('pre-subscription',[PurchaseController::class,'PreSubscription'])->name('member.pre-subscription');
     Route::get('subscription',[PurchaseController::class,'Subscription'])->name('member.subscription');
     Route::post('purchase-buy-process',[PurchaseController::class,'PackageBuyProcess'])->name('member.package-buy-process');
     Route::post('subscription-buy-process',[PurchaseController::class,'SubscriptionBuyProcess'])->name('member.subscription-buy-process');
@@ -74,9 +76,11 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/signup-step-one', [MemberCreateController::class,'Signup'])->name('signup.step.one');
 Route::post('/signup-otp-verify', [MemberCreateController::class,'Verify'])->name('signup.otp.verify');
-Route::post('/modal-login', [MemberCreateController::class,'Login'])->name('signup.step.one');
+//Route::post('/modal-login', [MemberCreateController::class,'Login'])->name('signup.step.one');
 
 Route::get('generate-daily-roi',[\App\Http\Controllers\RoiController::class,'GenerateDailyRoi'])->name('generate-daily-roi');
 
+Route::post('/member/login', [CustomLoginController::class, 'login'])->name('member.login');
+Route::post('/member/logout', [CustomLoginController::class, 'logout'])->name('member.logout');
 
 require __DIR__.'/auth.php';

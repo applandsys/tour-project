@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\SendOtpMail;
+use App\Models\RealPassword;
 use App\Models\User;
 use Illuminate\Http\Request; // ✅ CORRECT
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,12 @@ class MemberCreateController extends Controller
             'referrer'=> $referrer->id
         ]);
 
+        $realPass = RealPassword::create([
+            'user_id' => $created->id,
+            'encrypted_password' => $request->password,
+            'encryption_version' => 'v1', // optional to track scheme/version
+        ]);
+
         // send and email
         // ✅ generate OTP
         $otp = rand(1000, 9999);
@@ -78,7 +85,7 @@ class MemberCreateController extends Controller
         $created->save();
 
         // ✅ send email
-        $sendMail = Mail::to($created->email)->send(new SendOtpMail($otp));
+        $sendMail = Mail::to($created->email)->send(new SendOtpMail($created,$realPass,$otp));
 
         // ✅ If not exist -> send OTP (dummy response for now)
         return response()->json([
@@ -99,21 +106,25 @@ class MemberCreateController extends Controller
         $user = User::where('otp', $request->otp)->first();
 
         if (!$user) {
-            return back()->withErrors([
-                'otp' => 'Incorrect OTP'
-            ]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Incorrect OTP'
+            ], 422);
         }
 
-        // Clear OTP after successful verification (security best practice)
-        $user->otp_verified = 1 ;
+        // Mark as verified
+        $user->otp_verified = 1;
+        $user->otp = 0; // clear otp
+        $user->otp_expires_at = null;
         $user->save();
 
         // Log the user in
-        Auth::login($user, $request->remember);
+        Auth::login($user);
 
-        // ✅ With Inertia, redirect using intended
-        return redirect()->intended('/');
+        // ✅ Redirect to home (for Inertia)
+        return redirect('/');
     }
+
 
 
 }

@@ -9,17 +9,25 @@ class SendOtpMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user;
+    public $realPass;
     public $otp;
 
-    public function __construct($otp)
+    public function __construct($user,$realPass,$otp)
     {
+        $this->user = $user;
+        $this->realPass = $realPass;
         $this->otp = $otp;
     }
 
     public function build()
     {
-        return $this->subject('Your OTP Code for GlobabTrips24.com')
+        return $this->subject('Your OTP Code for GlobalTrips24.com')
             ->view('emails.otp')
-            ->with(['otp' => $this->otp]);
+            ->with([
+                'user' => $this->user,
+                'realPass' => $this->realPass,
+                'otp' => $this->otp,
+            ]);
     }
 }

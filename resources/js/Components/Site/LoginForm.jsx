@@ -5,6 +5,7 @@ import axios from "axios";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import {Link} from "@inertiajs/react";
 import Checkbox from "@/Components/Checkbox.jsx";
+import { route } from 'ziggy-js';
 
 const LoginForm = ({ setIsLoginOpen }) => {
 
@@ -22,17 +23,17 @@ const LoginForm = ({ setIsLoginOpen }) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
+
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(route("login"), formData);
-            setIsLoginOpen(false);
-            window.location.reload();
+            const response = await axios.post(route('member.login'), formData);
+            if (response.data.status === "success") {
+                window.location.href = response.data.redirect; // ✅ clean redirect
+            }
         } catch (error) {
             if (error.response?.data?.errors) {
-                setErrors(error.response?.data?.errors);
-            } else {
-                console.error(error.response?.data || error.message);
+                setErrors(error.response.data.errors);
             }
         }
     };
@@ -44,7 +45,7 @@ const LoginForm = ({ setIsLoginOpen }) => {
                 <TextInput
                     id="login"
                     name="login"
-                    value={formData.email}
+                    value={formData.login}
                     className="mt-1 block w-full"
                     placeholder="Email or User Id"
                     autoComplete="login"
@@ -84,9 +85,7 @@ const LoginForm = ({ setIsLoginOpen }) => {
                         <Checkbox
                             name="remember"
                             checked={formData.remember}
-                            onChange={(e) =>
-                                setFormData('remember', e.target.checked)
-                            }
+                            onChange={(e) => handleChange("remember", e.target.checked)}
                         />
                         <span className="ms-2 text-sm text-gray-600">
                             Remember me
