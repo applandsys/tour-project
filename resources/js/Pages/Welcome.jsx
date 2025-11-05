@@ -12,13 +12,13 @@ import {US} from "country-flag-icons/react/1x1";
 import ReferralLink from "@/Components/User/ReferralLink.jsx";
 import AccountSidebar from "@/Components/User/AccountSidebar.jsx";
 import MemberCards from "@/Components/Site/MemberCards.jsx";
+import { TiTickOutline } from "react-icons/ti";
 
 export default function Welcome({ auth }) {
 
     const user = usePage().props.auth.user;
 
     const { walletBalance, purchaseSubscription } = usePage().props;
-
 
     const { url } = usePage();
     const queryParams = new URLSearchParams(url.split("?")[1]);
@@ -135,8 +135,19 @@ export default function Welcome({ auth }) {
 
                     <div className="flex item-center justify-center my-4">
                         <div className="text-white text-wxl font-bold bg-gray-100 p-3 rounded-md">
-                          PROPS  {JSON.stringify(purchaseSubscription)}
-                            <Link  href={route('member.pre-subscription')}>You must be a Subscribed Member to get all the features</Link>
+
+                            {
+                                purchaseSubscription && purchaseSubscription.length ===0 ?
+                                    (
+                                    <>
+
+                                       <Link  href={route('member.pre-subscription')}>You must be a Subscribed Member to get all the features</Link>
+                                    </>
+                                    ):(
+                                        <div className="text-gray-600 flex">     <TiTickOutline /> Congratulations !! Your are a Subscribed Member</div>
+                                    )
+                            }
+
                         </div>
                     </div>
 

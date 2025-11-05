@@ -1,6 +1,10 @@
 import { FaPhone, FaMailBulk, FaArrowCircleRight } from "react-icons/fa";
+import { Link } from '@inertiajs/react';
+import { TiTickOutline } from 'react-icons/ti';
 
-export default function UserHeader({ user, walletBalance }) {
+export default function UserHeader({ user, walletBalance, purchaseSubscription }) {
+
+
     return (
         <div className="p-4">
             {/* Breadcrumb */}
@@ -13,7 +17,16 @@ export default function UserHeader({ user, walletBalance }) {
                 {/* Left: Profile info */}
                 <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4">
                     {/* Profile image */}
-                    <div className="w-20 h-20 p-2 flex-shrink-0">
+                    <div className="w-20 h-20 p-2 flex-shrink-0 relative ">
+                        {
+                            purchaseSubscription && purchaseSubscription.length !==0 ?
+                                (
+                                    <div className="text-gray-600 absolute inset-0 flex items-center justify-center">     <TiTickOutline size={20} /> </div>
+                                ):(
+                                    <div>    </div>
+                                )
+                        }
+
                         <img
                             src="/images/add_photo_icon.png"
                             alt="Profile"
