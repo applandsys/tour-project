@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('address')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('date_of_birth')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('doc')->nullable();
+            $table->string('doc_type')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
         });
     }

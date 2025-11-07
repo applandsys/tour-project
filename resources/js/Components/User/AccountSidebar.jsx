@@ -17,7 +17,7 @@ export default function AccountSidebar({ onClick }) {
     // Menu items (clean and reusable)
     const menuItems = [
         { icon: FaHome, label: "Back Office", route: "home" },
-        { icon: FaUser, label: "Profile Setting", route: "profile.edit" },
+        { icon: FaUser, label: "Profile Setting", route: "dashboard" },
         { icon: FaGift, label: 'Gift Card', route: 'member.gift-cards' },
         { icon: FaGift, label: "Purchase Tour Package", route: "member.purchase-tour-package" },
         { icon: FaMoneyBill, label: "Withdraw Fund", route: "member.withdraw-fund" },

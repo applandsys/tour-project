@@ -18,7 +18,7 @@ export default function PurchasePackage({purchaseHistory,packages}) {
             header={
                 <div>
                     <h2 className="text-xl font-semibold leading-tight text-white">
-                        Home 	&#8594;  Purchase Package
+                        Home &#8594;  Purchase Package
                     </h2>
                     <div className="flex justify-between mt-10 text-white">
                         <div className="flex items-center">

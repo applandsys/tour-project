@@ -10,7 +10,7 @@ import {FaArrowCircleRight, FaMailBulk, FaPhone} from "react-icons/fa";
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
 
-    const { walletBalance,purchaseSubscription } = usePage().props;
+    const { walletBalance, purchaseSubscription } = usePage().props;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);

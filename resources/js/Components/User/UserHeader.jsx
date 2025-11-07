@@ -1,5 +1,4 @@
 import { FaPhone, FaMailBulk, FaArrowCircleRight } from "react-icons/fa";
-import { Link } from '@inertiajs/react';
 import { TiTickOutline } from 'react-icons/ti';
 
 export default function UserHeader({ user, walletBalance, purchaseSubscription }) {

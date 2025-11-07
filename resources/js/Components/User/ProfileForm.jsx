@@ -29,9 +29,9 @@ const ProfileForm = ({user}) => {
                         </p>
                     </div>
                 </div>
-                <button className="text-blue-600 font-medium text-sm">
-                    Add Mobile Number
-                </button>
+                {/*<button className="text-blue-600 font-medium text-sm">*/}
+                {/*    Upload your Photo*/}
+                {/*</button>*/}
             </div>
 
             {/* General Information */}

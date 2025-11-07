@@ -137,14 +137,14 @@ export default function Welcome({ auth }) {
                         <div className="text-white text-wxl font-bold bg-gray-100 p-3 rounded-md">
 
                             {
-                                purchaseSubscription && purchaseSubscription.length ===0 ?
+                                purchaseSubscription && purchaseSubscription.length ?
                                     (
                                     <>
-
-                                       <Link  href={route('member.pre-subscription')}>You must be a Subscribed Member to get all the features</Link>
+                                        <div className="text-gray-600 flex">    <TiTickOutline /> Congratulations !! Your are a Subscribed Member</div>
                                     </>
                                     ):(
-                                        <div className="text-gray-600 flex">     <TiTickOutline /> Congratulations !! Your are a Subscribed Member</div>
+
+                                        <Link  href={route('member.pre-subscription')}>You must be a Subscribed Member to get all the features</Link>
                                     )
                             }
 
