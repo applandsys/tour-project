@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::get('user/business-presentation',  [\App\Http\Controllers\StaticPageController::class,'BusinessPresentation'])->name('member.business-presentation');
     Route::get('user/video-tutorial',  [\App\Http\Controllers\StaticPageController::class,'VideoTutorial'])->name('member.video-tutorial');
 
+    Route::post('/member/update-profile', [MemberController::class, 'updateProfile'])
+        ->name('member.update-profile');
 });
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\UserProfile;
 use App\Models\WalletBalance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Vite;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
                 ->latest()
                 ->first()
                 : 0,
+            'userProfile' => fn() => Auth::check() ? UserProfile::where('user_id', Auth::id())->first() : null,
         ]);
     }
 }

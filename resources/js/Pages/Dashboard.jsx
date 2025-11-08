@@ -6,7 +6,7 @@ import ProfileForm from "@/Components/User/ProfileForm.jsx";
 export default function Dashboard() {
 
     const user = usePage().props.auth.user;
-    const { walletBalance } = usePage().props;
+    const { walletBalance, userProfile } = usePage().props;
 
     return (
         <AuthenticatedLayout
@@ -21,7 +21,7 @@ export default function Dashboard() {
             <Head title="Dashboard" />
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <ProfileForm user={user}/>
+                    <ProfileForm user={user} userProfile={userProfile}/>
                 </div>
             </div>
         </AuthenticatedLayout>

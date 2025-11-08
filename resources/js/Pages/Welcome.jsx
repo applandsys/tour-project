@@ -140,7 +140,7 @@ export default function Welcome({ auth }) {
                                 purchaseSubscription && purchaseSubscription.length ?
                                     (
                                     <>
-                                        <div className="text-gray-600 flex">    <TiTickOutline /> Congratulations !! Your are a Subscribed Member</div>
+                                        <div className="text-gray-600 flex">    <TiTickOutline /> Congratulations You have Subscribed. </div>
                                     </>
                                     ):(
 

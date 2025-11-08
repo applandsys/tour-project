@@ -30,7 +30,7 @@ const HotelSearch = ({
 
 // Tomorrow
     const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 30)
+    tomorrow.setDate(today.getDate() + 30);
     today.setDate(today.getDate() + 35);
 
     const [fromDate,toDate] = useState([today,tomorrow]);
@@ -74,13 +74,13 @@ const HotelSearch = ({
                     <div className="col-2 flex justify-between md:space-x-4 w-full md:w-1/3 hover:bg-[#EAF5FF] p-2 md:p-4">
                         <div onClick={() => setShowDatePicker(prev => !prev)}>
                             <p className="text-sm text-gray-500">Check-In</p>
-                            <p className="text-xl font-semibold text-black">{result[0].formatted}</p>
-                            <p className="text-sm text-gray-500">{result[0].day}</p>
+                            <p className="text-xl font-semibold text-black">{result[1].formatted}</p>
+                            <p className="text-sm text-gray-500">{result[1].day}</p>
                         </div>
                         <div onClick={() => setShowDatePicker(prev => !prev)}>
                             <p className="text-sm text-gray-500">Check-Out</p>
-                            <p className="text-xl font-semibold text-black">{result[1].formatted}</p>
-                            <p className="text-sm text-gray-500">{result[1].day}</p>
+                            <p className="text-xl font-semibold text-black">{result[0].formatted}</p>
+                            <p className="text-sm text-gray-500">{result[0].day}</p>
                         </div>
                         <div className="z-50 absolute">
                             {showDatePicker && (

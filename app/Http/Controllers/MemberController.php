@@ -13,8 +13,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Carbon\Carbon;
+
 
 class MemberController extends Controller
 {
@@ -401,6 +403,75 @@ class MemberController extends Controller
 
         return back()->with('success', 'Balance Transfer Successful!');
     }
+
+
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'gender' => 'nullable|string',
+            'address' => 'nullable|string',
+            'date_of_birth' => 'nullable|string',
+            'country' => 'nullable|string',
+            'doc_type' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
+            'doc' => 'nullable|mimes:png,jpg,jpeg,pdf|max:4096',
+        ]);
+
+        $user = Auth::user();
+        $profile = $user->profile;
+
+        // ✅ Update only User name (not profile)
+        $user->update([
+            'name' => $request->name,
+        ]);
+
+        // ✅ Prepare upload directory
+        $uploadPath = public_path('uploads/profile');
+
+        if (! file_exists($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        // ✅ Upload Profile Photo
+        if ($request->hasFile('photo')) {
+            $photoFile = $request->file('photo');
+            $photoName = time() . '_photo_' . $photoFile->getClientOriginalName();
+            $photoFile->move($uploadPath, $photoName);
+            $photoPath = 'uploads/profile/' . $photoName;
+        } else {
+            $photoPath = $profile->photo ?? null;
+        }
+
+        // ✅ Upload Verification Document
+        if ($request->hasFile('doc')) {
+            $docFile = $request->file('doc');
+            $docName = time() . '_doc_' . $docFile->getClientOriginalName();
+            $docFile->move($uploadPath, $docName);
+            $docPath = 'uploads/profile/' . $docName;
+        } else {
+            $docPath = $profile->doc ?? null;
+        }
+
+        // ✅ Create or Update User Profile
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'date_of_birth' => $request->date_of_birth,
+                'country' => $request->country,
+                'doc_type' => $request->doc_type,
+                'photo' => $photoPath,
+                'doc' => $docPath,
+            ]
+        );
+
+        return back()->with('success', 'Profile updated successfully.');
+    }
+
+
 
 
 
