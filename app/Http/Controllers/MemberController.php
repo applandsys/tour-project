@@ -454,6 +454,16 @@ class MemberController extends Controller
             $docPath = $profile->doc ?? null;
         }
 
+        // ✅ Upload Verification Document
+        if ($request->hasFile('nominee_photo')) {
+            $nominee_photo = $request->file('nominee_photo');
+            $nominee_photo_name = time() . '_nominee_photo_' . $nominee_photo->getClientOriginalName();
+            $nominee_photo->move($uploadPath, $nominee_photo_name);
+            $nominee_photo_path = 'uploads/profile/' . $nominee_photo_name;
+        } else {
+            $nominee_photo_path = $profile->nominee_photo ?? null;
+        }
+
         // ✅ Create or Update User Profile
         $user->profile()->updateOrCreate(
             ['user_id' => $user->id],
@@ -465,13 +475,14 @@ class MemberController extends Controller
                 'doc_type' => $request->doc_type,
                 'photo' => $photoPath,
                 'doc' => $docPath,
+                'nominee_name' => $request->nominee_name,
+                'nominee_phone' => $request->nominee_phone,
+                'nominee_photo' => $nominee_photo_path,
             ]
         );
 
         return back()->with('success', 'Profile updated successfully.');
     }
-
-
 
 
 

@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('doc')->nullable();
             $table->string('doc_type')->nullable();
             $table->string('country')->nullable();
+            $table->string('nominee_name')->nullable();
+            $table->string('nominee_phone')->nullable();
+            $table->string('nominee_photo')->nullable();
             $table->timestamps();
         });
     }

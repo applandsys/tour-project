@@ -1,9 +1,5 @@
-import React from "react";
-import { CopyPlus } from 'lucide-react';
-
-
 export default function BangladeshPayment({
-                                            bank = "Standard Bank PLC",
+    bank = 'Standard Bank PLC',
                                             accountName = "Global Trips 24 International Tour & Travels ",
                                             accountNo = "00933011415",
                                             ifsc = "210261721",

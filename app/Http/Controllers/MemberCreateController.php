@@ -122,7 +122,7 @@ class MemberCreateController extends Controller
         Auth::login($user);
 
         // ✅ Redirect to home (for Inertia)
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
 

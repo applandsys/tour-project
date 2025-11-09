@@ -6,11 +6,9 @@ import { useForm, usePage } from '@inertiajs/react'; // ← Add usePage here
 import { route } from 'ziggy-js';
 
 const ProfileForm = ({ user, userProfile }) => {
-
     const { props } = usePage();
     const { success } = props.flash || {};
     const { errors } = props;
-
 
     const { data, setData, post } = useForm({
         name: user.name,
@@ -21,6 +19,9 @@ const ProfileForm = ({ user, userProfile }) => {
         doc: userProfile?.doc,
         doc_type: userProfile?.doc_type,
         country: userProfile?.country,
+        nominee_name: userProfile?.nominee_name,
+        nominee_phone: userProfile?.nominee_phone,
+        nominee_photo: userProfile?.nominee_photo,
     });
 
     const submit = (e) => {
@@ -34,13 +35,13 @@ const ProfileForm = ({ user, userProfile }) => {
         <div className="mx-auto max-w-5xl rounded-lg bg-white p-6 shadow">
 
             {success && (
-                <div className="rounded-md bg-green-100 border border-green-400 text-green-700 px-4 py-3 mb-4">
+                <div className="mb-4 rounded-md border border-green-400 bg-green-100 px-4 py-3 text-green-700">
                     {success}
                 </div>
             )}
 
             {Object.keys(errors).length > 0 && (
-                <div className="rounded-md bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4">
+                <div className="mb-4 rounded-md border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                     Please fix the errors and try again.
                 </div>
             )}
@@ -63,7 +64,9 @@ const ProfileForm = ({ user, userProfile }) => {
                 <div className="mb-6 flex items-center justify-between rounded-md border border-gray-200 bg-gradient-to-r from-pink-100 via-yellow-100 to-yellow-50 p-4">
                     <div className="flex items-center space-x-3">
                         <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-gray-300 text-sm font-bold text-gray-600">
-                            30%
+
+
+                            {userProfile?.photo !==null ? '80' : '30'} %
                         </div>
                         <div>
                             <p className="font-medium text-gray-800">
@@ -207,8 +210,65 @@ const ProfileForm = ({ user, userProfile }) => {
                     </div>
 
                     <div>
-                        <span>.</span>
+                        <h3 className="mb-4 text-lg font-semibold">
+                            Nominee Information
+                        </h3>
                     </div>
+
+                    <div>-</div>
+
+                    <div>
+                        <InputLabel htmlFor="nominee_name">
+                            Nominee Name
+                        </InputLabel>
+                        <TextInput
+                            required
+                            placeholder="Enter Nominee Full Name"
+                            id="nominee_name"
+                            type="text"
+                            name="name"
+                            value={data.nominee_name}
+                            className="mt-1 block w-full"
+                            onChange={(e) =>
+                                setData('nominee_name', e.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="nominee_name">
+                            Nominee Phone
+                        </InputLabel>
+                        <TextInput
+                            required
+                            placeholder="Enter Nominee Phone"
+                            id="nominee_phone"
+                            type="text"
+                            name="nominee_phone"
+                            value={data.nominee_phone}
+                            className="mt-1 block w-full"
+                            onChange={(e) =>
+                                setData('nominee_phone', e.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="nominee_photo">
+                            Nominee Photo
+                        </InputLabel>
+                        <TextInput
+                            required
+                            id="nominee_photo"
+                            type="file"
+                            name="nominee_photo"
+                            className="mt-1 block w-full"
+                            onChange={(e) =>
+                                setData('nominee_photo', e.target.files[0])
+                            }
+                        />
+                    </div>
+
                     <div className="flex justify-end">
                         <button
                             type="submit"
