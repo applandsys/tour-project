@@ -30,9 +30,9 @@ export default function UserHeader({
                             <div> </div>
                         )}
 
-                        {userProfile.photo && true ? (
+                        {userProfile?.photo && true ? (
                             <img
-                                src={userProfile.photo}
+                                src={userProfile?.photo}
                                 alt="Profile"
                                 className="h-full w-full rounded-full border border-gray-600 object-cover"
                             />
